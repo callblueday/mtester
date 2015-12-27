@@ -1,0 +1,14 @@
+{
+  "name": "sensorium",
+  "version": "1.0.0",
+  "description": "sensor web api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "callblueday",
+  "license": "ISC",
+  "dependencies": {
+    "serialport": "^2.0.5"
+  }
+}
