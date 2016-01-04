@@ -2,86 +2,99 @@
  * hardware control
  */
 var buffer = [],
-    flag4Left,
-    flag4Right,
-    globalSocketIO = null,
-    timeInterval = 0;
+    globalSocketIO = null;
+
+var DEVICE_TYPE = '2560';
+
 
 var SETTING = {
-    CODE_COMMON: [0xff, 0x55, 0],
-
-    READ_BYTES_INDEX: 2,
-
-    READ_CHUNK_PREFIX: [255, 85],
+    /* 发送数据相关 */
+    CODE_CHUNK_PREFIX: [255, 85],
     READ_CHUNK_SUFFIX: [13, 10],
-
-    //device type
-    DEV_VERSION: 0,
-    DEV_ULTRASOINIC: 1,
-    DEV_TEMPERATURE: 2,
-    DEV_LIGHTSENSOR: 3,
-    DEV_POTENTIALMETER: 4,
-    DEV_GYRO: 6,
-    DEV_SOUNDSENSOR: 7,
-    DEV_RGBLED: 8,
-    DEV_SEVSEG: 9,
-    DEV_DCMOTOR: 10,
-    DEV_SERVO: 11,
-    DEV_ENCODER: 12,
-    DEV_JOYSTICK: 13,
-    DEV_PIRMOTION: 15,
-    DEV_INFRADRED: 16,
-    DEV_LINEFOLLOWER: 17,
-    DEV_BUTTON: 18,
-    DEV_LIMITSWITCH: 19,
-    DEV_PINDIGITAL: 30,
-    DEV_PINANALOG: 31,
-    DEV_PINPWM: 32,
-    DEV_PINANGLE: 33,
-    DEV_PRESSURE: 0X40,
-    TONE: 34,
-
-    SLOT_1: 1,
-    SLOT_2: 2,
-
+    // 回复数据的index位置
+    READ_BYTES_INDEX: 2,
+    // 发送数据中表示“读”的值
     READMODULE: 1,
+    // 发送数据中表示“写”的值
     WRITEMODULE: 2,
 
-    VERSION_INDEX: 0xFA,
+    //设备类型
+    DEV_VERSION: 0, //版本号
+    DEV_ULTRASONIC:   1,  //超声波
+    DEV_TEMPERATURE:  2,  //温度
+    DEV_LIGHT_SENSOR:    3,  // 光线
+    DEV_POTENTIONMETER:  4,  // 电位计
+    DEV_JOYSTICK:    5,
+    DEV_GYRO:    6,
+    DEV_SOUND_SENSOR:    7,
+    DEV_RGBLED:  8,
+    DEV_SEVSEG:  9,
+    DEV_MOTOR:   10,
+    DEV_SERVO:   11,
+    DEV_ENCODER: 12,
+    DEV_IR:  13,
+    DEV_IRREMOTE:    14,
+    DEV_PIRMOTION:   15,
+    DEV_INFRARED:    16,
+    DEV_LINEFOLLOWER:    17,
+    DEV_IRREMOTECODE:    18,
+    DEV_SHUTTER: 20,
+    DEV_LIMITSWITCH: 21,
+    DEV_BUTTON:  22,
+    DEV_HUMITURE:    23,
+    DEV_FLAMESENSOR: 24,
+    DEV_GASSENSOR:   25,
+    DEV_COMPASS: 26,
+    DEV_TEMPERATURE_板载:  27,
+    DEV_DIGITAL: 30,
+    DEV_ANALOG:  31,
+    DEV_PWM: 32,
+    DEV_SERVO_PIN:   33,
+    DEV_TONE:    34,
+    DEV_BUTTON_INNER:    35,
+    DEV_ULTRASONIC_ARDUINO:  36,
+    DEV_PULSEIN: 37,
+    DEV_STEPPER: 40,
+    DEV_LEDMATRIX:   41,
+    DEV_TIMER:   50,
+    DEV_JOYSTICKMOVE:    52,
+    DEV_PRESSURE: 0X40,
 
-    PORT_NULL: 0,
-    PORT_1: 1,
-    PORT_2: 2,
-    PORT_3: 3,
-    PORT_4: 4,
-    PORT_5: 5,
-    PORT_6: 6,
-    PORT_7: 7,
-    PORT_8: 8,
-    PORT_M1: 9,
-    PORT_M2: 10,
+    // PORT口
+    PORT: {
+        "2560": {
+            // 通用port口列表
+            COMMON_LIST: [6, 7, 8, 9, 10],
+            // 板载传感器port口
+            LIGHT: 11,
+            TEMPERATURE: 13,
+            GYROSCOPE: 6,
+            VOLUME: 14,
+            MOTOR: [1,2],
+            LED_PANEL: 0,
 
-    PORT_ULTRASOINIC:  6,
-    PORT_LINEFOLLOWER: 2,
+            // 其他
+            ULTRASONIC: 6,
+            LINEFOLLOWER: 2,
+            PRESSURE: 4,
+        },
+        "mcore": {
+            COMMON_LIST: [1, 2, 3, 4],
+            MOTOR: [9,10],
+            LED: 7,
+            LIGHT: 6
+        },
+        "orion": {
+            MOTOR: [9,10],
+            COMMON_LIST: [1, 2, 3, 4],
+        },
+        "zeroPI": {
+            MOTOR: [9,10],
+            COMMON_LIST: [1, 2, 3, 4],
+        }
+    },
 
-    MSG_VALUECHANGED: 0x10,
-    tap_duration: 0.4,
-
-    SPEED_START: 100,    //初始速度
-    SPEED_MAX:   255,    //最大速度
-    SPEED_CHANGE_TURN_PER: 30,  //转弯时候，每次速度变化
-    SPEED_CHANGE_PER: 30,  //加速减速时候，每次速度变化
-
-    //device mode
-    MODE_NONE:      0,
-    MODE_AUTO:      1,
-    MODE_MANUAL:    2,
-    MODE_CRUISE:    3,
-    MODE_GYRO:      4,
-    MODE_SPEED_MAX: 5,
-
-
-    //RGB
+    //RGB的亮度缩小倍率
     RGB_BRIGHTNESS: 20,
     LedPosition : {
         LEFT: 1,
@@ -90,7 +103,6 @@ var SETTING = {
     },
 
     // tone
-    TONE_HZ: [262,294,330,349,392,440,494],
     ToneHzTable : {
         "C2":65, "D2":73, "E2":82, "F2":87, "G2":98, "A2":110, "B2":123, "C3":131, "D3":147, "E3":165, "F3":175, "G3":196, "A3":220, "B3":247, "C4":262, "D4":294, "E4":330, "F4":349, "G4":392, "A4":440, "B4":494, "C5":523, "D5":587, "E5":658, "F5":698, "G5":784, "A5":880, "B5":988, "C6":1047, "D6":1175, "E6":1319, "F6":1397, "G6":1568, "A6":1760, "B6":1976, "C7":2093, "D7":2349, "E7":2637, "F7":2794, "G7":3136, "A7":3520, "B7":3951, "C8":4186
     },
@@ -102,6 +114,12 @@ var SETTING = {
     timeCount: 0,
     lineTimer: 0
 };
+
+
+function getDevicePort() {
+    return SETTING.PORT[DEVICE_TYPE];
+}
+
 
 function decodeData(data) {
     var bytes = data;
@@ -230,8 +248,8 @@ function stopUltrasoinic() {
 };
 
 function ultrasoinic(slot, index) {
-    var type = SETTING.DEV_ULTRASOINIC;
-    var port = SETTING.PORT_ULTRASOINIC;
+    var type = SETTING.DEV_ULTRASONIC;
+    var port = getDevicePort().ULTRASONIC;
     buildModuleRead(type, port, slot, index);
 }
 
@@ -254,19 +272,19 @@ function stopPressure() {
 
 function pressure(slot, index) {
     var type = SETTING.DEV_PRESSURE;
-    var port = SETTING.PORT_ULTRASOINIC;
+    var port = getDevicePort().ULTRASONIC;
     buildModuleRead(type, port, slot, index);
 }
 
 
 //------- 超声波回调执行 ---------
 ultrasoinic_callback= function() {
-    mylog('-------------ultrasoinic data start-------------');
+    console.log('-------------ultrasoinic data start-------------');
 
     if(buffer[0] == 0xff && buffer[1] == 0x55) {
-        // mylog(buffer[7] + '-' + buffer[6] + '-' + buffer[5] + '-' + buffer[4]);
+        // console.log(buffer[7] + '-' + buffer[6] + '-' + buffer[5] + '-' + buffer[4]);
         var distance = getResponseValue(parseInt(buffer[7]), parseInt(buffer[6]), parseInt(buffer[5]), parseInt(buffer[4]));
-        mylog(distance);
+        console.log(distance);
 
 
         LastUltrasonicValue =  distance;
@@ -277,18 +295,18 @@ ultrasoinic_callback= function() {
         //     "result": distance
         // });
     } else {
-        mylog('end');
+        console.log('end');
     }
 };
 
 //------- 压力传感器回调执行 ---------
 pressure_callback = function() {
-    mylog('-------------pressure data start-------------');
+    console.log('-------------pressure data start-------------');
 
     if(buffer[0] == 0xff && buffer[1] == 0x55) {
-        // mylog(buffer[7] + '-' + buffer[6] + '-' + buffer[5] + '-' + buffer[4]);
+        // console.log(buffer[7] + '-' + buffer[6] + '-' + buffer[5] + '-' + buffer[4]);
         var result = getResponseValue(parseInt(buffer[7]), parseInt(buffer[6]), parseInt(buffer[5]), parseInt(buffer[4]));
-        mylog(result);
+        console.log(result);
 
         LastPressureValue = result;
         // // 向客户端发送数据, 3秒以内算一次通过
@@ -297,10 +315,9 @@ pressure_callback = function() {
         //     "result": result
         // });
     } else {
-        mylog('end');
+        console.log('end');
     }
 };
-
 
 
 /**
@@ -308,22 +325,22 @@ pressure_callback = function() {
  */
 buildModuleRead = function(type, port, slot, index) {
     var a = new Array(9);
-    a[0] = SETTING.CODE_COMMON[0];
-    a[1] = SETTING.CODE_COMMON[1];
+    a[0] = SETTING.CODE_CHUNK_PREFIX[0];
+    a[1] = SETTING.CODE_CHUNK_PREFIX[1];
     a[2] = 0x5;
     a[3] = index;
     a[4] = SETTING.READMODULE;
     a[5] = type;
     a[6] = port;
     a[7] = slot;
-    a[8] = SETTING.CODE_COMMON[2];
+    a[8] = 0;
     sendRequest(a);
 };
 
 buildModuleWriteShort = function(type, port, slot, value) {
     var a = new Array(10);
-    a[0] = SETTING.CODE_COMMON[0];
-    a[1] = SETTING.CODE_COMMON[1];
+    a[0] = SETTING.CODE_CHUNK_PREFIX[0];
+    a[1] = SETTING.CODE_CHUNK_PREFIX[1];
     a[2] = 0x6;
     a[3] = 0;
     a[4] = SETTING.WRITEMODULE;
@@ -331,7 +348,7 @@ buildModuleWriteShort = function(type, port, slot, value) {
     a[6] = port;
     a[7] = value&0xff;
     a[8] = (value>>8)&0xff;
-    a[9] = SETTING.CODE_COMMON[2];
+    a[9] = 0;
     sendRequest(a);
 };
 
@@ -341,8 +358,8 @@ buildModuleWriteShort = function(type, port, slot, value) {
  */
 buildModuleWriteRGB = function(type, port, slot, index, r, g, b) {
     var a = new Array(12);
-    a[0] = SETTING.CODE_COMMON[0];
-    a[1] = SETTING.CODE_COMMON[1];
+    a[0] = SETTING.CODE_CHUNK_PREFIX[0];
+    a[1] = SETTING.CODE_CHUNK_PREFIX[1];
     a[2] = 0x8;
     a[3] = 0;
     a[4] = SETTING.WRITEMODULE;
@@ -352,7 +369,7 @@ buildModuleWriteRGB = function(type, port, slot, index, r, g, b) {
     a[8] = r;
     a[9] = g;
     a[10] = b;
-    a[11] = SETTING.CODE_COMMON[2];
+    a[11] = 0;
     sendRequest(a);
 };
 
@@ -362,8 +379,8 @@ buildModuleWriteRGB = function(type, port, slot, index, r, g, b) {
  */
 buildModuleWriteBuzzer = function(hz) {
     var a = new Array(10);
-    a[0] = SETTING.CODE_COMMON[0];
-    a[1] = SETTING.CODE_COMMON[1];
+    a[0] = SETTING.CODE_CHUNK_PREFIX[0];
+    a[1] = SETTING.CODE_CHUNK_PREFIX[1];
     a[2] = 0x5;  //后面的数据长度
     a[3] = 0;
     a[4] = SETTING.WRITEMODULE;
@@ -372,7 +389,7 @@ buildModuleWriteBuzzer = function(hz) {
     a[7] = (hz>>8)&0xff;
 
     a[8] = 0;
-    a[9] = SETTING.CODE_COMMON[2];
+    a[9] = 0;
     sendRequest(a);
 };
 
@@ -402,8 +419,3 @@ function intBitsToFloat(num) {
     ( num & 0x7fffff ) | 0x800000;
     return s * m * Math.pow( 2, e - 150 );
 };
-
-/* 自定义日志输出 */
-function mylog(msg) {
-    console.log(msg);
-}

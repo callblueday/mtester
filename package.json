@@ -9,6 +9,7 @@
   "author": "callblueday",
   "license": "ISC",
   "dependencies": {
-    "serialport": "^2.0.5"
+    "serialport": "^2.0.5",
+    "socket.io": "^1.3.7"
   }
 }
