@@ -1,0 +1,36 @@
+li {
+    list-style: none;
+}
+
+.maincontent {
+    margin-top: 70px;
+}
+
+.testlist .item {
+    height: 160px;
+    padding: 10px;
+}
+.testlist .item a {
+    width: 100%;
+    height: 140px;
+    line-height: 130px;
+    background: #3498db;
+    display: block;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+.testlist .item a:hover {
+    background: #2980b9;
+}
+
+.navbar-brand span {
+    font-size: 14px;
+    padding-left: 10px;
+    color: #9d9d9d!important;
+}

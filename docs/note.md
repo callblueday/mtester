@@ -16,10 +16,10 @@
     - 实现路由：nodejs更改默认文件位置
     - 文件读取:设定用户只能请求public目录下的文件: fs。通过path模块的path.exists方法来判断静态文件是否存在磁盘上
     - 使用 express 框架来辅助搭建 （使用框架）
-        使用express-generator（npm install express-generator -g）来辅助生成应用结构
-        启动应用： DEBUG=myapp npm start
         浏览器中打开 http://localhost:3000/
-
+    - nodejs + express 使用html模板，而不是jade，使用的是ejs
+        app.engine('.html', ejs.__express);app.set('view engine', 'html');
+        http://blog.fens.me/nodejs-express3/
 
 - 舵机的测试图标
     - highchart
