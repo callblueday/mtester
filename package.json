@@ -1,15 +1,18 @@
 {
   "name": "sensorium",
   "version": "1.0.0",
-  "description": "sensor web api",
-  "main": "server.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./app.js"
   },
   "author": "callblueday",
   "license": "ISC",
   "dependencies": {
+    "after": "^0.8.1",
+    "debug": "^2.2.0",
+    "express": "~4.13.1",
     "serialport": "^2.0.5",
-    "socket.io": "^1.3.7"
+    "socket.io": "^1.3.7",
+    "utf8": "^2.1.1"
   }
 }
