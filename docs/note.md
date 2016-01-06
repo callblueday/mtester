@@ -1,9 +1,25 @@
 ### steps note
 - 基础知识点
-    - require 引用文件
-    - exports 导出公共函数、变量
-    - module
-    - 模块初始化: 一个模块中的JS代码仅在模块第一次被使用时执行一次，并在执行过程中初始化模块的导出对象。之后，缓存起来的导出对象被重复利用
+    - nodejs
+        - require 引用文件
+        - exports 导出公共函数、变量
+        - module
+        - 模块初始化: 一个模块中的JS代码仅在模块第一次被使用时执行一次，并在执行过程中初始化模块的导出对象。之后，缓存起来的导出对象被重复利用
+        - 把整个模块引出去，包含所有的方法，和变量。 JavaScript使用script标签引入JavaScript文件就可以访问其内容了，但这样带了的弊端很多，最大的就是作用域相同，产生冲突问题。
+        - nodejs中一个文件就是一个模块。我们可以把模块中希望被外界访问的内容定义到exports对象中
+    - socketio加深理解
+        - socket分为client端和server端，两端都有发和收的动作
+            - 发：socket.emit('keyword', data);
+            - 收：socket.on('keyword', function(data){});
+        - client 端通过script的js引用获取socket对象
+            <script src="js/socket.io-1.3.7.js"></script>
+            var socket = io.connect('192.168.3.146:3001');
+        - server 端通过npm安装获取socket对象
+            var io = require('socket.io').listen(httpServer);
+            io.sockets.on('connection', function (socketIO) {
+                // get socketIO and do something.
+            })
+
 
 - []底层协议部分
     - [√]2560
@@ -20,6 +36,9 @@
     - nodejs + express 使用html模板，而不是jade，使用的是ejs
         app.engine('.html', ejs.__express);app.set('view engine', 'html');
         http://blog.fens.me/nodejs-express3/
+    - 记录两种
+        1. express 直接使用 html 文件，路由功能使用比较简单，不用模板，适合快速demo
+        2. express 使用完整结构，使用路由，配合使用ejs模板，适合功能完整项目
 
 - 舵机的测试图标
     - highchart

@@ -4,9 +4,9 @@
  * @copyright Makeblock.cc
  */
 
-MBlockly = MBlockly || {};
+Sensorium = Sensorium || {};
 
-MBlockly.Action = {
+Sensorium.Action = {
     buffer : [],
     baseSpeed: 85,
     // currentMode: 0,
@@ -15,15 +15,6 @@ MBlockly.Action = {
     lineTimer: null, // linefollow timer
     direction: [0,0],
     turnDegreeSpendTime : null,
-
-    getMode: function() {
-        if(MBlockly.Base.config.nodeSerialPortMode) {
-            //开启node串口模式
-            return motion;
-        } else {
-            return MBlockly.Control;
-        }
-    },
 
     runSpeed : function(speed, dir) {
         var spd1 = -dir * speed;
@@ -210,11 +201,3 @@ MBlockly.Action = {
         MBlockly.Control.stopAll();
     }
 };
-
-/**
- * Orion 主板
- * Base on MBlockly.Action.
- */
-MBlockly.Action.Orion = extend(MBlockly.Action, {
-
-});

@@ -1,62 +1,7 @@
-/**
- * Create SerialPort
- */
-var SerialPort = require("serialport").SerialPort
-var serialPort = new SerialPort("/dev/cu.Makeblock-ELETSPP", {
-  baudrate: 115200
-}, false); // this is the openImmediately flag [default is true]
+// var globalApp = require('./app.js');
 
-serialPort.open(function (error) {
-  if ( error ) {
-    mylog('open serialport failed: ' + error);
-  } else {
-    mylog('open serialport success...');
 
-    setTimeout(function() {
-        // start listen ultrasonic data
-        doUltrasoinic();
-    }, 500);
-
-    serialPort.on('data', function(data) {
-        decodeData(data);
-        // console.log(data);
-    });
-  }
-});
-
-/**
- * Create http server.
- */
-var http = require('http');
-var url = require('url');
-
-var LastUltrasonicValue = 0;
-var LastPressureValue = 0;
-
-http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    if(req.url == '/ultrasonic'){
-    
-      if(LastUltrasonicValue < 15 && LastUltrasonicValue > 0) {
-          // you have forgotten something
-          res.end('' + 1);
-      } else {
-          // there is nothing you forgot
-          res.end('' + 0);
-      }
-    }
-
-    if(req.url == '/weight'){
-      if(LastPressureValue > 10000) {
-          // there is rubbish
-          res.end('' + 1);
-        } else {
-          // no rubbish here
-          res.end('' + 0);
-      }
-    }
-}).listen(9615);
-
+// var globalSocketIO = globalApp.socketIO;
 
 /**
  * hardware control
@@ -321,12 +266,12 @@ function pressure(slot, index) {
 
 //------- 超声波回调执行 ---------
 ultrasoinic_callback= function() {
-    mylog('-------------ultrasoinic data start-------------');
+    console.log('-------------ultrasoinic data start-------------');
 
     if(buffer[0] == 0xff && buffer[1] == 0x55) {
-        // mylog(buffer[7] + '-' + buffer[6] + '-' + buffer[5] + '-' + buffer[4]);
+        // console.log(buffer[7] + '-' + buffer[6] + '-' + buffer[5] + '-' + buffer[4]);
         var distance = getResponseValue(parseInt(buffer[7]), parseInt(buffer[6]), parseInt(buffer[5]), parseInt(buffer[4]));
-        mylog(distance);
+        console.log(distance);
 
 
         LastUltrasonicValue =  distance;
@@ -337,18 +282,18 @@ ultrasoinic_callback= function() {
         //     "result": distance
         // });
     } else {
-        mylog('end');
+        console.log('end');
     }
 };
 
 //------- 压力传感器回调执行 ---------
 pressure_callback = function() {
-    mylog('-------------pressure data start-------------');
+    console.log('-------------pressure data start-------------');
 
     if(buffer[0] == 0xff && buffer[1] == 0x55) {
-        // mylog(buffer[7] + '-' + buffer[6] + '-' + buffer[5] + '-' + buffer[4]);
+        // console.log(buffer[7] + '-' + buffer[6] + '-' + buffer[5] + '-' + buffer[4]);
         var result = getResponseValue(parseInt(buffer[7]), parseInt(buffer[6]), parseInt(buffer[5]), parseInt(buffer[4]));
-        mylog(result);
+        console.log(result);
 
         LastPressureValue = result;
         // // 向客户端发送数据, 3秒以内算一次通过
@@ -357,7 +302,7 @@ pressure_callback = function() {
         //     "result": result
         // });
     } else {
-        mylog('end');
+        console.log('end');
     }
 };
 
@@ -463,7 +408,7 @@ function intBitsToFloat(num) {
     return s * m * Math.pow( 2, e - 150 );
 };
 
-/* 自定义日志输出 */
-function mylog(msg) {
-    console.log(msg);
-}
+
+module.exports = {
+
+};
