@@ -85,33 +85,49 @@ Sensorium.prototype.action = function() {
             }
             that.sendRequest(data);
         },
+
+        /**
+         * send data via serialport
+         * @param  {string | array} str decimal interger array.
+         * @return void.
+         */
         sendSerialData: function(str) {
-            if(str.length) {
-                dataTemp = str.split(" ");
-                var temp = [];
-                for(var i in dataTemp) {
-                    var item = parseInt(dataTemp[i], 16); // 16进制转10进制
-                    temp.push(item);
-                }
+            if(typeof(str) == 'object') {
                 var data = {
                     methodName: 'action.sendSerialData',
                     methodParams: str,
                     type: 'serialData',
-                    params: temp
+                    params: str
                 }
                 that.sendRequest(data);
+            } else {
+                if(str.length) {
+                    dataTemp = str.split(" ");
+                    var temp = [];
+                    for(var i in dataTemp) {
+                        var item = parseInt(dataTemp[i], 16); // 16进制转10进制
+                        temp.push(item);
+                    }
+                    var data = {
+                        methodName: 'action.sendSerialData',
+                        methodParams: str,
+                        type: 'serialData',
+                        params: temp
+                    }
+                    that.sendRequest(data);
+                }
             }
         },
 
         // led
-        turnLedOn: function() {
+        turnOnLed: function() {
             var r = 255;
             var g = 0;
             var b = 0;
             var position = 0;
 
             var data = {
-                methodName: 'action.turnLedOn',
+                methodName: 'action.turnOnLed',
                 methodParams: [],
                 type: 'led',
                 params: [r,g,b,position]
@@ -119,14 +135,14 @@ Sensorium.prototype.action = function() {
             that.sendRequest(data);
         },
 
-        turnLedOff: function() {
+        turnOffLed: function() {
             var r = 0;
             var g = 0;
             var b = 0;
             var position = 0;
 
             var data = {
-                methodName: 'action.turnLedOff',
+                methodName: 'action.turnOffLed',
                 methodParams: [],
                 type: 'led',
                 params: [r,g,b,position]

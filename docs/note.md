@@ -47,6 +47,8 @@
     - 用 requirejs 来组织 sensorium.js 中的函数依赖
         - action
         - control
+- 尝试使用node webkit封装串口工具
+    http://electron.atom.io/docs/v0.36.0/tutorial/quick-start/
 
 
 - 多蓝牙连接
@@ -70,7 +72,10 @@ http://v3.bootcss.com/getting-started/
         fa af 0 04 01 0 0 0 5 ed
         fa af 0 04 0 0 0 0 4 ed
 
-    - 控制转动：fa af 0 01 1 5 5 0 b ed
+    - 控制转动：
+        fa af 0 01 1 5 5 0 b ed
 
 - me舵机协议定义
 - 舵机控制
+
+

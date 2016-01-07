@@ -42,7 +42,6 @@ socket.on('serialportData-receive-data', function(data) {
 });
 
 
-
 // 监听串口相关信息
 socket.on('serials_to_web', function (data) {
     document.getElementById("com_num").options.add(new Option(data, data));

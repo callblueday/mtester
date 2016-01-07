@@ -9,6 +9,7 @@
         <meta name="author" content="">
         <title>MTester</title>
         <!-- Bootstrap core CSS -->
+        <link rel="shortcut icon" href="favicon.ico" />
         <link href="vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
 
@@ -16,10 +17,11 @@
         <script src="vendors/socket.io-1.3.7.js"></script>
         <script src="js/sensorium.js"></script>
         <script>
-            var socket = io.connect('192.168.3.146:3000');
+            var socket = io.connect('127.0.0.1:3000');
             var sensorium = new Sensorium(socket);
             var action = sensorium.action();
         </script>
+        <script src="js/servo.js"></script>
     </head>
     <body>
         <!-- Fixed navbar -->
@@ -87,42 +89,32 @@
                         <div class="header">
                             <h4>当前主板：<span class="version"></span></h4>
                         </div>
-                        <div class="group">
-                            <button class="btn btn-primary" onclick="action.forward(this.children[0].value);">
-                            run forward <input type="text" value="100">
-                            </button>
-                            <button class="btn btn-primary" onclick="action.backward(this.children[0].value);">
-                            run backward <input type="text" value="100">
-                            </button>
-                            <button class="btn btn-primary" onclick="action.stop();">
-                                stop
-                            </button>
-                        </div>
 
                         <div class="group">
-                             <button class="btn btn-primary" onclick="action.turnLedOn();">
+                             <button class="btn btn-primary" onclick="ybx.turnOnLed();">
                                 turnLedOn
                             </button>
 
-                            <button class="btn btn-primary" onclick="action.turnLedOff();">
-                                turnLedOn
+                            <button class="btn btn-primary" onclick="ybx.turnOffLed();">
+                                turnLedOff
                             </button>
                         </div>
 
-                        <!-- ultrasonic -->
                         <div class="group">
-                             <button class="btn btn-primary" onclick="action.openUltrasonic(this.children[0].value);">
-                                openUltrasonic at port
-                                <input type="text" value="3">
+                            <button class="btn btn-primary" onclick="ybx.move(this.children[0].value,this.children[1].value,this.children[2].value);">
+                                转动角度
+                                目标位置：<input type="text" value="60">
+                                startTime: <input type="text" value="0"> s
+                                endTime:<input type="text" value="1"> s
                             </button>
-
-                            <button class="btn btn-primary" onclick="action.stopUltrasoinic(this.children[0].value);">
-                                stopUltrasoinic at port
-                                <input type="text" value="3">
-                            </button>
-
-                            <label for=""><b class="sensor-value distance"></b></label>
                         </div>
+
+                        <div class="group">
+                             <button class="btn btn-primary" onclick="ybx.readAngle();">
+                                角度回读
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>

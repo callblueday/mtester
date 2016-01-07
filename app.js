@@ -33,9 +33,8 @@ httpServer.listen(3000, function() {
 var globalSocketIO;
 var serialPort;
 var serialInfo = {
-    // comName: '/dev/cu.wchusbserial1420'
     comName: '/dev/cu.wchusbserial1480'
-}; // 设置全局变量记录串口的相关配置信息
+};
 
 /**
  * 建立 socket.io链接
@@ -54,7 +53,7 @@ io.sockets.on('connection', function (socket) {
         });
     });
 
-
+    // 打开串口
     openSerial();
 
 
@@ -99,12 +98,11 @@ io.sockets.on('connection', function (socket) {
         }
     });
 
-
     // 监听web页面中串口配置信息的更改
     socket.on('open_serial', function(data) {
         serialInfo = data;
         globalSocketIO.emit('serial_state', "close");
-        serialPort.close();
+        // serialPort.close();
         openSerial();
     });
 
@@ -913,8 +911,13 @@ extend(control, {
 
 
 
-// 发送字节流到串口
+/**
+ * 发送字节流到串口
+ * @param  {array} bufferData 字节数组
+ * @return void.
+ */
 function sendRequest(bufferData) {
+    console.log(bufferData);
     globalSocketIO.emit('serialportData-send', bufferData);
     serialPort.write(bufferData);
 }
@@ -942,6 +945,7 @@ function openSerial() {
     serialPort.open(function (error) {
       if ( error ) {
         console.log('端口打开失败: ' + error);
+        globalSocketIO.emit('serial_state', "close");
       } else {
         console.log('端口打开成功...');
         globalSocketIO.emit('serial_state', "open");
