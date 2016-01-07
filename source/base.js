@@ -6,9 +6,8 @@
 
 'use strict';
 
-MBlockly = MBlockly || {};
 
-MBlockly.Base = {
+var Base = {
     config: {
         'nodeSerialPortMode': false,
         'edit': true
@@ -298,3 +297,7 @@ MBlockly.Base = {
     };
 
 })(window);
+
+module.exports = {
+    extend: extend
+}

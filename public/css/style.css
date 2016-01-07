@@ -35,9 +35,13 @@ li {
     color: #9d9d9d!important;
 }
 
-/*  */
+/* left */
+.leftbar {
+    position: fixed;
+    width: 500px;
+}
 .msg {
-    height: 250px;
+    height: 400px;
     background: #000;
     color: #C7C7C7;
     line-height: 14px;
@@ -45,4 +49,41 @@ li {
     font-family: 'Menlo', sans-serif;
     line-height: 1.5em;
     overflow-y: auto;
+    margin-bottom: 10px;
+}
+.msg-serial {
+    height: 300px;
+}
+.msg-serial .data-recieve {
+    color: #D85F00;
+}
+#serialDataInupt {
+    width: 330px;
+}
+
+
+.ops {
+    margin-left: 520px;
+}
+.ops input[type="text"] {
+    width: 40px;
+    color: #333;
+    text-align: center;
+    padding: 2px;
+    border: 0;
+    margin-left: 5px;
+    border-radius: 5px;
+    outline: none;
+}
+.ops .group {
+    margin-bottom: 10px;
+}
+.ops .group label {
+    font-weight: normal;
+}
+.sensor-value {
+    font-weight: normal;
+    color: #2CB76B;
+    font-size: 16px;
+    font-family: 'Menlo', sans-serif;
 }

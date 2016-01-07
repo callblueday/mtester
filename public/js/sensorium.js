@@ -21,172 +21,149 @@ Sensorium.prototype.action = function() {
         lineTimer: null, // linefollow timer
         turnDegreeSpendTime : null,
 
-        runSpeed : function(speed, dir) {
+        forward: function(speed) {
+            var speed = parseInt(speed);
+            var dir = 1;
             var spd1 = -dir * speed;
             var spd2 = dir * speed;
 
             var data = {
+                methodName: 'action.forward',
+                methodParams: [speed],
                 type: 'setSpeed',
                 params: [spd1, spd2]
             }
             that.sendRequest(data);
         },
+        backward: function(speed) {
+            var speed = parseInt(speed);
+            var dir = -1;
+            var spd1 = -dir * speed;
+            var spd2 = dir * speed;
 
-        turnSpeed : function(speed, dir) {
-            if(dir == 1) {
-                var spd1 = -1 * speed;
-                var spd2 = speed/3;
-            } else {
-                var spd1 = -1 * speed/3;
-                var spd2 = speed;
+            var data = {
+                methodName: 'action.backward',
+                methodParams: [speed],
+                type: 'setSpeed',
+                params: [spd1, spd2]
             }
-            MBlockly.Control.setSpeed(spd1, spd2);
+            that.sendRequest(data);
         },
+        turnLeft: function(speed) {
+            var speed = parseInt(speed);
+            var dir = 1;
+            var spd1 = -dir * speed;
+            var spd2 = dir * speed;
 
-        setMotor : function(port, speed) {
-            MBlockly.Control.setCodingMotor(port, speed);
+            var data = {
+                methodName: 'action.forward',
+                methodParams: [speed],
+                type: 'setSpeed',
+                params: [spd1, spd2]
+            }
+            that.sendRequest(data);
         },
+        turnRight: function(speed, dir) {
+            var speed = parseInt(speed);
+            var spd1 = -dir * speed;
+            var spd2 = dir * speed;
 
-        stopSpeed: function() {
-            MBlockly.Control.stopSpeed();
+            var data = {
+                methodName: 'action.turnRight',
+                methodParams: [speed],
+                type: 'setSpeed',
+                params: [spd1, spd2]
+            }
+            that.sendRequest(data);
         },
-
-        /*
-         *  For mbot: turn 1° spend 10ms at speed 102
-         *      1° = 10ms * 102
-         *  @param  {num} degree - degree value
-         *  @param  {num} dir - direction, 1: clockwise, -1: anticlockwise
-         *  @param  {num} speed - speed value for clockwiseRotate and anticlockwiseRotate
-         *  @param  {num} times - repeat times
-         */
-        turnDegree : function(degree, dir, speed, times) {
-            var that = this;
-            speed = speed ? speed : 102;
-            times = times ? times : 1;
-            this.turnDegreeSpendTime = (102 * 10) / speed * degree;
-
-            this.turnSpeed(speed, dir);
-            setTimeout(function() {
-                that.stopSpeed();
-            }, that.turnDegreeSpendTime * times);
+        stop: function() {
+            var data = {
+                methodName: 'action.stop',
+                methodParams: [],
+                type: 'setSpeed',
+                params: [0, 0]
+            }
+            that.sendRequest(data);
         },
-
-        forward : function() {
-            var spd1 = -1 * this.baseSpeed;
-            var spd2 = 1 * this.baseSpeed;
-            MBlockly.Control.setSpeed(spd1, spd2);
-        },
-
-        backForward : function() {
-            var spd1 = 1 * this.baseSpeed;
-            var spd2 = -1 * this.baseSpeed;
-            MBlockly.Control.setSpeed(spd1, spd2);
-        },
-
-        turnLeftLittle : function() {
-            var spd1 = -1 * (this.baseSpeed - 30);
-            var spd2 = 1 * this.baseSpeed;
-            MBlockly.Control.setSpeed(spd1, spd2);
-        },
-
-        turnRightLittle : function() {
-            var spd1 = 1 * (this.baseSpeed - 20);
-            var spd2 = 1 * (this.baseSpeed - 20);
-            MBlockly.Control.setSpeed(spd1, spd2);
-        },
-
-        turnLeftExtreme : function() {
-            var spd1 = 1 * (this.baseSpeed - 20);
-            var spd2 = 1 * (this.baseSpeed - 20);
-            MBlockly.Control.setSpeed(spd1, spd2);
-        },
-
-        turnRightExtreme : function() {
-            var spd1 = -1 * (this.baseSpeed - 20);
-            var spd2 = -1 * (this.baseSpeed - 20);
-            MBlockly.Control.setSpeed(spd1, spd2);
-        },
-
-        clockwiseRotate : function(speed, time) {
-            var that = this;
-            var spd1 = -1 * speed;
-            var spd2 = -1 * speed;
-            MBlockly.Control.setSpeed(spd1, spd2);
-            setTimeout(function() {
-                MBlockly.Control.stopSpeed();
-            }, time*1000);
-        },
-
-        antiClockwiseRotate : function(speed, time) {
-            var that = this;
-            var spd1 = 1 * speed;
-            var spd2 = 1 * speed;
-            MBlockly.Control.setSpeed(spd1, spd2);
-            setTimeout(function() {
-                MBlockly.Control.stopSpeed();
-            }, time*1000);
-        },
-
-        clockwiseRotateTimes : function(speed, times) {
-            this.turnDegree(360, -1, speed, times);
-        },
-
-        antiClockwiseRotateTimes : function(speed, times) {
-            this.turnDegree(360, 1, speed, times);
+        sendSerialData: function(str) {
+            if(str.length) {
+                dataTemp = str.split(" ");
+                var temp = [];
+                for(var i in dataTemp) {
+                    var item = parseInt(dataTemp[i], 16); // 16进制转10进制
+                    temp.push(item);
+                }
+                var data = {
+                    methodName: 'action.sendSerialData',
+                    methodParams: str,
+                    type: 'serialData',
+                    params: temp
+                }
+                that.sendRequest(data);
+            }
         },
 
         // led
-        setLed: function(r, g, b, position) {
-            MBlockly.Control.setLed(r, g, b, position);
+        turnLedOn: function() {
+            var r = 255;
+            var g = 0;
+            var b = 0;
+            var position = 0;
+
+            var data = {
+                methodName: 'action.turnLedOn',
+                methodParams: [],
+                type: 'led',
+                params: [r,g,b,position]
+            }
+            that.sendRequest(data);
         },
 
-        setLedPanel: function(r, g, b, position, port) {
-            var position = position.data;
-            // if(position == 'all') {
-            //     MBlockly.Control.setLedPanel(r, g, b, 00, port);
-            // } else if(position.hasStr('-')) {
-            //     var posArary = position.split("-");
-            //     if(posArary.length == 12) {
-            //         MBlockly.Control.setLedPanel(r, g, b, 00, port);
-            //     } else {
-            //         for(var i in posArary) {
-            //             setTimeout((function(i) {
-            //                 MBlockly.Control.setLedPanel(r, g, b, posArary[i], port);
-            //                 console.log(posArary[i]);
-            //             })(i), 50);
-            //         }
-            //     }
-            // } else {
-            //     MBlockly.Control.setLedPanel(r, g, b, position, port);
-            // }
-            MBlockly.Control.setLedPanel(r, g, b, position, port);
+        turnLedOff: function() {
+            var r = 0;
+            var g = 0;
+            var b = 0;
+            var position = 0;
+
+            var data = {
+                methodName: 'action.turnLedOff',
+                methodParams: [],
+                type: 'led',
+                params: [r,g,b,position]
+            }
+            that.sendRequest(data);
         },
 
-        stopLed: function(port) {
-            MBlockly.Control.stopAllLed(port);
-        },
-
-        // tone
-        playTone: function(toneName) {
-            MBlockly.Control.playTone(toneName);
-        },
-
-        doUltrasoinic : function() {
-            var that = this;
-            this.ulTimer = setInterval(function() {
+        openUltrasonic : function(port) {
+            that.ulTimer = setInterval(function() {
                 that.timeCount++;
                 if(that.timeCount > 10) {
                     clearInterval(that.ulTimer);
                     that.timeCount = 0;
                     return false;
                 }
-                MBlockly.Control.ultrasoinic(0, 1);
+
+                var data = {
+                    methodName: 'action.openUltrasonic',
+                    methodParams: [port],
+                    type: 'ultrasonic',
+                    params: [port]
+                }
+                that.sendRequest(data);
             }, 1000);
         },
 
         stopUltrasoinic : function() {
-            clearInterval(this.ulTimer);
+            clearInterval(that.ulTimer);
         },
+
+        /****** Todo ******/
+
+        // tone
+        playTone: function(toneName) {
+            MBlockly.Control.playTone(toneName);
+        },
+
 
         doLineFollow : function() {
             var that = this;
@@ -213,7 +190,6 @@ Sensorium.prototype.action = function() {
 
 
 Sensorium.prototype.sendRequest = function(data) {
-    console.log(data);
     this.socket.emit('pushToWebClient', data);
     this.socket.emit('fromWebClient', data);
 };

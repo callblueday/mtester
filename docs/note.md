@@ -19,7 +19,10 @@
             io.sockets.on('connection', function (socketIO) {
                 // get socketIO and do something.
             })
-
+    - 串口工具 serialPort 理解
+        - 波特率
+        - 停止位
+        - 校验位
 
 - []底层协议部分
     - [√]2560
@@ -39,9 +42,10 @@
     - 记录两种
         1. express 直接使用 html 文件，路由功能使用比较简单，不用模板，适合快速demo
         2. express 使用完整结构，使用路由，配合使用ejs模板，适合功能完整项目
+    - 用 requirejs 来组织 sensorium.js 中的函数依赖
+        - action
+        - control
 
-- 舵机的测试图标
-    - highchart
 
 - 多蓝牙连接
 - http服务器
@@ -51,3 +55,13 @@
 - sdk
 
 http://v3.bootcss.com/getting-started/
+
+
+
+
+# 舵机测试
+- 用串口直接接电脑，进行通信
+    - 显示串口
+- 优必选舵机协议定义
+- me舵机协议定义
+- 舵机控制

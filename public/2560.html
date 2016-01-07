@@ -1,86 +1,117 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>MTester</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>MTester</title>
+        <!-- Bootstrap core CSS -->
+        <link href="vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-  </head>
-
-  <body>
-
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">MTester <span>2560测试</span></a>
-        </div>
-
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav pull-right">
-            <li>
-                <a href="protocol.html">硬件协议文档</a>
-            </li>
-            <li>
-                <a href="api.html">api文档</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container maincontent">
-        <div class="row">
-          <div class="">
-              <div class="col-xs-6 ops">
-                  <button class="btn btn-primary" onclick="test();">
-                    test
-                  </button>
-              </div >
-              <div class="col-xs-6 pull-right">
-                  <div class="msg">
-                        <div class="title">Message is here: </div>
-                        <div class="msg-content">
-
+        <script src="vendors/jquery-2.1.3.min.js"></script>
+        <script src="vendors/socket.io-1.3.7.js"></script>
+        <script src="js/sensorium.js"></script>
+        <script>
+            var socket = io.connect('192.168.3.146:3000');
+            var sensorium = new Sensorium(socket);
+            var action = sensorium.action();
+        </script>
+    </head>
+    <body>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-fixed-top navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">MTester <span>2560测试</span></a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav pull-right">
+                        <li>
+                            <a href="protocol.html">硬件协议文档</a>
+                        </li>
+                        <li>
+                            <a href="api.html">api文档</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container maincontent">
+            <div class="row">
+                <div class="">
+                    <div class="form-inline leftbar">
+                        <div class="msg msg-fun">
+                            <div class="title">函数>>></div>
+                            <div class="msg-content"></div>
                         </div>
-                  </div>
-              </div>
-          </div>
+
+                        <div class="msg msg-serial">
+                            <div class="title">串口数据>>></div>
+                            <div class="msg-content"></div>
+                        </div>
+
+                        <div class="serial-send form-group">
+                            <label for="">发送16进制：</label>
+                            <input type="text" class="form-control" id="serialDataInupt">
+                            <button class="btn btn-primary" onclick="action.sendSerialData(document.getElementById('serialDataInupt').value)">send</button>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 ops">
+                        <div class="header">
+                            <h4>当前主板：<span class="version"></span></h4>
+                        </div>
+                        <div class="group">
+                            <button class="btn btn-primary" onclick="action.forward(this.children[0].value);">
+                            run forward <input type="text" value="100">
+                            </button>
+                            <button class="btn btn-primary" onclick="action.backward(this.children[0].value);">
+                            run backward <input type="text" value="100">
+                            </button>
+                            <button class="btn btn-primary" onclick="action.stop();">
+                                stop
+                            </button>
+                        </div>
+
+                        <div class="group">
+                             <button class="btn btn-primary" onclick="action.turnLedOn();">
+                                turnLedOn
+                            </button>
+
+                            <button class="btn btn-primary" onclick="action.turnLedOff();">
+                                turnLedOn
+                            </button>
+                        </div>
+
+                        <!-- ultrasonic -->
+                        <div class="group">
+                             <button class="btn btn-primary" onclick="action.openUltrasonic(this.children[0].value);">
+                                openUltrasonic at port
+                                <input type="text" value="3">
+                            </button>
+
+                            <button class="btn btn-primary" onclick="action.stopUltrasoinic(this.children[0].value);">
+                                stopUltrasoinic at port
+                                <input type="text" value="3">
+                            </button>
+
+                            <label for=""><b class="sensor-value distance"></b></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <script src="vendors/jquery-2.1.3.min.js"></script>
-    <script src="vendors/socket.io-1.3.7.js"></script>
-    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/sensorium.js"></script>
-    <script>
-      var socket = io.connect('192.168.3.146:3000');
-
-      socket.on('pushToWebClient', function(data){
-          var msg = data.type + '(' + data.params.join(',') + ');';
-          var str = $('.msg-content').html() + '<br>' + msg;
-          $('.msg-content').html(str);
-      });
-
-      var sensorium = new Sensorium(socket);
-
-      function test() {
-        sensorium.action().runSpeed(200, -1);
-      }
-
-    </script>
-  </body>
+        <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/client.js"></script>
+    </body>
 </html>
