@@ -23,6 +23,8 @@
         - 波特率
         - 停止位
         - 校验位
+        - 停止 serialPort: serialPort.close()
+        - serialport.write()
 
 - []底层协议部分
     - [√]2560

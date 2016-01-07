@@ -40,8 +40,25 @@ li {
     position: fixed;
     width: 500px;
 }
+.serialport {
+    height: 200px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+#com_num {
+    width: 260px;
+    margin-right: 10px;
+}
+
+.serialport .tip {
+    color: #666;
+    margin-left: 10px;
+    font-size: 12px;
+}
+
 .msg {
-    height: 400px;
+    height: 200px;
     background: #000;
     color: #C7C7C7;
     line-height: 14px;
@@ -50,6 +67,9 @@ li {
     line-height: 1.5em;
     overflow-y: auto;
     margin-bottom: 10px;
+}
+.msg-fun {
+    display: none;
 }
 .msg-serial {
     height: 300px;
@@ -60,7 +80,6 @@ li {
 #serialDataInupt {
     width: 330px;
 }
-
 
 .ops {
     margin-left: 520px;

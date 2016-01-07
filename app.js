@@ -32,6 +32,10 @@ httpServer.listen(3000, function() {
 // 定义全局变量，存储socket对象, 和serialPort对象
 var globalSocketIO;
 var serialPort;
+var serialInfo = {
+    // comName: '/dev/cu.wchusbserial1420'
+    comName: '/dev/cu.wchusbserial1480'
+}; // 设置全局变量记录串口的相关配置信息
 
 /**
  * 建立 socket.io链接
@@ -46,11 +50,12 @@ io.sockets.on('connection', function (socket) {
     SerialPort.list(function (err, ports) {
         ports.forEach(function (port) {
             console.log(port.comName);
+            serials_to_web(port.comName);
         });
     });
 
 
-    open_serial();
+    openSerial();
 
 
     // 从客户端接收数据
@@ -95,6 +100,15 @@ io.sockets.on('connection', function (socket) {
     });
 
 
+    // 监听web页面中串口配置信息的更改
+    socket.on('open_serial', function(data) {
+        serialInfo = data;
+        globalSocketIO.emit('serial_state', "close");
+        serialPort.close();
+        openSerial();
+    });
+
+
     // 客户端断开连接
     socket.on('disconnect', function () {
         console.log('DISCONNECTED FROM CLIENT');
@@ -125,32 +139,6 @@ ValueWrapper.prototype.toString = function() {
 ValueWrapper.prototype.setValue = function(value) {
     this.val = value;
 };
-
-
-
-/**
- * 创建串口
- */
-function open_serial() {
-    var SerialPort = require("serialport").SerialPort;
-    // serialPort = new SerialPort("/dev/cu.Makeblock-ELETSPP", {
-    serialPort = new SerialPort("/dev/cu.wchusbserial1420", {
-      baudrate: 115200
-    }, false); // this is the openImmediately flag [default is true]
-
-    serialPort.open(function (error) {
-      if ( error ) {
-        console.log('端口打开失败: ' + error);
-      } else {
-        console.log('端口打开成功...');
-
-        serialPort.on('data', function(data) {
-            // 接收数据并进行解析
-            control.decodeData(data);
-        });
-      }
-    });
-}
 
 /* 一些公用变量 */
 var control = {
@@ -931,3 +919,42 @@ function sendRequest(bufferData) {
     serialPort.write(bufferData);
 }
 
+
+/**
+ * ------------
+ * 串口配置相关
+ * ------------
+ */
+
+
+/**
+ * 创建串口
+ */
+function openSerial() {
+    var comName = serialInfo.comName;
+
+    var SerialPort = require("serialport").SerialPort;
+    // serialPort = new SerialPort("/dev/cu.Makeblock-ELETSPP", {
+    serialPort = new SerialPort(comName, {
+      baudrate: 115200
+    }, false); // this is the openImmediately flag [default is true]
+
+    serialPort.open(function (error) {
+      if ( error ) {
+        console.log('端口打开失败: ' + error);
+      } else {
+        console.log('端口打开成功...');
+        globalSocketIO.emit('serial_state', "open");
+
+        serialPort.on('data', function(data) {
+            // 接收数据并进行解析
+            control.decodeData(data);
+        });
+      }
+    });
+}
+
+// 发送串口号
+function serials_to_web(data) {
+    globalSocketIO.emit('serials_to_web', data);
+}
