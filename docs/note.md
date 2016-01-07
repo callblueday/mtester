@@ -65,5 +65,12 @@ http://v3.bootcss.com/getting-started/
 - 用串口直接接电脑，进行通信
     - 显示串口
 - 优必选舵机协议定义
+
+    - 控制灯：
+        fa af 0 04 01 0 0 0 5 ed
+        fa af 0 04 0 0 0 0 4 ed
+
+    - 控制转动：fa af 0 01 1 5 5 0 b ed
+
 - me舵机协议定义
 - 舵机控制
