@@ -41,7 +41,7 @@ li {
     width: 500px;
 }
 .serialport {
-    height: 200px;
+    height: 120px;
     border: 1px solid #ddd;
     margin-bottom: 10px;
     padding: 5px;
@@ -72,10 +72,21 @@ li {
     display: none;
 }
 .msg-serial {
-    height: 300px;
+    height: 450px;
+    position: relative;
 }
 .msg-serial .data-recieve {
     color: #D85F00;
+}
+.clear-screen {
+    color: #ddd;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.clear-screen:hover {
+    color: #ccc;
 }
 #serialDataInupt {
     width: 330px;
@@ -84,8 +95,9 @@ li {
 .ops {
     margin-left: 520px;
 }
-.ops input[type="text"] {
-    width: 40px;
+.ops input[type="text"],
+.ops input[type="number"] {
+    width: 50px;
     color: #333;
     text-align: center;
     padding: 2px;

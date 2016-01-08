@@ -5,6 +5,7 @@ var sio = require('socket.io');
 var path = require('path');
 var fs = require('fs');
 var ejs = require('ejs');
+var ServoControl = require('./source/servoControl');
 
 /**
  * 设置环境变量
@@ -597,6 +598,8 @@ extend(control, {
 
 // TODO: 实现接收的消息队列
 control.decodeData = function(data) {
+    console.log(data);
+    globalSocketIO.emit('reportBoardInfo', "women");
     var bytes = data;
 
     // 报告主板信息
@@ -910,7 +913,6 @@ extend(control, {
 });
 
 
-
 /**
  * 发送字节流到串口
  * @param  {array} bufferData 字节数组
@@ -928,7 +930,6 @@ function sendRequest(bufferData) {
  * 串口配置相关
  * ------------
  */
-
 
 /**
  * 创建串口
@@ -951,8 +952,13 @@ function openSerial() {
         globalSocketIO.emit('serial_state', "open");
 
         serialPort.on('data', function(data) {
-            // 接收数据并进行解析
+            globalSocketIO.emit('log', data);
+            // mainboard 接收数据并进行解析
             control.decodeData(data);
+
+            // 舵机相关处理
+            // var servoControl = new ServoControl("nihao", globalSocketIO);
+            // servoControl.decodeData("nihao");
         });
       }
     });

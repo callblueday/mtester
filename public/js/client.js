@@ -24,6 +24,12 @@ socket.on('serialportData-send', function(data) {
     $('.msg-serial .msg-content').html(str);
 });
 
+socket.on('log', function(msg) {
+    var str = $('.msg-serial .msg-content').html() + msg.toString() + '<br>';
+    $('.msg-serial .msg-content').html(str);
+});
+
+
 // 监听串口返回的十六进制数据
 socket.on('serialportData-receive', function(data) {
     var temp = strToHex(data.split(" "));
@@ -52,6 +58,7 @@ socket.on('serial_state', function (data) {
         $('.serialport .tip').html('<span class="text-success">串口打开成功</span>');
     } else {
         $('.serialport .tip').html('<span class="text-muted">串口处于关闭状态</span>');
+        $('.version').text("");
     }
 })
 
@@ -72,8 +79,12 @@ function postSerialsInfo() {
 
 
 
-$('.ops input[type="text"]').on('click', function(e) {
+$('.ops input[type="text"], .ops input[type="number"]').on('click', function(e) {
     e.stopPropagation();
+});
+
+$('.clear-screen').on("click", function() {
+    $('.msg-serial .msg-content').html("");
 });
 
 
