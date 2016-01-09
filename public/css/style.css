@@ -72,7 +72,7 @@ li {
     display: none;
 }
 .msg-serial {
-    height: 450px;
+    height: 350px;
     position: relative;
 }
 .msg-serial .data-recieve {
