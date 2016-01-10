@@ -5,8 +5,8 @@ all the product in makeblock. The mainboard includes `mcore`,`2560`,`orion`,`zer
 
 # Description of files
 
-- **source/mboardControl.js** cdifferent hardware protocol.Inclue `mcore`,`2560`,`orion`,`zeroPI` etc.
-- **source/servoControl.js** cdifferent hardware protocol.Inclue `mcore`,`2560`,`orion`,`zeroPI` etc.
+- **source/mboardControl.js** different hardware protocol.Inclue `mcore`,`2560`,`orion`,`zeroPI` etc.
+- **source/servoControl.js** servo test
 - **app.js** start file
 - **base.js** util functions
 - **public/**  test web interface. includes `images/`, `css/`, `js/`, `*.html`
@@ -14,3 +14,5 @@ all the product in makeblock. The mainboard includes `mcore`,`2560`,`orion`,`zer
 # To Start
     
     npm install & npm start
+
+then visit `http:localhost:3000` in your browser.
