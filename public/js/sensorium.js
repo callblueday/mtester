@@ -206,6 +206,5 @@ Sensorium.prototype.action = function() {
 
 
 Sensorium.prototype.sendRequest = function(data) {
-    this.socket.emit('pushToWebClient', data);
     this.socket.emit('fromWebClient', data);
 };

@@ -36,6 +36,7 @@ var serialPort;
 var serialInfo = {
     comName: '/dev/cu.wchusbserial1480'
 };
+var _deviceType = "board"; // 设备类型
 
 /**
  * 建立 socket.io链接
@@ -65,6 +66,11 @@ io.sockets.on('connection', function (socket) {
 
         var type = webClientData.type;
         var data = webClientData.params;
+
+        if(type == 'deviceType') {
+            _deviceType = data;
+            console.log(_deviceType);
+        }
 
         if(type == 'setSpeed') {
             var leftSpeed = parseInt(data[0]);
@@ -598,8 +604,6 @@ extend(control, {
 
 // TODO: 实现接收的消息队列
 control.decodeData = function(data) {
-    console.log(data);
-    globalSocketIO.emit('reportBoardInfo', "women");
     var bytes = data;
 
     // 报告主板信息
@@ -934,7 +938,7 @@ function sendRequest(bufferData) {
 /**
  * 创建串口
  */
-function openSerial() {
+function openSerial(type) {
     var comName = serialInfo.comName;
 
     var SerialPort = require("serialport").SerialPort;
@@ -952,13 +956,16 @@ function openSerial() {
         globalSocketIO.emit('serial_state', "open");
 
         serialPort.on('data', function(data) {
-            globalSocketIO.emit('log', data);
-            // mainboard 接收数据并进行解析
-            control.decodeData(data);
+            // globalSocketIO.emit('log', data);
 
-            // 舵机相关处理
-            // var servoControl = new ServoControl("nihao", globalSocketIO);
-            // servoControl.decodeData("nihao");
+            if(_deviceType == 'servo') {
+                // 舵机相关处理
+                var servoControl = new ServoControl(data, globalSocketIO);
+                servoControl.decodeData(data);
+            } else {
+                // mainboard 接收数据并进行解析
+                control.decodeData(data);
+            }
         });
       }
     });

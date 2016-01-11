@@ -55,6 +55,7 @@
 
                         <!-- 串口相关配置 -->
                         <div class="serialport">
+                            <h5>测试类型：<span class="device-type"></span></h5>
                             <h5>串口相关配置</h5>
 
                             <div class="input-group">
@@ -84,41 +85,69 @@
                     </div>
 
                     <div class="col-xs-6 ops">
-                        <div class="header">
-                            <h4>当前主板：<span class="version"></span></h4>
+                        <div class="wrap ybx">
+                            <div class="header">
+                                <h4>makelbock舵机<span class="version"></span></h4>
+                            </div>
+
+                            <div class="group">
+                                <button class="btn btn-primary" onclick="mbServo.setAbsolutePos(this.children[0].value,this.children[1].value);">
+                                    设置绝对角度
+                                    目标位置：<input value="400" type="number">
+                                    速度: <input value="255" type="number">
+                                </button>
+                                <p></p>
+                                <button class="btn btn-primary" onclick="mbServo.setRelativePos(this.children[0].value,this.children[1].value);">
+                                    设置相对角度
+                                    目标位置：<input value="40" type="number">
+                                    速度: <input value="255" type="number">
+                                </button>
+                            </div>
+
+                            <div class="group">
+                                 <button class="btn btn-primary" onclick="ybx.readAngle();">
+                                    角度回读
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="group">
-                             <button class="btn btn-primary" onclick="ybx.turnOnLed();">
-                                turnLedOn
-                            </button>
+                        <!-- <div class="wrap">
+                            <div class="header mbservo">
+                                <h4>优必选<span class="version"></span></h4>
+                            </div>
 
-                            <button class="btn btn-primary" onclick="ybx.turnOffLed();">
-                                turnLedOff
-                            </button>
-                        </div>
+                            <div class="group">
+                                 <button class="btn btn-primary" onclick="ybx.turnOnLed();">
+                                    turnLedOn
+                                </button>
 
-                        <div class="group">
-                            <button class="btn btn-primary" onclick="ybx.move(this.children[0].value,this.children[1].value,this.children[2].value);">
-                                转动角度
-                                目标位置：<input value="0" type="number">
-                                duration: <input value="1" type="number">
-                                endDelay:<input value="0" type="number">
-                            </button>
-                            <p></p>
-                            <button class="btn btn-primary" onclick="ybx.move(this.children[0].value,this.children[1].value,this.children[2].value);">
-                                转动角度
-                                目标位置：<input value="252" type="number">
-                                duration: <input value="1" type="number">
-                                endDelay:<input value="0" type="number">
-                            </button>
-                        </div>
+                                <button class="btn btn-primary" onclick="ybx.turnOffLed();">
+                                    turnLedOff
+                                </button>
+                            </div>
 
-                        <div class="group">
-                             <button class="btn btn-primary" onclick="ybx.readAngle();">
-                                角度回读
-                            </button>
-                        </div>
+                            <div class="group">
+                                <button class="btn btn-primary" onclick="ybx.move(this.children[0].value,this.children[1].value,this.children[2].value);">
+                                    转动角度
+                                    目标位置：<input value="0" type="number">
+                                    duration: <input value="1" type="number">
+                                    endDelay:<input value="0" type="number">
+                                </button>
+                                <p></p>
+                                <button class="btn btn-primary" onclick="ybx.move(this.children[0].value,this.children[1].value,this.children[2].value);">
+                                    转动角度
+                                    目标位置：<input value="252" type="number">
+                                    duration: <input value="1" type="number">
+                                    endDelay:<input value="0" type="number">
+                                </button>
+                            </div>
+
+                            <div class="group">
+                                 <button class="btn btn-primary" onclick="ybx.readAngle();">
+                                    角度回读
+                                </button>
+                            </div>
+                        </div> -->
 
                     </div>
                 </div>
