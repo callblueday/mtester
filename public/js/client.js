@@ -66,6 +66,9 @@ socket.on('serial_state', function (data) {
     }
 })
 
+/**-----------
+ * events
+ ------------*/
 
 $('#com_num').on("change", function() {
     $('.serialport .tip').html('<span class="text-muted">串口处于关闭状态</span>');
@@ -90,6 +93,12 @@ $('.clear-screen').on("click", function() {
     $('.msg-serial .msg-content').html("");
 });
 
+$('#dataSendType').on('change', function() {
+    $(this).attr("data-type", $(this).val());
+    console.log('发送格式为：' + $(this).val());
+});
+
+
 
 /* 辅助函数 */
 // 将十进制数组转为16进制
@@ -106,6 +115,7 @@ function strToHex(data) {
     }
     return temp.join(" ");
 }
+
 
 
 

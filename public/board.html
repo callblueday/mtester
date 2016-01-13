@@ -75,9 +75,13 @@
                         </div>
 
                         <div class="serial-send form-group">
-                            <label for="">发送16进制：</label>
+                            <select class="form-control" data-type="16" id="dataSendType">
+                                <option value="16">16进制</option>
+                                <option value="chart">字符串模式</option>
+                                <option value="10">10进制</option>
+                            </select>
                             <input type="text" class="form-control" id="serialDataInupt" value="ff 55 06 00 02 0a 09 9c ff">
-                            <button class="btn btn-primary" onclick="action.sendSerialData(document.getElementById('serialDataInupt').value)">send</button>
+                            <button class="btn btn-primary" onclick="action.sendSerialData(document.getElementById('serialDataInupt').value, document.getElementById('dataSendType').getAttribute('data-type'))">send</button>
                         </div>
                     </div>
 

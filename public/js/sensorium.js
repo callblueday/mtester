@@ -91,14 +91,15 @@ Sensorium.prototype.action = function() {
          * @param  {string | array} str decimal interger array.
          * @return void.
          */
-        sendSerialData: function(str) {
-            if(typeof(str) == 'object') {
+        sendSerialData: function(str, type) {
+            if(typeof(str) == 'object' || type == "chart") {
                 var data = {
                     methodName: 'action.sendSerialData',
                     methodParams: str,
                     type: 'serialData',
                     params: str
                 }
+                console.log(str);
                 that.sendRequest(data);
             } else {
                 if(str.length) {
@@ -114,6 +115,7 @@ Sensorium.prototype.action = function() {
                         type: 'serialData',
                         params: temp
                     }
+                    console.log(temp);
                     that.sendRequest(data);
                 }
             }
