@@ -1,0 +1,240 @@
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<style>
+
+    .table {
+        border: 1px solid #ddd;
+    }
+    .table tr td {
+        padding: 5px;
+    }
+</style>
+
+    以下协议针对的是新版本固件
+
+    固件更新方式：
+
+    &nbsp;
+
+    发送指令格式说明
+    <h5>设置直流电机</h5>
+
+    <table class="table">
+        <tr>
+            <th>起始位1</th>
+            <th>起始位2</th>
+            <th>命令长度</th>
+            <th>index(命令ID) </th>
+            <th>action  </th>
+            <th>device  </th>
+            <th>port</th>
+            <th>slot</th>
+            <th>sub command mode</th>
+        </tr>
+        <tr>
+            <td>ff</td>
+            <td>55</td>
+            <td>06</td>
+            <td>60</td>
+            <td>02</td>
+            <td>0a</td>
+            <td>09</td>
+            <td>ff</td>
+            <td>00</td>
+        </tr>
+    </table>
+
+    <div class="gutter-author-131 locate lineguid-i0GMT1Hfe0mvOhYm" data-author-name="胡锦宏"></div>
+    <div id="magicdomid22" class="gutter-author-131 locate lineguid-i0GMT1Hfe0mvOhYm" data-author-name="胡锦宏"><span class="author-131 font-size-3"><span style="font-size: medium;">测试左边电机示例： ff 55 06 60 02 0a </span></span><span class="author-131 font-color-8"><span style="color: #da650a;">09</span></span><span class="author-131">  ff 00</span></div>
+    <div id="magicdomid23" class="gutter-author-131 locate lineguid-xXLgjJmuPi4ckNqA" data-author-name="胡锦宏"><span class="author-131 font-size-3"><span style="font-size: medium;">测试右边电机示例： ff 55 06 60 02 0a </span></span><span class="author-131 font-color-8 font-size-3"><span style="color: #da650a;"><span style="font-size: medium;">0a</span></span></span><span class="author-131 font-size-3"><span style="font-size: medium;"> 00 00</span></span></div>
+
+
+    <h5>设置蜂鸣器</h5>
+    <table class="table">
+        <tr>
+            <th>起始位1</th>
+            <th>起始位2</th>
+            <th>命令长度</th>
+            <th>index(命令ID) </th>
+            <th>action  </th>
+            <th>device  </th>
+            <th>port</th>
+            <th>slot</th>
+            <th>sub command mode</th>
+        </tr>
+        <tr>
+            <td>ff</td>
+            <td>55</td>
+            <td>07</td>
+            <td>60</td>
+            <td>02</td>
+            <td>22</td>
+            <td>06</td>
+            <td>01</td>
+            <td>fa</td>
+            <td>00</td>
+        </tr>
+    </table>
+    <div id="magicdomid28" class="gutter-author-131 locate lineguid-RJylOxHQCbBIXRSi" data-author-name="胡锦宏"><span class="author-131 font-size-3"><span style="font-size: medium;">音调和节拍都是short型，音调例如：C5: 523, short型表示为 "0x02  0x0b" (2*256 + 11 = 523)</span></span></div>
+    <div id="magicdomid29" class="gutter-author-131 locate lineguid-NDNo9iHXrfbjjiYq" data-author-name="胡锦宏"><span class="author-131 font-size-3"><span style="font-size: medium;">节拍对应的是时间，四分之一拍，就是四分之一秒</span></span></div>
+    <ul>
+        <li id="magicdomid30" class="gutter-author-131 locate lineguid-0MSk9Umeh4ZNs7xk" data-author-name="胡锦宏"><span class="author-131">播放音调为C4，四分之一拍：ff 55 07 60 02 22 </span><span class="author-131 font-color-8"><span style="color: #da650a;">06</span></span> <span class="author-131 font-color-8"><span style="color: #da650a;">01</span></span><span class="author-131"> fa 00</span></li>
+    </ul>
+
+    <h5>设置板载LED灯</h5>
+    <table class="table">
+        <tr>
+            <th>起始位1</th>
+            <th>起始位2</th>
+            <th>命令长度</th>
+            <th>index(命令ID) </th>
+            <th>action  </th>
+            <th>device  </th>
+            <th>port</th>
+            <th>slot</th>
+            <th>sub command mode</th>
+        </tr>
+        <tr>
+            <td>ff</td>
+            <td>55</td>
+            <td>09</td>
+            <td>00</td>
+            <td>02</td>
+            <td>08</td>
+            <td>07</td>
+            <td>02</td>
+            <td>00</td>
+            <td>14</td>
+            <td>00</td>
+            <td>00</td>
+        </tr>
+    </table>
+    <span class="author-131 font-size-3"><span style="font-size: medium;">测试灯带示例：ff 55 09 00 02 08 </span></span><span class="author-131 font-color-8 font-size-3"><span style="color: #da650a;"><span style="font-size: medium;">07</span></span></span><span class="author-131 font-size-3"><span style="font-size: medium;"> 02 00 </span></span><span class="author-131 font-color-7 font-size-3"><span style="color: #d0060e;"><span style="font-size: medium;">14</span></span></span> <span class="author-131 font-color-9 font-size-3"><span style="color: #17844c;"><span style="font-size: medium;">00</span></span></span> <span class="author-131 font-color-10 font-size-3"><span style="color: #0b24fb;"><span style="font-size: medium;">00</span></span></span>
+
+    <h5>读取超声波</h5>
+    <table class="table">
+        <tr>
+            <th>起始位1</th>
+            <th>起始位2</th>
+            <th>命令长度</th>
+            <th>index(命令ID) </th>
+            <th>action  </th>
+            <th>device  </th>
+            <th>port</th>
+            <th>slot</th>
+            <th>sub command mode</th>
+        </tr>
+        <tr>
+            <td>ff</td>
+            <td>55</td>
+            <td>04</td>
+            <td>60</td>
+            <td>01</td>
+            <td>01</td>
+            <td>03</td>
+        </tr>
+    </table>
+    <div id="magicdomid34" class="gutter-author-131 locate lineguid-BeBrlWTV8MbdEBHQ" data-author-name="胡锦宏"><span class="author-131 font-size-3"><span style="font-size: medium;">发送读取超声波命令：设置port口3</span></span></div>
+    <div id="magicdomid35" class="gutter-author-131 locate lineguid-3n9iCEGbNc4jUeCW" data-author-name="胡锦宏">
+    <ul class="list-indent1">
+        <li><span class="author-131 font-size-3"><span style="font-size: medium;">ff 55 04 60 01 01 </span></span><span class="author-131 font-color-8"><span style="color: #da650a;">03</span></span></li>
+    </ul>
+    </div>
+    <div id="magicdomid36" class="gutter-author-131 locate lineguid-0ciKXwpDoZpLP29q" data-author-name="胡锦宏"><span class="author-131 font-size-3"><span style="font-size: medium;">接收值：</span></span></div>
+    <div id="magicdomid37" class="gutter-author-131 locate lineguid-spdvF40ZbkxiHJn1" data-author-name="胡锦宏">
+    <ul class="list-indent1">
+        <li><span class="author-131 font-size-3"><span style="font-size: medium;">ff 55 60 02 </span></span><span class="author-131 font-color-8"><span style="color: #da650a;">00 00 00 00</span></span><span class="author-131"> 0d 0a</span></li>
+    </ul>
+    </div>
+
+    <h5>读取光线传感器</h5>
+    <table class="table">
+        <tr>
+            <th>起始位1</th>
+            <th>起始位2</th>
+            <th>命令长度</th>
+            <th>index(命令ID) </th>
+            <th>action  </th>
+            <th>device  </th>
+            <th>port</th>
+            <th>slot</th>
+            <th>sub command mode</th>
+        </tr>
+        <tr>
+            <td>ff</td>
+            <td>55</td>
+            <td>04</td>
+            <td>60</td>
+            <td>01</td>
+            <td>03</td>
+            <td>06</td>
+        </tr>
+    </table>
+    <div id="magicdomid54" class="gutter-author-131 locate lineguid-d95okUVFvDqattfw" data-author-name="胡锦宏"><span class="author-131 font-size-3"><span style="font-size: medium;">示例：port口为0b，因为是板载，port口是固定的</span></span></div>
+    <div id="magicdomid55" class="gutter-author-131 locate lineguid-TXMzSLQxi6A71aUS" data-author-name="胡锦宏">
+    <ul class="list-indent1">
+        <li><span class="author-131 font-size-3"><span style="font-size: medium;">ff 55 04 60 01 03 </span></span><span class="author-131 font-color-8"><span style="color: #da650a;">06</span></span></li>
+    </ul>
+    </div>
+    <div id="magicdomid58" class="gutter-author-131 locate lineguid-XJtXrN2XdKGaNTIp" data-author-name="胡锦宏"><span class="author-131 font-size-3"><span style="font-size: medium;">接收值（获取光线强度的数值）：</span></span></div>
+    <div id="magicdomid59" class="gutter-author-131 locate lineguid-PSFOJ542mrg5ZUyG" data-author-name="胡锦宏">
+    <ul class="list-indent1">
+        <li><span class="author-131 font-size-3"><span style="font-size: medium;">ff 55 60 02 </span></span><span class="author-131 font-color-8"><span style="color: #da650a;">00 80 98 43</span></span><span class="author-131"> 0d 0a</span></li>
+    </ul>
+    </div>
+
+    <h5>读取巡线</h5>
+    <table class="table">
+        <tr>
+            <th>起始位1</th>
+            <th>起始位2</th>
+            <th>命令长度</th>
+            <th>index(命令ID) </th>
+            <th>action  </th>
+            <th>device  </th>
+            <th>port</th>
+            <th>slot</th>
+            <th>sub command mode</th>
+        </tr>
+        <tr>
+            <td>ff</td>
+            <td>55</td>
+            <td>04</td>
+            <td>60</td>
+            <td>01</td>
+            <td>11</td>
+            <td>05</td>
+        </tr>
+    </table>
+    <div id="magicdomid44" class="gutter-author-131 locate lineguid-lW4uURMbcgAp2oQR" data-author-name="胡锦宏"><span class="author-131 font-size-3"><span style="font-size: medium;">发送巡线示例：设置 port 口 5</span></span></div>
+    <div id="magicdomid45" class="gutter-author-131 locate lineguid-Ug1wVDKvD0ex9BV1" data-author-name="胡锦宏">
+    <ul class="list-indent1">
+        <li><span class="author-131 font-size-3"><span style="font-size: medium;">ff 55 04 6</span></span><span class="author-131">0 01 11 </span><span class="author-131 font-color-8"><span style="color: #da650a;">05</span></span></li>
+    </ul>
+    </div>
+    <div id="magicdomid46" class="gutter-author-131 locate lineguid-2AmQ0rRzKLb9uIh3" data-author-name="胡锦宏"><span class="author-131 font-size-3"><span style="font-size: medium;">接收值：</span></span></div>
+    <div id="magicdomid47" class="gutter-author-131 locate lineguid-OK28drjYIyCIkox0" data-author-name="胡锦宏">
+    <ul class="list-indent1">
+        <li><span class="author-131 font-size-3"><span style="font-size: medium;">ff 55 6</span></span><span class="author-131">0 02 </span><span class="author-131 font-color-8"><span style="color: #da650a;">00 00 40 40</span></span><span class="author-131"> 0d 0a    全亮</span></li>
+    </ul>
+    </div>
+    <div id="magicdomid48" class="gutter-author-131 locate lineguid-wfaHiOu2Ysq9H0ul" data-author-name="胡锦宏">
+    <ul class="list-indent1">
+        <li><span class="author-131 font-size-3"><span style="font-size: medium;">ff 55 60 02 </span></span><span class="author-131 font-color-8"><span style="color: #da650a;">00 00 00 40</span></span><span class="author-131"> 0d 0a    左亮右黑</span></li>
+    </ul>
+    </div>
+    <div id="magicdomid49" class="gutter-author-131 locate lineguid-aRwaStVHil01Hxu6" data-author-name="胡锦宏">
+    <ul class="list-indent1">
+        <li><span class="author-131 font-size-3"><span style="font-size: medium;">ff 55 60 02 </span></span><span class="author-131 font-color-8"><span style="color: #da650a;">00 00 80  3f </span></span><span class="author-131">0d 0a      左黑右亮</span></li>
+    </ul>
+    </div>
+    <div id="magicdomid50" class="gutter-author-131 locate lineguid-KGFeF5W2YzkWJcbT" data-author-name="胡锦宏">
+    <ul class="list-indent1">
+        <li><span class="author-131 font-size-3"><span style="font-size: medium;">ff 55 60 02 </span></span><span class="author-131 font-color-8"><span style="color: #da650a;">00 00 00 00</span></span><span class="author-131"> 0d 0a      全黑</span></li>
+    </ul>
+    </div>
+    &nbsp;
+
+    示例
+
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
