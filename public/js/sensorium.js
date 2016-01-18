@@ -19,6 +19,7 @@ Sensorium.prototype.action = function() {
         timeCount: 0,
         ulTimer: null,   // ultrasoinic timer
         lineTimer: null, // linefollow timer
+        lightTimer: null, // linefollow timer
         turnDegreeSpendTime : null,
 
         forward: function(speed) {
@@ -76,6 +77,7 @@ Sensorium.prototype.action = function() {
             }
             that.sendRequest(data);
         },
+
         stop: function() {
             var data = {
                 methodName: 'action.stop',
@@ -84,6 +86,32 @@ Sensorium.prototype.action = function() {
                 params: [0, 0]
             }
             that.sendRequest(data);
+        },
+
+        // 设置直流电机
+        setDcMotor: function(speed, port) {
+            var data = {
+                methodName: 'action.setDcMotor',
+                methodParams: [speed, port],
+                type: 'dcMotor',
+                params: [speed, port]
+            }
+            that.sendRequest(data);
+        },
+
+        // 设置编码电机
+        setEncoderMotor: function(port, speed, distance) {
+
+        },
+
+        // 设置步进电机
+        setStepperMotor: function(port, speed, distance) {
+
+        },
+
+        // 设置舵机
+        setServoMotor: function(port, speed, distance) {
+
         },
 
         /**
@@ -152,6 +180,17 @@ Sensorium.prototype.action = function() {
             that.sendRequest(data);
         },
 
+        // tone
+        playTone: function(toneName) {
+            var data = {
+                methodName: 'action.playTone',
+                methodParams: [toneName],
+                type: 'playTone',
+                params: [toneName]
+            }
+            that.sendRequest(data);
+        },
+
         openUltrasonic : function(port) {
             that.ulTimer = setInterval(function() {
                 that.timeCount++;
@@ -175,31 +214,41 @@ Sensorium.prototype.action = function() {
             clearInterval(that.ulTimer);
         },
 
-        /****** Todo ******/
-
-        // tone
-        playTone: function(toneName) {
-            MBlockly.Control.playTone(toneName);
-        },
-
-
-        doLineFollow : function() {
-            var that = this;
-            this.lineTimer = setInterval(function() {
-                that.timeCount++;
-                if(that.timeCount > 1000) {
-                    clearInterval(that.lineTimer);
-                    that.timeCount = 0;
-                    return false;
+        openLineFollow : function(port) {
+            that.lineTimer = setInterval(function() {
+                var data = {
+                    methodName: 'action.openLineFollow',
+                    methodParams: [port],
+                    type: 'lineFollow',
+                    params: [port]
                 }
-                MBlockly.Control.lineFollow(0, 1);
+                that.sendRequest(data);
+
             }, 1000);
         },
-
         stopLineFollow : function() {
-            clearInterval(this.lineTimer);
+            clearInterval(that.lineTimer);
         },
 
+        // Light
+        openLightSensor : function(port) {
+            that.lightTimer = setInterval(function() {
+                var data = {
+                    methodName: 'action.openLightSensor',
+                    methodParams: [port],
+                    type: 'lightSensor',
+                    params: [port]
+                }
+                that.sendRequest(data);
+
+            }, 1000);
+        },
+        stopLightSensor : function() {
+            clearInterval(that.lightTimer);
+        },
+
+
+        /****** Todo ******/
         stopAll: function() {
             MBlockly.Control.stopAll();
         }

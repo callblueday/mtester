@@ -46,12 +46,12 @@ var _deviceType = "board"; // 设备类型
 var io = require('socket.io').listen(httpServer);
 io.sockets.on('connection', function (socket) {
     globalSocketIO = socket;
+    control.socket = globalSocketIO;
     console.log('与客户端的命令连接通道已经建立');
 
     /* 输出串口列表 */
     SerialPort.list(function (err, ports) {
-        // 采用倒序，一般后添加的是目标端口
-        for(var i = ports.length - 1 ; i > -1; i--) {
+        for(var i = 0; i < ports.length; i++) {
             console.log(ports[i].comName);
             serials_to_web(ports[i].comName);
         }
@@ -68,6 +68,7 @@ io.sockets.on('connection', function (socket) {
 
         var type = webClientData.type;
         var data = webClientData.params;
+
 
         if(type == 'deviceType') {
             _deviceType = data;
@@ -94,12 +95,46 @@ io.sockets.on('connection', function (socket) {
             control.sendRequest(data);
         }
 
-        // 超声波
+        // play tone
+        if(type == 'playTone') {
+            control.playTone(data);
+        }
+
+        // set motor
+        if(type == 'dcMotor') {
+            control.setDcMotor(data[0], data[1]);
+        }
+
+        // ultrasonic
         if(type == 'ultrasonic') {
             var port = parseInt(data[0]);
             var val = control.getUltrasonicValue(port, function(value) {
                 var data = {
                     type: 'ultrasonic',
+                    value: value
+                };
+                globalSocketIO.emit('serialportData-receive-data', data);
+            });
+        }
+
+        // line Follow
+        if(type == 'lineFollow') {
+            var port = parseInt(data[0]);
+            var val = control.getLineFollowValue(port, function(value) {
+                var data = {
+                    type: 'lineFollow',
+                    value: value
+                };
+                globalSocketIO.emit('serialportData-receive-data', data);
+            });
+        }
+
+        // light sensor
+        if(type == 'lightSensor') {
+            var port = parseInt(data[0]);
+            var val = control.getLightSensorValue(port, function(value) {
+                var data = {
+                    type: 'lightSensor',
                     value: value
                 };
                 globalSocketIO.emit('serialportData-receive-data', data);
@@ -146,6 +181,7 @@ function openSerial(type) {
       } else {
         console.log('端口打开成功...');
         globalSocketIO.emit('serial_state', "open");
+        control.serialPort = serialPort;
 
         serialPort.on('data', function(data) {
             // globalSocketIO.emit('log', data);

@@ -65,7 +65,7 @@ li {
     padding: 5px;
     font-family: 'Menlo', sans-serif;
     line-height: 1.5em;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
     margin-bottom: 10px;
 }
 .msg-fun {
@@ -77,6 +77,10 @@ li {
 }
 .msg-serial .data-recieve {
     color: #D85F00;
+}
+.msg-content {
+    height: 320px;
+    overflow-y: auto;
 }
 .clear-screen {
     color: #ddd;
@@ -108,6 +112,9 @@ li {
 }
 .ops .group {
     margin-bottom: 10px;
+}
+.ops .group label:first-child {
+    width: 80px;
 }
 .ops .group label {
     font-weight: normal;

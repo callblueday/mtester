@@ -45,9 +45,7 @@ socket.on('serialportData-receive-data', function(data) {
     var type = data.type;
     var value = data.value;
 
-    if(type == 'ultrasonic') {
-        $('.distance').text(value);
-    }
+    $('.' + type).find('.sensor-value').text(value);
 });
 
 
@@ -67,37 +65,58 @@ socket.on('serial_state', function (data) {
 })
 
 /**-----------
- * events
+ * dom events
  ------------*/
+$(function() {
+    $('#com_num').on("change", function() {
+        $('.serialport .tip').html('<span class="text-muted">串口处于关闭状态</span>');
+        postSerialsInfo();
+    });
 
-$('#com_num').on("change", function() {
-    $('.serialport .tip').html('<span class="text-muted">串口处于关闭状态</span>');
-    postSerialsInfo();
-});
+
+    function postSerialsInfo() {
+        var com_num = $("#com_num").find("option:selected").val(); //获取串口号
+        var data = {
+            comName: com_num
+        };
+        socket.emit('open_serial', data);
+    }
 
 
-function postSerialsInfo() {
-    var com_num = $("#com_num").find("option:selected").val(); //获取串口号
-    var data = {
-        comName: com_num
+    $('.ops input[type="text"], .ops input[type="number"], .ops select').on('click', function(e) {
+        e.stopPropagation();
+    });
+
+    $('.clear-screen').on("click", function() {
+        $('.msg-serial .msg-content').html("");
+    });
+
+    $('#dataSendType').on('change', function() {
+        $(this).attr("data-type", $(this).val());
+        console.log('发送格式为：' + $(this).val());
+    });
+
+    // tone
+    var toneHzTable = {
+        // 原始数据：D5: 587 "E5": 658,"F5": 698,"G5": 784,"A5": 880,"B5": 988,"C6": 1047
+        "C2": 65,"D2": 73,"E2": 82,"F2": 87,"G2": 98,"A2": 110,"B2": 123,
+        "C3": 131,"D3": 147,"E3": 165,"F3": 175,"G3": 196,"A3": 220,
+        "B3": 247,"C4": 262,"D4": 294,"E4": 330,"F4": 349,"G4": 392,
+        "A4": 440,"B4": 494,"C5": 523,"D5": 555,"E5": 640,"F5": 698,
+        "G5": 784,"A5": 880,"B5": 988,"C6": 1047,"D6": 1175,"E6": 1319,
+        "F6": 1397,"G6": 1568,"A6": 1760,"B6": 1976,"C7": 2093,"D7": 2349,
+        "E7": 2637,"F7": 2794,"G7": 3136,"A7": 3520,"B7": 3951,"C8": 4186
     };
-    socket.emit('open_serial', data);
-}
-
-
-$('.ops input[type="text"], .ops input[type="number"]').on('click', function(e) {
-    e.stopPropagation();
+    (function() {
+        for(var i in toneHzTable) {
+            $("#toneList")[0].options.add(new Option(i, i));
+        }
+    })();
+    $('#toneList').on('change', function() {
+        var hz = toneHzTable[$(this).val()];
+        $(this).parent().find('.hz').text(hz);
+    });
 });
-
-$('.clear-screen').on("click", function() {
-    $('.msg-serial .msg-content').html("");
-});
-
-$('#dataSendType').on('change', function() {
-    $(this).attr("data-type", $(this).val());
-    console.log('发送格式为：' + $(this).val());
-});
-
 
 
 /* 辅助函数 */
@@ -115,7 +134,3 @@ function strToHex(data) {
     }
     return temp.join(" ");
 }
-
-
-
-

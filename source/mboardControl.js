@@ -28,6 +28,8 @@ ValueWrapper.prototype.setValue = function(value) {
 
 /* 一些公用变量 */
 var control = {
+    socket: null,
+    serialPort: null,
     SETTING: {
         //设备类型
         VERSION: 0, //版本号
@@ -251,6 +253,28 @@ extend(control, {
             // 直流电机
             this.buildModuleWriteMotor(port, speed);
         }
+    },
+
+    // 设置直流电机
+    setDcMotor: function(speed, port) {
+        speed = parseInt(speed);
+        port = parseInt(port);
+        this.buildModuleWriteMotor(port, speed);
+    },
+
+    // 设置编码电机
+    setEncoderMotor: function(port, speed, distance) {
+        speed = parseInt(speed);
+        this.buildModuleWriteCodingMotor(port, speed);
+    },
+
+    // 设置步进电机
+    setStepperMotor: function(port, speed, distance) {
+
+    },
+
+    // 设置舵机
+    setServoMotor: function(port, speed, distance) {
 
     },
 
@@ -422,7 +446,7 @@ extend(control, {
     },
 
     /**
-     * build Buzzer machine code
+     * build Buzzer machine code for mcore board.
      * @private
      * 播放音调为C4，四分之一拍：ff 55 07 60 02 22 06 01 fa 00
      */
@@ -443,7 +467,7 @@ extend(control, {
     },
 
     /**
-     * build Buzzer machine code
+     * build Buzzer machine code for common board.
      * @private
      * 播放引脚为10，音调为B2，节拍为四分之一：ff 55 08 00 02 22 0a 7b 00 fa 00
      */
@@ -489,7 +513,7 @@ control.decodeData = function(data) {
 
     // 报告主板信息
     if(bytes.toString().indexOf("Version") != -1) {
-        globalSocketIO.emit('reportBoardInfo', bytes.toString());
+        this.socket.emit('reportBoardInfo', bytes.toString());
     }
 
     for (var i = 0; i < bytes.length; i++) {
@@ -505,7 +529,7 @@ control.decodeData = function(data) {
                 var promiseType = control.PromiseList.getType(dataIndex);
 
                 // 返回有效数据
-                globalSocketIO.emit('serialportData-receive', this.buffer.join(' '));
+                this.socket.emit('serialportData-receive', this.buffer.join(' '));
 
                 switch(promiseType) {
                     case control.PromiseType.LINEFOLLOW:
@@ -804,8 +828,8 @@ extend(control, {
  * @return void.
  */
 control.sendRequest = function(data) {
-    globalSocketIO.emit('serialportData-send', data);
-    serialPort.write(data);
+    this.socket.emit('serialportData-send', data);
+    this.serialPort.write(data);
 }
 
 

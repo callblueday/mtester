@@ -72,6 +72,7 @@
                         <div class="msg msg-serial">
                             <div class="title">串口数据>>></div>
                             <div class="msg-content"></div>
+                            <span class="clear-screen">清除数据</span>
                         </div>
 
                         <div class="serial-send form-group">
@@ -85,11 +86,14 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-6 ops">
+                    <div class="col-xs-7 ops">
                         <div class="header">
                             <h4>当前主板：<span class="version"></span></h4>
                         </div>
+
+                        <!-- run -->
                         <div class="group">
+                            <label for="">Run：</label>
                             <button class="btn btn-primary" onclick="action.forward(this.children[0].value);">
                             run forward <input type="text" value="100">
                             </button>
@@ -101,8 +105,31 @@
                             </button>
                         </div>
 
+                        <!-- turn -->
                         <div class="group">
-                             <button class="btn btn-primary" onclick="action.turnOnLed();">
+                            <label for="">Turn：</label>
+                            <button class="btn btn-primary" onclick="action.forward(this.children[0].value);">
+                            turn left <input type="text" value="100">
+                            </button>
+                            <button class="btn btn-primary" onclick="action.backward(this.children[0].value);">
+                            turn right <input type="text" value="100">
+                            </button>
+                        </div>
+
+                        <!-- motor -->
+                        <div class="group">
+                            <label for="">DC Motor：</label>
+                            <button class="btn btn-primary" onclick="action.setDcMotor(this.children[0].value, this.children[1].value);">
+                            set motor with speed <input type="text" value="100">
+                            at port <input type="text" value="0x0a">
+                            </button>
+
+                        </div>
+
+                        <!-- led -->
+                        <div class="group">
+                            <label for="">LED：</label>
+                            <button class="btn btn-primary" onclick="action.turnOnLed();">
                                 turnOnLed
                             </button>
 
@@ -111,8 +138,20 @@
                             </button>
                         </div>
 
-                        <!-- ultrasonic -->
+                        <!-- buzzer -->
                         <div class="group">
+                            <label for="">Buzzer：</label>
+                             <button class="btn btn-primary" onclick="action.playTone(this.children[0].value);">
+                                playTone
+                                <select name="tone" id="toneList">
+                                </select>
+                                <label for="" class="hz"></label>
+                            </button>
+                        </div>
+
+                        <!-- ultrasonic -->
+                        <div class="group ultrasonic">
+                            <label for="">Ultrasonic：</label>
                              <button class="btn btn-primary" onclick="action.openUltrasonic(this.children[0].value);">
                                 openUltrasonic at port
                                 <input type="text" value="3">
@@ -123,8 +162,41 @@
                                 <input type="text" value="3">
                             </button>
 
-                            <label for=""><b class="sensor-value distance"></b></label>
+                            <label for=""><b class="sensor-value"></b></label>
                         </div>
+
+                        <!-- line follow -->
+                        <div class="group lineFollow">
+                            <label for="">Line Follow：</label>
+                             <button class="btn btn-primary" onclick="action.openLineFollow(this.children[0].value);">
+                                openLineFollow at port
+                                <input type="text" value="2">
+                            </button>
+
+                            <button class="btn btn-primary" onclick="action.stopLineFollow(this.children[0].value);">
+                                stopLineFollow at port
+                                <input type="text" value="2">
+                            </button>
+
+                            <label for=""><b class="sensor-value"></b></label>
+                        </div>
+
+                        <!-- Light sensor -->
+                        <div class="group lightSensor">
+                            <label for="">Light sensor：</label>
+                             <button class="btn btn-primary" onclick="action.openLightSensor(this.children[0].value);">
+                                openLightSensor at port
+                                <input type="text" value="3">
+                            </button>
+
+                            <button class="btn btn-primary" onclick="action.stopLightSensor(this.children[0].value);">
+                                stopLightSensor at port
+                                <input type="text" value="0x0b">
+                            </button>
+
+                            <label for=""><b class="sensor-value"></b></label>
+                        </div>
+
                     </div>
                 </div>
             </div>
