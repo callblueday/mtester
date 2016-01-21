@@ -26,8 +26,8 @@ app.get('/', function (req, res) {
  * 建立http服务器
  */
 var httpServer = http.createServer(app);
-httpServer.listen(3000, function() {
-    console.log('node server start at http://localhost:3000');
+httpServer.listen(3003, function() {
+    console.log('node server start at http://localhost:3003');
 });
 
 

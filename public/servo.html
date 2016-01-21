@@ -17,7 +17,7 @@
         <script src="vendors/socket.io-1.3.7.js"></script>
         <script src="js/sensorium.js"></script>
         <script>
-            var socket = io.connect('127.0.0.1:3000');
+            var socket = io.connect('127.0.0.1:3003');
             var sensorium = new Sensorium(socket);
             var action = sensorium.action();
         </script>
@@ -91,6 +91,12 @@
                             </div>
 
                             <div class="group">
+                                 <button class="btn btn-primary" onclick="mbServo.initSerial();">
+                                    分配ID
+                                </button>
+                            </div>
+
+                            <div class="group">
                                 <button class="btn btn-primary" onclick="mbServo.setAbsolutePos(this.children[0].value,this.children[1].value);">
                                     设置绝对角度
                                     目标位置：<input value="400" type="number">
@@ -104,14 +110,9 @@
                                 </button>
                             </div>
 
-                            <div class="group">
-                                 <button class="btn btn-primary" onclick="ybx.readAngle();">
-                                    角度回读
-                                </button>
-                            </div>
                         </div>
 
-                        <!-- <div class="wrap">
+                        <div class="wrap">
                             <div class="header mbservo">
                                 <h4>优必选<span class="version"></span></h4>
                             </div>
@@ -147,7 +148,7 @@
                                     角度回读
                                 </button>
                             </div>
-                        </div> -->
+                        </div>
 
                     </div>
                 </div>
