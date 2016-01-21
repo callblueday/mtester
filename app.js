@@ -70,6 +70,7 @@ io.sockets.on('connection', function (socket) {
         var data = webClientData.params;
 
 
+        // 监听web页面中设备类型的设定
         if(type == 'deviceType') {
             _deviceType = data;
             console.log(_deviceType);
@@ -149,7 +150,6 @@ io.sockets.on('connection', function (socket) {
         openSerial();
     });
 
-
     // 客户端断开连接
     socket.on('disconnect', function () {
         console.log('DISCONNECTED FROM CLIENT');
@@ -186,11 +186,11 @@ function openSerial(type) {
         serialPort.on('data', function(data) {
             // globalSocketIO.emit('log', data);
 
-            if(_deviceType == 'servo') {
+            if(_deviceType == 'ybx' || _deviceType == 'mservo') {
                 // 舵机相关处理
                 var servoControl = new ServoControl(data, globalSocketIO);
                 servoControl.decodeData(data);
-            } else {
+            } else{
                 // mainboard 接收数据并进行解析
                 control.decodeData(data);
             }

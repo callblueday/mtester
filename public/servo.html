@@ -85,6 +85,17 @@
                     </div>
 
                     <div class="col-xs-6 ops">
+
+                        <div class="group form-inline">
+                            <label for="" style="width: 100px;">选择设备类型</label>
+                            <select class="form-control" style="width: 200px;" id="deviceType">
+                                <option value="board">主板</option>
+                                <option value="ybx">优必选舵机</option>
+                                <option value="mservo">mblock 舵机</option>
+                            </select>
+                            <p id="deviceHelp" class="help-block tip">当前选中的设备类型：<span>board</span></p>
+                        </div>
+
                         <div class="wrap ybx">
                             <div class="header">
                                 <h4>makelbock舵机<span class="version"></span></h4>
@@ -118,6 +129,12 @@
                             </div>
 
                             <div class="group">
+                                 <button class="btn btn-primary" onclick="ybx.setIdNumber(this.children[0].value);">
+                                    设置舵机ID：<input value="0" type="number">
+                                </button>
+                            </div>
+
+                            <div class="group">
                                  <button class="btn btn-primary" onclick="ybx.turnOnLed();">
                                     turnLedOn
                                 </button>
@@ -128,18 +145,20 @@
                             </div>
 
                             <div class="group">
-                                <button class="btn btn-primary" onclick="ybx.move(this.children[0].value,this.children[1].value,this.children[2].value);">
+                                <button class="btn btn-primary" onclick="ybx.move(this.children[0].value,this.children[1].value,this.children[2].value,this.children[3].value);">
                                     转动角度
                                     目标位置：<input value="0" type="number">
                                     duration: <input value="1" type="number">
                                     endDelay:<input value="0" type="number">
+                                    舵机id：<input value="0" type="number">
                                 </button>
                                 <p></p>
-                                <button class="btn btn-primary" onclick="ybx.move(this.children[0].value,this.children[1].value,this.children[2].value);">
+                                <button class="btn btn-primary" onclick="ybx.move(this.children[0].value,this.children[1].value,this.children[2].value,this.children[3].value);">
                                     转动角度
                                     目标位置：<input value="252" type="number">
                                     duration: <input value="1" type="number">
                                     endDelay:<input value="0" type="number">
+                                    舵机id：<input value="0" type="number">
                                 </button>
                             </div>
 

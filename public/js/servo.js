@@ -33,26 +33,52 @@ var ybx = {
     },
 
 
-    move: function(targetAngle, duration, endDelay) {
+    move: function(targetAngle, duration, endDelay, idNumber) {
         var targetAngle = parseInt(targetAngle);
         var duration = parseInt(duration);
         var endDelay = parseInt(endDelay);
-        this.turnAngle(targetAngle, duration, endDelay);
+        var idNumber = parseInt(idNumber);
+        this.turnAngle(targetAngle, duration, endDelay, idNumber);
     },
 
+
+    /**
+     * 设置舵机ID
+     * @param {int} idNumber 待设定的新id
+     */
+    setIdNumber: function(idNumber) {
+        var idNumber = parseInt(idNumber);
+
+        var a = new Array(10);
+        a[0] = this.setting.CODE_WRITE_PREFIX[0];
+        a[1] = this.setting.CODE_WRITE_PREFIX[1];
+        a[2] = 0x00;
+        a[3] = this.setting.MODE_MODIFY_ID;
+        a[4] = 0x00;
+        a[5] = idNumber; // 新id
+        a[6] = 0x00;
+        a[7] = 0x00;
+        a[8] = a[2] + a[3] + a[4] + a[5] + a[6] + a[7];
+        a[9] = this.setting.CODE_SUFFEX;
+        console.log(a);
+        action.sendSerialData(a);
+    },
 
     /**
      * 舵机在指定时间运动到指定角度
      * @param  {number} targetAngle target angle 0~252
      * @param  {number} duration   舵机从现在的角度到目标角度运行所用时间，单位，20ms
      * @param  {number} endDelay   舵机执行这帧指令后所等待时间，等待时间完成后才会处理新的指令，单位，20ms
+     * @param  {number} idNumber   舵机被分配的id, 00 表示广播
      * @return void.
      */
-    turnAngle: function(targetAngle, duration, endDelay) {
+    turnAngle: function(targetAngle, duration, endDelay, idNumber) {
+        idNumber = idNumber ? idNumber : this.setting.ID;
+
         var a = new Array(10);
         a[0] = this.setting.CODE_WRITE_PREFIX[0];
         a[1] = this.setting.CODE_WRITE_PREFIX[1];
-        a[2] = this.setting.ID;
+        a[2] = idNumber;
         a[3] = this.setting.MODE_MOVE;
         a[4] = targetAngle; // 0 - 252
         a[5] = duration; // 0 - 100

@@ -108,13 +108,27 @@ $(function() {
         "E7": 2637,"F7": 2794,"G7": 3136,"A7": 3520,"B7": 3951,"C8": 4186
     };
     (function() {
-        for(var i in toneHzTable) {
-            $("#toneList")[0].options.add(new Option(i, i));
+        if($("#toneList").length) {
+
+            for(var i in toneHzTable) {
+                $("#toneList")[0].options.add(new Option(i, i));
+            }
         }
     })();
     $('#toneList').on('change', function() {
         var hz = toneHzTable[$(this).val()];
         $(this).parent().find('.hz').text(hz);
+    });
+
+    // 主动发送设备类型
+    $('#deviceType').on("change", function() {
+        var type = $(this).val();
+        var data = {
+            type: "deviceType",
+            params: type
+        };
+        socket.emit('fromWebClient', data);
+        $(this).parent().find('#deviceHelp span').text(type);
     });
 });
 
