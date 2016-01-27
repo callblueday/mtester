@@ -512,6 +512,7 @@ control.decodeData = function(data) {
     for (var i = 0; i < bytes.length; i++) {
         this.buffer.push(bytes[i]);
         var length = this.buffer.length;
+
         // 过滤无效数据
         if (length > 1 && this.buffer[length - 2] == this.SETTING.READ_CHUNK_SUFFIX[0] && this.buffer[length - 1] == this.SETTING.READ_CHUNK_SUFFIX[1]) {
             if (this.buffer.length != 10) {
@@ -519,35 +520,38 @@ control.decodeData = function(data) {
             } else {
                 // 以下为有效数据, 获取返回字节流中的索引位
                 var dataIndex = this.buffer[this.SETTING.READ_BYTES_INDEX];
-                var promiseType = control.PromiseList.getType(dataIndex);
-
-                // 返回有效数据
                 this.socket.emit('serialportData-receive', this.buffer.join(' '));
 
-                switch(promiseType) {
-                    case control.PromiseType.LINEFOLLOW:
-                        // 巡线
-                        this.lineFollow_callback();
-                        break;
-                    case control.PromiseType.ULTRASONIC:
-                        // 超声波
-                        this.ultrasonic_callback();
-                        break;
-                    case control.PromiseType.LIGHTSENSOR:
-                        // 光线传感器
-                        this.lightSensor_callback();
-                        break;
-                    case control.PromiseType.TEMPERATURE:
-                        // 温度传感器
-                        this.temperature_callback();
-                        break;
-                    case control.PromiseType.VOLUME:
-                        // 音量传感器
-                        this.volume_callback();
-                        break;
-                    default:
-                        break;
-                }
+
+
+                // var promiseType = control.PromiseList.getType(dataIndex);
+
+                // // 返回有效数据
+
+                // switch(promiseType) {
+                //     case control.PromiseType.LINEFOLLOW:
+                //         // 巡线
+                //         this.lineFollow_callback();
+                //         break;
+                //     case control.PromiseType.ULTRASONIC:
+                //         // 超声波
+                //         this.ultrasonic_callback();
+                //         break;
+                //     case control.PromiseType.LIGHTSENSOR:
+                //         // 光线传感器
+                //         this.lightSensor_callback();
+                //         break;
+                //     case control.PromiseType.TEMPERATURE:
+                //         // 温度传感器
+                //         this.temperature_callback();
+                //         break;
+                //     case control.PromiseType.VOLUME:
+                //         // 音量传感器
+                //         this.volume_callback();
+                //         break;
+                //     default:
+                //         break;
+                // }
                 this.buffer = [];
             }
         }
