@@ -164,12 +164,6 @@ var control = {
     }
 };
 
-
-// 设置主板类型
-control.setDeviceInfo({
-    type: "mcore"
-});
-
 /* step2: 定义发送具体条目的串口指令 */
 extend(control, {
     // 超声波
@@ -327,17 +321,17 @@ extend(control, {
         this.setLedByPosition(0, 0, 0, 0, port);
     },
 
-    playTone: function(toneName) {
+    playTone: function(toneName, beat) {
         if (toneName in this.SETTING.ToneHzTable) {
-            this.playBuzzer(this.SETTING.ToneHzTable[toneName]);
+            this.playBuzzer(this.SETTING.ToneHzTable[toneName], beat);
         }
     },
 
-    playBuzzer: function(toneValue) {
+    playBuzzer: function(toneValue, beat) {
         if(this.deviceInfo.type == "mcore") {
-            this.buildModuleWriteMcoreBuzzer(toneValue);
+            this.buildModuleWriteMcoreBuzzer(toneValue, beat);
         } else {
-            this.buildModuleWriteBuzzer(toneValue);
+            this.buildModuleWriteBuzzer(toneValue, beat);
         }
     },
 
@@ -447,10 +441,12 @@ extend(control, {
 
     /**
      * build Buzzer machine code for mcore board.
-     * @private
+     * @param {int} value tone hz value
+     * @param {int} beat beat value: 500, 250, 125, 1000, 2000, 0, default is 250.
      * 播放音调为C4，四分之一拍：ff 55 07 60 02 22 06 01 fa 00
      */
-    buildModuleWriteMcoreBuzzer: function(value) {
+    buildModuleWriteMcoreBuzzer: function(value, beat) {
+        beat ? beat : 250;
         var a = new Array(10);
         a[0] = this.SETTING.CODE_CHUNK_PREFIX[0];
         a[1] = this.SETTING.CODE_CHUNK_PREFIX[1];
@@ -460,9 +456,8 @@ extend(control, {
         a[5] = 0x22;
         a[6] = value & 0xff;  // short型的第一位
         a[7] = (value >> 8) & 0xff;  // short型的第二位
-        a[8] = 0xfa;
-        a[9] = 0;
-        // console.log('【send-write】: ' + a.join(' '));
+        a[8] = beat & 0xff;         // 节拍第一位
+        a[9] = (beat >> 8) & 0xff;  // 节拍第二位
         control.sendRequest(a);
     },
 
@@ -484,7 +479,6 @@ extend(control, {
         a[8] = (value >> 8) & 0xff;  // short型的第二位
         a[9] = 0xfa;
         a[10] = 0;
-        // console.log('【send-write】: ' + a.join(' '));
         control.sendRequest(a);
     },
 
@@ -501,7 +495,6 @@ extend(control, {
         a[4] = this.SETTING.READMODULE;
         a[5] = type;
         a[6] = port;
-        // console.log('【send-read】: ' + a.join(' '));
         control.sendRequest(a);
     }
 });

@@ -17,7 +17,7 @@
         <script src="vendors/socket.io-1.3.7.js"></script>
         <script src="js/sensorium.js"></script>
         <script>
-            var socket = io.connect('127.0.0.1:3000');
+            var socket = io.connect('127.0.0.1:3003');
             var sensorium = new Sensorium(socket);
             var action = sensorium.action();
         </script>
@@ -91,117 +91,145 @@
                             <h4>当前主板：<span class="version"></span></h4>
                         </div>
 
-                        <!-- run -->
-                        <div class="group">
-                            <label for="">Run：</label>
-                            <button class="btn btn-primary" onclick="action.forward(this.children[0].value);">
-                            run forward <input type="text" value="100">
-                            </button>
-                            <button class="btn btn-primary" onclick="action.backward(this.children[0].value);">
-                            run backward <input type="text" value="100">
-                            </button>
-                            <button class="btn btn-primary" onclick="action.stop();">
-                                stop
-                            </button>
+                        <div class="group form-inline">
+                            <label for="" style="width: 100px;">选择主板类型</label>
+                            <select class="form-control" style="width: 200px;" id="deviceType">
+                                <option value="2560">2560</option>
+                                <option value="mcore">mcore</option>
+                                <option value="orion">orion</option>
+                                <option value="zeropi">zeropi</option>
+                            </select>
                         </div>
 
-                        <!-- turn -->
-                        <div class="group">
-                            <label for="">Turn：</label>
-                            <button class="btn btn-primary" onclick="action.forward(this.children[0].value);">
-                            turn left <input type="text" value="100">
-                            </button>
-                            <button class="btn btn-primary" onclick="action.backward(this.children[0].value);">
-                            turn right <input type="text" value="100">
-                            </button>
-                        </div>
+                        <section class="part">
+                            <!-- run -->
+                            <div class="group">
+                                <label for="">Run：</label>
+                                <button class="btn btn-primary" onclick="action.forward(this.children[0].value);">
+                                run forward <input type="text" value="100">
+                                </button>
+                                <button class="btn btn-primary" onclick="action.backward(this.children[0].value);">
+                                run backward <input type="text" value="100">
+                                </button>
+                                <button class="btn btn-primary" onclick="action.stop();">
+                                    stop
+                                </button>
+                            </div>
 
-                        <!-- motor -->
-                        <div class="group">
-                            <label for="">DC Motor：</label>
-                            <button class="btn btn-primary" onclick="action.setDcMotor(this.children[0].value, this.children[1].value);">
-                            set motor with speed <input type="text" value="100">
-                            at port <input type="text" value="0x0a">
-                            </button>
+                            <!-- turn -->
+                            <div class="group">
+                                <label for="">Turn：</label>
+                                <button class="btn btn-primary" onclick="action.forward(this.children[0].value);">
+                                turn left <input type="text" value="100">
+                                </button>
+                                <button class="btn btn-primary" onclick="action.backward(this.children[0].value);">
+                                turn right <input type="text" value="100">
+                                </button>
+                            </div>
 
-                        </div>
+                            <!-- motor -->
+                            <div class="group">
+                                <label for="">DC Motor：</label>
+                                <button class="btn btn-primary" onclick="action.setDcMotor(this.children[0].value, this.children[1].value);">
+                                set motor with speed <input type="text" value="100">
+                                at port <input type="text" value="0x0a">
+                                </button>
 
-                        <!-- led -->
-                        <div class="group">
-                            <label for="">LED：</label>
-                            <button class="btn btn-primary" onclick="action.turnOnLed();">
-                                turnOnLed
-                            </button>
+                            </div>
 
-                            <button class="btn btn-primary" onclick="action.turnOffLed();">
-                                turnOffLed
-                            </button>
-                        </div>
+                            <!-- led -->
+                            <div class="group">
+                                <label for="">LED：</label>
+                                <button class="btn btn-primary" onclick="action.turnOnLed();">
+                                    turnOnLed
+                                </button>
+
+                                <button class="btn btn-primary" onclick="action.turnOffLed();">
+                                    turnOffLed
+                                </button>
+                            </div>
+
+                            <!-- buzzer -->
+                            <div class="group">
+                                <label for="">Buzzer：</label>
+                                 <button class="btn btn-primary" onclick="action.playTone(this.children[0].value);">
+                                    playTone
+                                    <select name="tone" id="toneList">
+                                    </select>
+                                    <label for="" class="hz"></label>
+                                </button>
+                            </div>
+
+                            <!-- ultrasonic -->
+                            <div class="group ultrasonic">
+                                <label for="">Ultrasonic：</label>
+                                 <button class="btn btn-primary" onclick="action.openUltrasonic(this.children[0].value);">
+                                    openUltrasonic at port
+                                    <input type="text" value="3">
+                                </button>
+
+                                <button class="btn btn-primary" onclick="action.stopUltrasoinic(this.children[0].value);">
+                                    stopUltrasoinic at port
+                                    <input type="text" value="3">
+                                </button>
+
+                                <label for=""><b class="sensor-value"></b></label>
+                            </div>
+
+                            <!-- line follow -->
+                            <div class="group lineFollow">
+                                <label for="">Line Follow：</label>
+                                 <button class="btn btn-primary" onclick="action.openLineFollow(this.children[0].value);">
+                                    openLineFollow at port
+                                    <input type="text" value="2">
+                                </button>
+
+                                <button class="btn btn-primary" onclick="action.stopLineFollow(this.children[0].value);">
+                                    stopLineFollow at port
+                                    <input type="text" value="2">
+                                </button>
+
+                                <label for=""><b class="sensor-value"></b></label>
+                            </div>
+
+                            <!-- Light sensor -->
+                            <div class="group lightSensor">
+                                <label for="">Light sensor：</label>
+                                 <button class="btn btn-primary" onclick="action.openLightSensor(this.children[0].value);">
+                                    openLightSensor at port
+                                    <input type="text" value="3">
+                                </button>
+
+                                <button class="btn btn-primary" onclick="action.stopLightSensor(this.children[0].value);">
+                                    stopLightSensor at port
+                                    <input type="text" value="0x0b">
+                                </button>
+
+                                <label for=""><b class="sensor-value"></b></label>
+                            </div>
+                        </section>
 
                         <!-- buzzer -->
-                        <div class="group">
-                            <label for="">Buzzer：</label>
-                             <button class="btn btn-primary" onclick="action.playTone(this.children[0].value);">
-                                playTone
-                                <select name="tone" id="toneList">
+                        <section class="part form-inline">
+                            <div class="header">
+                                <h4>测试mzero-buzzer</h4>
+                            </div>
+                            <div class="group">
+                                <label for="">选择音量</label>
+                                <select class="form-control" style="width: 200px;" id="beats">
                                 </select>
-                                <label for="" class="hz"></label>
-                            </button>
-                        </div>
-
-                        <!-- ultrasonic -->
-                        <div class="group ultrasonic">
-                            <label for="">Ultrasonic：</label>
-                             <button class="btn btn-primary" onclick="action.openUltrasonic(this.children[0].value);">
-                                openUltrasonic at port
-                                <input type="text" value="3">
-                            </button>
-
-                            <button class="btn btn-primary" onclick="action.stopUltrasoinic(this.children[0].value);">
-                                stopUltrasoinic at port
-                                <input type="text" value="3">
-                            </button>
-
-                            <label for=""><b class="sensor-value"></b></label>
-                        </div>
-
-                        <!-- line follow -->
-                        <div class="group lineFollow">
-                            <label for="">Line Follow：</label>
-                             <button class="btn btn-primary" onclick="action.openLineFollow(this.children[0].value);">
-                                openLineFollow at port
-                                <input type="text" value="2">
-                            </button>
-
-                            <button class="btn btn-primary" onclick="action.stopLineFollow(this.children[0].value);">
-                                stopLineFollow at port
-                                <input type="text" value="2">
-                            </button>
-
-                            <label for=""><b class="sensor-value"></b></label>
-                        </div>
-
-                        <!-- Light sensor -->
-                        <div class="group lightSensor">
-                            <label for="">Light sensor：</label>
-                             <button class="btn btn-primary" onclick="action.openLightSensor(this.children[0].value);">
-                                openLightSensor at port
-                                <input type="text" value="3">
-                            </button>
-
-                            <button class="btn btn-primary" onclick="action.stopLightSensor(this.children[0].value);">
-                                stopLightSensor at port
-                                <input type="text" value="0x0b">
-                            </button>
-
-                            <label for=""><b class="sensor-value"></b></label>
-                        </div>
-
+                            </div>
+                            <div class="group mzero-buzzers"></div>
+                        </section>
                     </div>
                 </div>
             </div>
         </div>
         <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
         <script src="js/client.js"></script>
+
+        <script>
+
+        </script>
     </body>
 </html>

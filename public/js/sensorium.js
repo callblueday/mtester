@@ -181,12 +181,12 @@ Sensorium.prototype.action = function() {
         },
 
         // tone
-        playTone: function(toneName) {
+        playTone: function(toneName, beat) {
             var data = {
                 methodName: 'action.playTone',
-                methodParams: [toneName],
+                methodParams: [toneName, beat],
                 type: 'playTone',
-                params: [toneName]
+                params: [toneName, beat]
             }
             that.sendRequest(data);
         },

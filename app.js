@@ -73,6 +73,13 @@ io.sockets.on('connection', function (socket) {
         // 监听web页面中设备类型的设定
         if(type == 'deviceType') {
             _deviceType = data;
+            control.deviceInfo.type = data.params;
+
+            // 设置主板类型
+            control.setDeviceInfo({
+                type: _deviceType
+            });
+
             console.log(_deviceType);
         }
 
@@ -98,7 +105,8 @@ io.sockets.on('connection', function (socket) {
 
         // play tone
         if(type == 'playTone') {
-            control.playTone(data);
+            var beat = parseInt(data[1]);
+            control.playTone(data[0], beat);
         }
 
         // set motor
