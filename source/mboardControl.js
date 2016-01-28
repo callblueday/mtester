@@ -513,21 +513,20 @@ control.decodeData = function(data) {
         this.buffer.push(bytes[i]);
         var length = this.buffer.length;
 
-        // 过滤无效数据
+        // 过滤无效数据, 对于makeblock体系，协议的结束位是0d 0a
         if (length > 1 && this.buffer[length - 2] == this.SETTING.READ_CHUNK_SUFFIX[0] && this.buffer[length - 1] == this.SETTING.READ_CHUNK_SUFFIX[1]) {
-            if (this.buffer.length != 10) {
+            // if (this.buffer.length != 10) {
+            if (this.buffer.length > 20) {
                 this.buffer = [];
             } else {
-                // 以下为有效数据, 获取返回字节流中的索引位
-                var dataIndex = this.buffer[this.SETTING.READ_BYTES_INDEX];
+                // 返回数据
                 this.socket.emit('serialportData-receive', this.buffer.join(' '));
 
-
-
+                // 以下为有效数据, 获取返回字节流中的索引位
+                var dataIndex = this.buffer[this.SETTING.READ_BYTES_INDEX];
                 // var promiseType = control.PromiseList.getType(dataIndex);
 
-                // // 返回有效数据
-
+                // 返回有效数据
                 // switch(promiseType) {
                 //     case control.PromiseType.LINEFOLLOW:
                 //         // 巡线
@@ -557,6 +556,14 @@ control.decodeData = function(data) {
         }
     }
 };
+
+/**
+ * 定义主板回复数据的接收规则
+ * @return {boolean}.
+ */
+control.dataFilterRule = function() {
+
+}
 
 /**
  * 用来储存“读取数据”block对数据的请求，使用valueWrapper来完成程序变量的临时替代
