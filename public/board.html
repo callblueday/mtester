@@ -61,9 +61,8 @@
                                 <select class="form-control " id="com_num"></select>
                             </div>
                             <p id="helpBlock" class="help-block tip"></p>
-
-
                         </div>
+
                         <div class="msg msg-fun">
                             <div class="title">API>>></div>
                             <div class="msg-content"></div>
@@ -89,10 +88,10 @@
                             <label for="">计算数值：</label>
                             <select class="form-control" data-type="16" id="dataSendType">
                                 <option value="4">4位</option>
-                                <option value="5">5位</option>
                             </select>
-                            <input type="text" class="form-control" id="serialDataInupt" value="ff 55 06 00 02 0a 09 9c ff">
-                            <button class="btn btn-primary" onclick="action.sendSerialData(document.getElementById('serialDataInupt').value, document.getElementById('dataSendType').getAttribute('data-type'))">send</button>
+                            <input type="text" class="form-control" id="calInput" value="0a 09 9c ff">
+                            <button class="btn btn-primary" onclick="action.sendSerialData(document.getElementById('calInput').value, document.getElementById('dataSendType').getAttribute('data-type'))">计算</button>
+                            <label for="" id="calValue">1.2</label>
                         </div>
                     </div>
 

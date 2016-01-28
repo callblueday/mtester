@@ -96,6 +96,10 @@ li {
     width: 330px;
 }
 
+.form-group {
+    margin-top: 10px;
+}
+
 .ops {
     margin-left: 520px;
 }
