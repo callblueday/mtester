@@ -70,7 +70,9 @@ var control = {
         STEPPER: 40,
         LEDMATRIX:   41,
         TIMER:   50,
-        JOYSTICKMOVE:    52,
+        JOYSTICK_MOVE: 52, // 通用摇杆设备
+        COMMON_COMMONCMD: 60, // 针对套件的命令
+        ENCODER_BOARD: 61, // 板载编码电机
 
         /* 发送数据相关 */
         CODE_CHUNK_PREFIX: [255, 85],
@@ -216,6 +218,26 @@ extend(control, {
     },
 
     /**
+     * 设置套件固件的模式
+     * @param {number} device 套件的类别：
+     *       10： starter
+     *       11： auriga
+     * @param {number} modeNumber 模式有4种，如下：
+     *       00： 蓝牙模式
+     *       01： 超声波自动避障
+     *       02： 自平衡
+     *       03： 红外模式"
+     */
+    setMode: function(device, modeNumber) {
+        this.buildModuleWriteShort5(device, modeNumber);
+    },
+
+    // ff 55 04 00 01 00 00
+    getVersion: function() {
+        this.buildModuleRead(0,0,0);
+    },
+
+    /**
      * 设置左右电机速度
      * @param {number} leftSpeed  左电机速度
      * @param {number} rightSpeed 右电机速度
@@ -356,6 +378,20 @@ extend(control, {
         setTimeout(function() {
             MBlockly.Action.stopLineFollow();
         }, 100);
+    },
+
+    // ff 55 05 00 02 3c 11 00
+    buildModuleWriteShort5: function(device, modeNumber) {
+        var a = new Array(8);
+        a[0] = this.SETTING.CODE_CHUNK_PREFIX[0];
+        a[1] = this.SETTING.CODE_CHUNK_PREFIX[1];
+        a[2] = 0x5;
+        a[3] = 0;
+        a[4] = this.SETTING.WRITEMODULE;
+        a[5] = this.SETTING.COMMON_COMMONCMD;
+        a[6] = device;
+        a[7] = modeNumber;
+        control.sendRequest(a);
     },
 
     /**

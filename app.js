@@ -79,8 +79,16 @@ io.sockets.on('connection', function (socket) {
             control.setDeviceInfo({
                 type: _deviceType
             });
-
             console.log(_deviceType);
+        }
+
+        // 设置模式
+        if(type == 'setMode') {
+            control.setMode(data[0], data[1]);
+        }
+
+        if(type == 'getVersion') {
+            control.getVersion();
         }
 
         if(type == 'setSpeed') {

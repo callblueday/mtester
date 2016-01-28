@@ -22,6 +22,39 @@ Sensorium.prototype.action = function() {
         lightTimer: null, // linefollow timer
         turnDegreeSpendTime : null,
 
+        getVersion: function() {
+            var data = {
+                methodName: 'action.getVersion',
+                methodParams: [],
+                type: 'getVersion',
+                params: []
+            }
+            that.sendRequest(data);
+        },
+
+        /**
+         * 设置套件固件的模式
+         * @param {number} device 套件的类别：
+         *       0x10： starter
+         *       0x11： auriga
+         * @param {number} modeNumber 模式有4种，如下：
+         *       00： 蓝牙模式
+         *       01： 超声波自动避障
+         *       02： 自平衡
+         *       03： 红外模式"
+         */
+        setMode: function(modeNumber) {
+            var device = 0x11;
+            var modeNumber = parseInt(modeNumber);
+            var data = {
+                methodName: 'action.setMode',
+                methodParams: [device, modeNumber],
+                type: 'setMode',
+                params: [device, modeNumber]
+            }
+            that.sendRequest(data);
+        },
+
         forward: function(speed) {
             var speed = parseInt(speed);
             var dir = 1;
@@ -251,6 +284,11 @@ Sensorium.prototype.action = function() {
         /****** Todo ******/
         stopAll: function() {
             MBlockly.Control.stopAll();
+        },
+
+        /* 计算数值 */
+        calculate: function() {
+
         }
     };
 };

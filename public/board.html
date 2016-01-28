@@ -84,6 +84,16 @@
                             <input type="text" class="form-control" id="serialDataInupt" value="ff 55 06 00 02 0a 09 9c ff">
                             <button class="btn btn-primary" onclick="action.sendSerialData(document.getElementById('serialDataInupt').value, document.getElementById('dataSendType').getAttribute('data-type'))">send</button>
                         </div>
+
+                        <div class="calculate form-group">
+                            <label for="">计算数值：</label>
+                            <select class="form-control" data-type="16" id="dataSendType">
+                                <option value="4">4位</option>
+                                <option value="5">5位</option>
+                            </select>
+                            <input type="text" class="form-control" id="serialDataInupt" value="ff 55 06 00 02 0a 09 9c ff">
+                            <button class="btn btn-primary" onclick="action.sendSerialData(document.getElementById('serialDataInupt').value, document.getElementById('dataSendType').getAttribute('data-type'))">send</button>
+                        </div>
                     </div>
 
                     <div class="col-xs-7 ops">
@@ -102,6 +112,15 @@
                         </div>
 
                         <section class="part">
+                            <!-- version -->
+                            <div class="group">
+                                <label for="">Version：</label>
+                                <button class="btn btn-primary" onclick="action.getVersion();">
+                                获取版本号
+                                </button>
+                                <label for="" class="version"></label>
+                            </div>
+
                             <!-- run -->
                             <div class="group">
                                 <label for="">Run：</label>
@@ -220,6 +239,18 @@
                                 </select>
                             </div>
                             <div class="group mzero-buzzers"></div>
+                        </section>
+
+                        <section class="part form-inline mode-lisit">
+                            <div class="header">
+                                <h4>切换模式</h4>
+                            </div>
+                            <div class="group">
+                                <button class="btn btn-primary" onclick="action.setMode(0);">切换蓝牙模式</button>
+                                <button class="btn btn-primary" onclick="action.setMode(1);">切换超声波模式</button>
+                                <button class="btn btn-primary" onclick="action.setMode(2);">切换自平衡模式</button>
+                                <button class="btn btn-primary" onclick="action.setMode(3);">切换红外模式</button>
+                            </div>
                         </section>
                     </div>
                 </div>
