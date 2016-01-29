@@ -33,8 +33,16 @@ Sensorium.prototype.action = function() {
         },
 
         getBattery: function() {
-            var str = "ff 55 04 00 01 3c 70";
-            this.sendSerialData(str);
+            var cmd = "ff 55 04 00 01 3c 70";
+            this.sendSerialData(cmd);
+        },
+
+        // 陀螺仪
+        // 01表示X轴，02表示Y轴，03表示Z轴
+        getGyro: function(axis) {
+            axis = axis ? axis : "01";
+            var cmd = "ff 55 05 00 01 06 01 " + axis;
+            this.sendSerialData(cmd);
         },
 
         /**
@@ -181,7 +189,6 @@ Sensorium.prototype.action = function() {
                         type: 'serialData',
                         params: temp
                     }
-                    console.log(temp);
                     that.sendRequest(data);
                 }
             }

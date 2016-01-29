@@ -37,6 +37,7 @@ socket.on('serialportData-receive', function(data) {
         var temp = intStrToHexStr(data.split(" "));
         var str = $('.msg-serial .msg-content').html() + '<span class="data-recieve">' + temp + '</span><br>';
         $('.msg-serial .msg-content').html(str);
+        outputValue(temp);
     }
 });
 
@@ -157,6 +158,14 @@ $(function() {
     });
 });
 
+function outputValue(hexStr) {
+    var hexStrArray = hexStr.split(" ");
+    if(hexStrArray.length >= 10 && hexStrArray[hexStrArray.length - 1] == "0a" && hexStrArray[hexStrArray.length - 2] == "0d") {
+        var a = hexStrArray.slice(hexStrArray.length - 6, hexStrArray.length - 2).join(" ");
+        var value = calculate(a);
+        $('#calValue').text(value);
+    }
+}
 
 // 计算数值
 function calculate(hexStr) {

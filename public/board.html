@@ -121,6 +121,29 @@
                                 <label for="" class="battery"></label>
                             </div>
 
+                            <!-- 陀螺仪 -->
+                            <div class="group">
+                                <label for="">陀螺仪：</label>
+                                <!-- <div class="checkbox" style="width: 100px;">
+                                    <label>
+                                      <input type="checkbox"> 20ms 定时发送
+                                    </label>
+                                </div> -->
+
+                                <button class="btn btn-primary" onclick="action.getGyro('01');">
+                                    获取x轴
+                                    <label for="" class="gyro-x"></label>
+                                </button>
+                                <button class="btn btn-primary" onclick="action.getGyro('02');">
+                                    获取y轴
+                                    <label for="" class="gyro-y"></label>
+                                </button>
+                                <button class="btn btn-primary" onclick="action.getGyro('03');">
+                                    获取z轴
+                                    <label for="" class="gyro-z"></label>
+                                </button>
+                            </div>
+
                             <!-- run -->
                             <div class="group">
                                 <label for="">Run：</label>
