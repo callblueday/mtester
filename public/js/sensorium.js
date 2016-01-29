@@ -32,6 +32,11 @@ Sensorium.prototype.action = function() {
             that.sendRequest(data);
         },
 
+        getBattery: function() {
+            var str = "ff 55 04 00 01 3c 70";
+            this.sendSerialData(str);
+        },
+
         /**
          * 设置套件固件的模式
          * @param {number} device 套件的类别：
@@ -284,11 +289,6 @@ Sensorium.prototype.action = function() {
         /****** Todo ******/
         stopAll: function() {
             MBlockly.Control.stopAll();
-        },
-
-        /* 计算数值 */
-        calculate: function() {
-
         }
     };
 };

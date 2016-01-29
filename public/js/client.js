@@ -20,7 +20,7 @@ socket.on('reportBoardInfo', function(str) {
 
 // 监听
 socket.on('serialportData-send', function(data) {
-    var temp = strToHex(data);
+    var temp = intStrToHexStr(data);
     var str = $('.msg-serial .msg-content').html() + temp + '<br>';
     $('.msg-serial .msg-content').html(str);
 });
@@ -34,7 +34,7 @@ socket.on('log', function(msg) {
 // 监听串口返回的十六进制数据
 socket.on('serialportData-receive', function(data) {
     if(data.length){
-        var temp = strToHex(data.split(" "));
+        var temp = intStrToHexStr(data.split(" "));
         var str = $('.msg-serial .msg-content').html() + '<span class="data-recieve">' + temp + '</span><br>';
         $('.msg-serial .msg-content').html(str);
     }
@@ -158,9 +158,19 @@ $(function() {
 });
 
 
-/* 辅助函数 */
-// 将十进制数组转为16进制
-function strToHex(data) {
+// 计算数值
+function calculate(hexStr) {
+    var intArray = hexStr2IntArray(hexStr);
+    var result = intArray2float(intArray);
+
+    $('#calValue').text(result);
+
+    return result;
+}
+
+
+// 将十进制字符串数组转为16进制
+function intStrToHexStr(data) {
     var temp = [];
     for(var i = 0; i < data.length; i++) {
         if(data[i] != null) {
@@ -172,4 +182,46 @@ function strToHex(data) {
         }
     }
     return temp.join(" ");
+}
+
+// 十六进制字符串转成十进制
+function hexStr2IntArray(str) {
+    var a = str.split(" ");
+    var arr = [];
+    for(var i in a) {
+        var num = parseInt(a[i], 16);
+        arr.push(num);
+    }
+    arr.reverse();
+    console.log(arr);
+    return arr;
+}
+
+ /**
+ * 计算数值: short型字节数据转换成浮点型
+ * @param  {array}tArray 十进制数组
+ * @return {float}    十进制
+ */
+function intArray2float(intArray) {
+    // FIXME: n个byte转成int值
+    var bytesToInt = function(intArray) {
+        var val = 0;
+        for(var i = intArray.length - 1; i >= 0; i--) {
+            val += (intArray[intArray.length - i - 1] << (i * 8) );
+        }
+        return val;
+    };
+    // FIXME: int字节转浮点型
+    var intBitsToFloat = function(num) {
+        /* s 为符号（sign）；e 为指数（exponent）；m 为有效位数（mantissa）*/
+        s = (num >> 31) == 0 ? 1 : -1,
+            e = (num >> 23) & 0xff,
+            m = (e == 0) ?
+            (num & 0x7fffff) << 1 :
+            (num & 0x7fffff) | 0x800000;
+        return s * m * Math.pow(2, e - 150);
+    };
+    var intValue = bytesToInt(intArray);
+    var result = parseFloat(intBitsToFloat(intValue).toFixed(2));
+    return result;
 }
