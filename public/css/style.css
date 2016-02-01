@@ -76,7 +76,8 @@ li {
     position: relative;
 }
 .msg-serial .data-recieve {
-    color: #D85F00;
+    /*color: #D85F00;*/
+    color: #e67e22;
 }
 .msg-content {
     height: 320px;

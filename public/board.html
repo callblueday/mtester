@@ -70,7 +70,7 @@
 
                         <div class="msg msg-serial">
                             <div class="title">串口数据>>></div>
-                            <div class="msg-content"></div>
+                            <div class="msg-content" id="msgContent"></div>
                             <span class="clear-screen">清除数据</span>
                         </div>
 
@@ -188,17 +188,6 @@
 
                                 <button class="btn btn-primary" onclick="action.turnOffLed();">
                                     turnOffLed
-                                </button>
-                            </div>
-
-                            <!-- buzzer -->
-                            <div class="group">
-                                <label for="">Buzzer：</label>
-                                 <button class="btn btn-primary" onclick="action.playTone(this.children[0].value);">
-                                    playTone
-                                    <select name="tone" id="toneList">
-                                    </select>
-                                    <label for="" class="hz"></label>
                                 </button>
                             </div>
 

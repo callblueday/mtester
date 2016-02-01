@@ -38,6 +38,7 @@ socket.on('serialportData-receive', function(data) {
         var str = $('.msg-serial .msg-content').html() + '<span class="data-recieve">' + temp + '</span><br>';
         $('.msg-serial .msg-content').html(str);
         outputValue(temp);
+        toBottom();
     }
 });
 
@@ -65,9 +66,16 @@ socket.on('serial_state', function (data) {
     }
 })
 
-/**-----------
+/**----------------------
  * dom events
- ------------*/
+ -----------------------*/
+
+// 将滚动条始终置于页面底部
+function toBottom() {
+    var scrollOffset = $('#msgContent')[0].scrollHeight - $('#msgContent').height();
+    $('#msgContent').animate({scrollTop: scrollOffset}, 300);
+}
+
 $(function() {
     $('#com_num').on("change", function() {
         $('.serialport .tip').html('<span class="text-muted">串口处于关闭状态</span>');
@@ -158,6 +166,10 @@ $(function() {
     });
 });
 
+
+/**----------------------
+ * util funcs
+ -----------------------*/
 function outputValue(hexStr) {
     var hexStrArray = hexStr.split(" ");
     if(hexStrArray.length >= 10 && hexStrArray[hexStrArray.length - 1] == "0a" && hexStrArray[hexStrArray.length - 2] == "0d") {
