@@ -7,7 +7,7 @@
         <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>MTester</title>
+        <title>MTester-硬件测试</title>
         <!-- Bootstrap core CSS -->
         <link rel="icon" href="images/favicon.ico" />
         <link href="vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -87,99 +87,306 @@
 
                 <!-- ops -->
                 <div class="col-xs-7 ops">
+                    <div class="group form-inline">
+                        <label for="" style="width: 100px;"><b>选择主板类型</b></label>
+                        <select class="form-control" style="width: 200px;" id="deviceType">
+                            <option value="2560">2560</option>
+                            <option value="mcore">mcore</option>
+                            <option value="orion">orion</option>
+                            <option value="zeropi">zeropi</option>
+                        </select>
+                    </div>
+
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                         <!-- 辅助功能 -->
-                        <div class="panel panel-default">
+                        <div class="panel panel-default category">
                             <div class="panel-heading" role="tab" id="headingOne">
                                 <h4 class="panel-title">
-                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <a role="button" data-toggle="collapse"  href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     辅助功能
+                                    <span class="badge"></span>
                                 </a>
                                 </h4>
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    <!-- version -->
+                                    <div class="group">
+                                        <button class="btn btn-primary" onclick="action.getVersion();">
+                                            读取版本号
+                                        </button>
+                                        <label for="" class="version"></label>
+                                    </div>
+
+                                    <div class="group">
+                                        <button class="btn btn-primary" onclick="action.getBattery();">
+                                            读取电量
+                                        </button>
+                                        <label for="" class="battery"></label>
+                                    </div>
+
+                                    <div class="group">
+                                        <button class="btn btn-primary" onclick="action.setMode(0);">切换蓝牙模式</button>
+                                        <button class="btn btn-primary" onclick="action.setMode(1);">切换超声波模式</button>
+                                        <button class="btn btn-primary" onclick="action.setMode(2);">切换自平衡模式</button>
+                                        <button class="btn btn-primary" onclick="action.setMode(3);">切换红外模式</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 运动 -->
-                        <div class="panel panel-default">
+                        <div class="panel panel-default category">
                             <div class="panel-heading" role="tab" id="headingTwo">
                                 <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    运动
-                                </a>
+                                    <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                        运动类
+                                        <span class="badge"></span>
+                                    </a>
                                 </h4>
                             </div>
-                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
                                 <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    <!-- DC motor -->
+                                    <div class="group">
+                                        <label for="">直流电机:</label>
+                                        <button class="btn btn-primary" onclick="action.setDcMotor(this.children[0].value, this.children[1].value);">
+                                        set DC motor with speed <input type="text" value="100">
+                                        at port <input type="text" value="0x0a">
+                                        </button>
+
+                                        <button class="btn btn-primary" onclick="action.stop();">
+                                            stop
+                                        </button>
+                                    </div>
+                                    <div class="group">
+                                        <label for="">步进电机:</label>
+                                        <button class="btn btn-primary" onclick="action.setStepperMotor(this.children[0].value, this.children[1].value);">
+                                        set Stepper motor with speed <input type="text" value="100">
+                                        at port <input type="text" value="0x0a">
+                                        </button>
+                                    </div>
+                                    <div class="group">
+                                        <label for="">编码电机:</label>
+                                        <button class="btn btn-primary" onclick="action.setEncoderMotor(this.children[0].value, this.children[1].value);">
+                                        set Encoder motor with speed <input type="text" value="100">
+                                        at port <input type="text" value="0x0a">
+                                        </button>
+                                    </div>
+                                    <div class="group">
+                                        <label for="">舵机:</label>
+                                        <button class="btn btn-primary" onclick="action.setServoMotor(this.children[0].value, this.children[1].value);">
+                                        set Servo motor with speed <input type="text" value="100">
+                                        at port <input type="text" value="0x0a">
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 传感器 -->
-                        <div class="panel panel-default">
+                        <div class="panel panel-default category">
                             <div class="panel-heading" role="tab" id="headingThree">
                                 <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    传感器
+                                <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    传感器（感知类）
+                                    <span class="badge"></span>
                                 </a>
                                 </h4>
                             </div>
-                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                            <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
                                 <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    <div class="group">
+                                        <label for="">读取温度:</label>
+                                        <button class="btn btn-primary">读取温度传感器</button>
+                                    </div>
+
+                                    <!-- Light sensor -->
+                                    <div class="group lightSensor">
+                                        <label for="">读取光线:</label>
+                                         <button class="btn btn-primary" onclick="action.openLightSensor(this.children[0].value);">
+                                            openLightSensor at port
+                                            <input type="text" value="0x0b">
+                                        </button>
+
+                                        <button class="btn btn-primary" onclick="action.stopLightSensor(this.children[0].value);">
+                                            stopLightSensor at port
+                                            <input type="text" value="0x0b">
+                                        </button>
+                                        <label for=""><b class="sensor-value"></b></label>
+                                    </div>
+
+                                    <!-- line follow -->
+                                    <div class="group lineFollow">
+                                        <label for="">读取巡线:</label>
+                                         <button class="btn btn-primary" onclick="action.openLineFollow(this.children[0].value);">
+                                            openLineFollow at port
+                                            <input type="text" value="2">
+                                        </button>
+
+                                        <button class="btn btn-primary" onclick="action.stopLineFollow(this.children[0].value);">
+                                            stopLineFollow at port
+                                            <input type="text" value="2">
+                                        </button>
+
+                                        <label for=""><b class="sensor-value"></b></label>
+                                    </div>
+
+                                    <!-- ultrasonic -->
+                                    <div class="group ultrasonic">
+                                        <label for="">读取超声波:</label>
+                                         <button class="btn btn-primary" onclick="action.openUltrasonic(this.children[0].value);">
+                                            openUltrasonic at port
+                                            <input type="text" value="3">
+                                        </button>
+
+                                        <button class="btn btn-primary" onclick="action.stopUltrasoinic(this.children[0].value);">
+                                            stopUltrasoinic at port
+                                            <input type="text" value="3">
+                                        </button>
+
+                                        <label for=""><b class="sensor-value"></b></label>
+                                    </div>
+
+                                    <div class="group">
+                                        <label for="">读取音量:</label>
+                                        <button class="btn btn-primary">读取音量传感器</button>
+                                    </div>
+                                    <div class="group">
+                                        <label for="">人体红外传感器:</label>
+                                        <button class="btn btn-primary">读取人体红外传感器</button>
+                                    </div>
+
+                                    <!-- 陀螺仪 -->
+                                    <div class="group">
+                                        <label for="">读取陀螺仪:</label>
+
+                                        <button class="btn btn-primary" onclick="action.getGyro('01');">
+                                            获取x轴
+                                        </button>
+                                        <button class="btn btn-primary" onclick="action.getGyro('02');">
+                                            获取y轴
+                                        </button>
+                                        <button class="btn btn-primary" onclick="action.getGyro('03');">
+                                            获取z轴
+                                        </button>
+                                    </div>
+
+                                    <div class="group">
+                                        <label for="">读取湿度:</label>
+                                        <button class="btn btn-primary">读取湿度传感器</button>
+                                    </div>
+                                    <div class="group">
+                                        <label for="">火焰传感器:</label>
+                                        <button class="btn btn-primary">读取火焰传感器</button>
+                                    </div>
+                                    <div class="group">
+                                        <label for="">气体传感器:</label>
+                                        <button class="btn btn-primary">读取气体传感器</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 提示类 -->
-                        <div class="panel panel-default">
+                        <div class="panel panel-default category">
                             <div class="panel-heading" role="tab" id="headingFour">
                                 <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                     提示类
+                                    <span class="badge"></span>
                                 </a>
                                 </h4>
                             </div>
-                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                            <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
                                 <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    <!-- led -->
+                                    <div class="group">
+                                        <label for="">LED:</label>
+                                        <button class="btn btn-primary" onclick="action.turnOnLed();">
+                                            turnOnLed
+                                        </button>
+
+                                        <button class="btn btn-primary" onclick="action.turnOffLed();">
+                                            turnOffLed
+                                        </button>
+                                    </div>
+
+                                    <!-- buzzer -->
+                                    <div class="group">
+                                        <div class="form-inline">
+                                            <label for="">蜂鸣器:</label>
+                                            <label for="">选择节拍</label>
+                                            <select class="form-control" style="width: 200px;" id="beats">
+                                            </select>
+                                        </div>
+                                        <div class="mzero-buzzers"></div>
+                                    </div>
+
+                                    <div class="group">
+                                        <label for="">数码管:</label>
+                                        <button class="btn btn-primary">数码管</button>
+                                    </div>
+                                    <div class="group">
+                                        <label for="">MP3模块:</label>
+                                        <button class="btn btn-primary">MP3模块</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 控制类 -->
-                        <div class="panel panel-default">
+                        <div class="panel panel-default category">
                             <div class="panel-heading" role="tab" id="headingFive">
                                 <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                    控制类
+                                <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    控制类（向外界输出信号）
+                                    <span class="badge"></span>
                                 </a>
                                 </h4>
                             </div>
-                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                            <div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
                                 <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    <div class="group">
+                                        <button class="btn btn-primary">摇杆</button>
+                                    </div>
+                                    <div class="group">
+                                        <button class="btn btn-primary">设置相机快门</button>
+                                    </div>
+                                    <div class="group">
+                                        <button class="btn btn-primary">限位开关</button>
+                                    </div>
+                                    <div class="group">
+                                        <button class="btn btn-primary">电位器</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 通信类 -->
-                        <div class="panel panel-default">
+                        <div class="panel panel-default category">
                             <div class="panel-heading" role="tab" id="headingFive">
                                 <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                                     通信类
+                                    <span class="badge"></span>
                                 </a>
                                 </h4>
                             </div>
-                            <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                            <div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
                                 <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    <div class="group">
+                                        <button class="btn btn-primary">红外接收器</button>
+                                    </div>
+                                    <div class="group">
+                                        <button class="btn btn-primary">wifi模块</button>
+                                    </div>
+                                    <div class="group">
+                                        <button class="btn btn-primary">2.4G</button>
+                                    </div>
+                                    <div class="group">
+                                        <button class="btn btn-primary">蓝牙</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

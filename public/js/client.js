@@ -153,6 +153,8 @@ $(function() {
             }
         }
 
+        countDevices();
+
     })();
 
     // 主动发送设备类型，默认为2560
@@ -164,6 +166,15 @@ $(function() {
             $('#deviceHelp span').text(type);
         }
     });
+
+    // 统计传感器、硬件设备数量
+    function countDevices() {
+        var groups = $('.category');
+        for(var i = 0; i < groups.length; i++) {
+            var count = $(groups[i]).find('.panel-body .group').length;
+            $(groups[i]).find('.badge').text(count);
+        }
+    }
 });
 
 

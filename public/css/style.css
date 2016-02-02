@@ -130,3 +130,18 @@ li {
     font-size: 16px;
     font-family: 'Menlo', sans-serif;
 }
+
+
+/* panel */
+.panel-title a {
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+}
+.panel-title a > .badge {
+    background: #777!important;
+}
+
+.mzero-buzzers {
+    margin-top: 10px;
+}

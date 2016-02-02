@@ -80,3 +80,8 @@ http://v3.bootcss.com/getting-started/
 - 舵机控制
 
 
+### slot 口
+所有接适配器的都有slot
+
+限位开关
+
