@@ -145,3 +145,15 @@ li {
 .mzero-buzzers {
     margin-top: 10px;
 }
+
+/* protocol */
+#protocol .modal-dialog,
+#protocol .modal-content {
+    width: 1000px;
+    min-height: 500px;
+}
+
+#protocol iframe {
+    width: 100%;
+    min-height: 500px;
+}

@@ -95,6 +95,10 @@
                             <option value="orion">orion</option>
                             <option value="zeropi">zeropi</option>
                         </select>
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#protocol">
+                          通信协议查阅
+                        </button>
+
                     </div>
 
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -396,9 +400,24 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="protocol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Makeblock 硬件通信协议</h4>
+          </div>
+          <div class="modal-body">
+            <iframe src="https://shimo.im/doc/R3xesVC3b7kRNhPJ" frameborder="0"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/client.js"></script>
-    <script>
-    </script>
+    
 </body>
 </html>
