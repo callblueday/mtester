@@ -37,7 +37,7 @@
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav pull-right">
                         <li>
-                            <a href="protocol.html">硬件协议文档</a>
+                            <a href="https://shimo.im/doc/R3xesVC3b7kRNhPJ" target="_blank">硬件协议文档</a>
                         </li>
                         <li>
                             <a href="api.html">api文档</a>
@@ -90,7 +90,7 @@
                     <div class="group form-inline">
                         <label for="" style="width: 100px;"><b>选择主板类型</b></label>
                         <select class="form-control" style="width: 200px;" id="deviceType">
-                            <option value="2560">2560</option>
+                            <option value="2560">auriga</option>
                             <option value="mcore">mcore</option>
                             <option value="orion">orion</option>
                             <option value="zeropi">zeropi</option>
@@ -165,23 +165,29 @@
                                     </div>
                                     <div class="group">
                                         <label for="">步进电机:</label>
-                                        <button class="btn btn-primary" onclick="action.setStepperMotor(this.children[0].value, this.children[1].value);">
-                                        set Stepper motor with speed <input type="text" value="100">
-                                        at port <input type="text" value="0x0a">
+                                        <button class="btn btn-primary" onclick="action.setStepperMotor(this.children[0].value, this.children[1].value, this.children[2].value);">
+                                        set Stepper motor with speed <input type="text" value="3000">
+                                        to distance <input type="text" value="1000">
+                                        at port <input type="text" value="2">
                                         </button>
                                     </div>
                                     <div class="group">
-                                        <label for="">编码电机:</label>
-                                        <button class="btn btn-primary" onclick="action.setEncoderMotor(this.children[0].value, this.children[1].value);">
+                                        <label for="">板载编码电机:</label>
+                                        <button class="btn btn-primary form-inline" onclick="action.setEncoderMotor(this.children[0].value, this.children[2].value);">
                                         set Encoder motor with speed <input type="text" value="100">
-                                        at port <input type="text" value="0x0a">
+                                        at port <input type="text" value="0" disabled="true">
+                                        at slot <select name="" id="" class="form-control">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                </select>
                                         </button>
                                     </div>
                                     <div class="group">
                                         <label for="">舵机:</label>
-                                        <button class="btn btn-primary" onclick="action.setServoMotor(this.children[0].value, this.children[1].value);">
-                                        set Servo motor with speed <input type="text" value="100">
-                                        at port <input type="text" value="0x0a">
+                                        <button class="btn btn-primary" onclick="action.setServoMotor(this.children[0].value, this.children[1].value, this.children[2].value);">
+                                        set Servo motor with angle <input type="text" value="45"> °
+                                        at port <input type="text" value="3">
+                                        at slot <input type="text" value="1">
                                         </button>
                                     </div>
                                 </div>
@@ -410,7 +416,7 @@
             <h4 class="modal-title" id="myModalLabel">Makeblock 硬件通信协议</h4>
           </div>
           <div class="modal-body">
-            <iframe src="https://shimo.im/doc/R3xesVC3b7kRNhPJ" frameborder="0"></iframe>
+            <!-- <iframe src="https://shimo.im/doc/R3xesVC3b7kRNhPJ" frameborder="0"></iframe> -->
           </div>
         </div>
       </div>
@@ -418,6 +424,6 @@
 
     <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/client.js"></script>
-    
+
 </body>
 </html>

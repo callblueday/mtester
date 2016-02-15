@@ -1,17 +1,3 @@
-socket.on('pushToWebClient', function(data) {
-    // var msg;
-    // if(typeof(data.methodParams) == 'string') {
-    //     msg = data.methodName + '(' + data.methodParams + ');';
-
-    // } else {
-    //     msg = data.methodName + '(' + data.methodParams.join(',') + ');';
-    // }
-
-    // var str = $('.msg-fun .msg-content').html() + msg + '<br>';
-    // $('.msg-fun .msg-content').html(str);
-});
-
-
 // 监听主板类型
 socket.on('reportBoardInfo', function(str) {
     $('.version').text(str);
@@ -73,7 +59,7 @@ socket.on('serial_state', function (data) {
 // 将滚动条始终置于页面底部
 function toBottom() {
     var scrollOffset = $('#msgContent')[0].scrollHeight - $('#msgContent').height();
-    $('#msgContent').animate({scrollTop: scrollOffset}, 300);
+    $('#msgContent').animate({scrollTop: scrollOffset}, 0);
 }
 
 $(function() {
@@ -126,7 +112,7 @@ $(function() {
         "E7": 2637,"F7": 2794,"G7": 3136,"A7": 3520,"B7": 3951,"C8": 4186
     };
 
-    var beats = {"Half":500,"Quater":250,"Eighth":125,"Whole":1000,"Double":2000,"Zero":0};
+    var beats = {"Quater":250,"Half":500,"Eighth":125,"Whole":1000,"Double":2000,"Zero":0};
 
     (function() {
         if($("#toneList").length) {

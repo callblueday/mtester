@@ -124,6 +124,10 @@ li {
 .ops .group label {
     font-weight: normal;
 }
+.ops .group button select {
+    width: 50px;
+    margin-left: 5px;
+}
 .sensor-value {
     font-weight: normal;
     color: #2CB76B;
