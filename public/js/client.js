@@ -62,15 +62,38 @@ function toBottom() {
     $('#msgContent').animate({scrollTop: scrollOffset}, 0);
 }
 
+// 显示设备介绍
+function showDeviceIntro() {
+    var data = {
+        "bluetoothModule": "bluetoothModule",
+        "touchSensor": "touchSensor",
+    };
+
+    $("[data-device]").hover(function() {
+        var deviceName = $(this).attr("data-device");
+        if(deviceName) {
+            var imgSrc = "images/device/" + deviceName + ".jpg";
+            $('.pic-show .img-wrap img').attr("src", imgSrc);
+            $('.pic-show').css("left", 0);
+            $('.pic-show .img-title').text(deviceName);
+        }
+    }, function() {
+        $('.pic-show').css("left", "-101%");
+    });
+}
+
 $(function() {
     // 提示框
     $('[data-toggle="tooltip"]').tooltip();
 
+    // port 口改变监听
     $('#com_num').on("change", function() {
         $('.serialport .tip').html('<span class="text-muted">串口处于关闭状态</span>');
         postSerialsInfo();
     });
 
+    // 介绍具体设备
+    showDeviceIntro();
 
     function postSerialsInfo() {
         var com_num = $("#com_num").find("option:selected").val(); //获取串口号
