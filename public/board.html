@@ -130,6 +130,8 @@
                                     </div>
 
                                     <div class="group">
+                                        <label for="">切换模式<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="device 套件的类别：0x10: orion;
+                                        0x11: auriga"></i>：</label>
                                         <button class="btn btn-primary" onclick="action.setMode(0);">切换蓝牙模式</button>
                                         <button class="btn btn-primary" onclick="action.setMode(1);">切换超声波模式</button>
                                         <button class="btn btn-primary" onclick="action.setMode(2);">切换自平衡模式</button>
@@ -153,13 +155,15 @@
                                 <div class="panel-body">
                                     <!-- DC motor -->
                                     <div class="group">
-                                        <label for="">直流电机:</label>
+                                        <label for="">
+                                            直流电机
+                                            <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="mbot port口是9和10，其他是1和2"></i>:</label>
                                         <button class="btn btn-primary" onclick="action.setDcMotor(this.children[0].value, this.children[1].value);">
                                         set DC motor with speed <input type="text" value="100">
-                                        at port <input type="text" value="0x0a">
+                                        at port <input type="text" value="1" class="port">
                                         </button>
 
-                                        <button class="btn btn-primary" onclick="action.stop();">
+                                        <button class="btn btn-primary" onclick="action.stop(this);">
                                             stop
                                         </button>
                                     </div>
@@ -168,26 +172,26 @@
                                         <button class="btn btn-primary" onclick="action.setStepperMotor(this.children[0].value, this.children[1].value, this.children[2].value);">
                                         set Stepper motor with speed <input type="text" value="3000">
                                         to distance <input type="text" value="1000">
-                                        at port <input type="text" value="2">
+                                        at port <input type="text" value="2" class="port">
                                         </button>
                                     </div>
                                     <div class="group">
                                         <label for="">板载编码电机:</label>
                                         <button class="btn btn-primary form-inline" onclick="action.setEncoderMotor(this.children[0].value, this.children[2].value);">
                                         set Encoder motor with speed <input type="text" value="100">
-                                        at port <input type="text" value="0" disabled="true">
-                                        at slot <select name="" id="" class="form-control">
+                                        at port <input type="text" value="0" disabled="true" class="port">
+                                        at slot <select name="" id="" class="form-control" class="slot">
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                 </select>
                                         </button>
                                     </div>
                                     <div class="group">
-                                        <label for="">舵机:</label>
+                                        <label for="">舵机(0-180°):</label>
                                         <button class="btn btn-primary" onclick="action.setServoMotor(this.children[0].value, this.children[1].value, this.children[2].value);">
-                                        set Servo motor with angle <input type="text" value="45"> °
-                                        at port <input type="text" value="3">
-                                        at slot <input type="text" value="1">
+                                        set Servo motor with angle <input type="number" value="45"> °
+                                        at port <input type="text" value="3" class="port">
+                                        at slot <input type="text" value="1" class="slot">
                                         </button>
                                     </div>
                                 </div>
@@ -208,35 +212,38 @@
                                 <div class="panel-body">
                                     <div class="group">
                                         <label for="">读取温度:</label>
-                                        <button class="btn btn-primary">读取温度传感器</button>
+                                        <button class="btn btn-primary" onclick="action.openTemperature(this.children[0].value);">openTemperature at port <input type="text" value="3"></button>
+
+                                        <button class="btn btn-primary" onclick="action.stopTemperature();">stopTemperature</button>
                                     </div>
 
                                     <!-- Light sensor -->
                                     <div class="group lightSensor">
-                                        <label for="">读取光线:</label>
+                                        <label for="">读取光线<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="mzero板载的光线传感器有两个，分别占用port口：11和12"></i>:</label>
                                          <button class="btn btn-primary" onclick="action.openLightSensor(this.children[0].value);">
                                             openLightSensor at port
-                                            <input type="text" value="0x0b">
+                                            <input type="text" value="11">
                                         </button>
 
-                                        <button class="btn btn-primary" onclick="action.stopLightSensor(this.children[0].value);">
-                                            stopLightSensor at port
-                                            <input type="text" value="0x0b">
+                                        <button class="btn btn-primary" onclick="action.stopLightSensor();">
+                                            stopLightSensor
                                         </button>
                                         <label for=""><b class="sensor-value"></b></label>
                                     </div>
 
                                     <!-- line follow -->
                                     <div class="group lineFollow">
-                                        <label for="">读取巡线:</label>
+                                        <label for="">读取巡线<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="巡线的接收值只有四种：BLACK_BLACK:128,
+                                        BLACK_WHITE: 64,
+                                        WHITE_BLACK: 191,
+                                        WHITE_WHITE: 0"></i>:</label>
                                          <button class="btn btn-primary" onclick="action.openLineFollow(this.children[0].value);">
                                             openLineFollow at port
                                             <input type="text" value="2">
                                         </button>
 
-                                        <button class="btn btn-primary" onclick="action.stopLineFollow(this.children[0].value);">
-                                            stopLineFollow at port
-                                            <input type="text" value="2">
+                                        <button class="btn btn-primary" onclick="action.stopLineFollow();">
+                                            stopLineFollow
                                         </button>
 
                                         <label for=""><b class="sensor-value"></b></label>
@@ -250,49 +257,71 @@
                                             <input type="text" value="3">
                                         </button>
 
-                                        <button class="btn btn-primary" onclick="action.stopUltrasoinic(this.children[0].value);">
-                                            stopUltrasoinic at port
-                                            <input type="text" value="3">
+                                        <button class="btn btn-primary" onclick="action.stopUltrasoinic();">
+                                            stopUltrasoinic
                                         </button>
 
                                         <label for=""><b class="sensor-value"></b></label>
                                     </div>
 
                                     <div class="group">
-                                        <label for="">读取音量:</label>
-                                        <button class="btn btn-primary">读取音量传感器</button>
+                                        <label for="">读取音量<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="mzero的板载port口是0x0e"></i>:</label>
+                                        <button class="btn btn-primary" onclick="action.openSound(this.children[0].value);">openSound at port <input type="text" value="7"></button>
+
+                                        <button class="btn btn-primary" onclick="action.stopSound();">stopSound</button>
                                     </div>
+
                                     <div class="group">
                                         <label for="">人体红外传感器:</label>
-                                        <button class="btn btn-primary">读取人体红外传感器</button>
+                                        <button class="btn btn-primary" onclick="action.openInfrared(this.children[0].value);">openInfrared at port <input type="text" value="6"></button>
+
+                                        <button class="btn btn-primary" onclick="action.stopInfrared();">stopInfrared</button>
+                                    </div>
+
+                                    <div class="group">
+                                        <label for="">人体感应开关:</label>
+                                        <button class="btn btn-primary" disabled="true" onclick="">openPir at port <input type="text" value="6"></button>
+
+                                        <button class="btn btn-primary" disabled="true" onclick=";">stopPir</button>
                                     </div>
 
                                     <!-- 陀螺仪 -->
                                     <div class="group">
-                                        <label for="">读取陀螺仪:</label>
+                                        <label for="">读取陀螺仪<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="port口为0表示外置，port口为1表示板载，默认是板载"></i>:</label>
 
-                                        <button class="btn btn-primary" onclick="action.getGyro('01');">
-                                            获取x轴
+                                        <button class="btn btn-primary" onclick="action.getGyro('01',this.children[0].value);">
+                                            x轴 at port <input type="text" value="1">
                                         </button>
-                                        <button class="btn btn-primary" onclick="action.getGyro('02');">
-                                            获取y轴
+                                        <button class="btn btn-primary" onclick="action.getGyro('02',this.children[0].value);">
+                                            y轴 at port <input type="text" value="1">
                                         </button>
-                                        <button class="btn btn-primary" onclick="action.getGyro('03');">
-                                            获取z轴
+                                        <button class="btn btn-primary" onclick="action.getGyro('03',this.children[0].value);">
+                                            z轴 at port <input type="text" value="1">
+                                        </button>
+                                        <button class="btn btn-primary" onclick="action.stopGyro()">
+                                            stop
                                         </button>
                                     </div>
 
                                     <div class="group">
                                         <label for="">读取湿度:</label>
-                                        <button class="btn btn-primary">读取湿度传感器</button>
+                                        <button class="btn btn-primary" onclick="action.openHumidity(this.children[0].value, this.children[1].value);">openHumidity at port <input type="text" value="3">
+                                        at slot <input type="text" value="1"></button>
+
+                                        <button class="btn btn-primary" onclick="action.stopHumidity();">stopHumidity</button>
                                     </div>
                                     <div class="group">
-                                        <label for="">火焰传感器:</label>
-                                        <button class="btn btn-primary">读取火焰传感器</button>
+                                        <label for="">火焰传感器<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="获取温度，单位℃"></i>:</label>
+                                        <button class="btn btn-primary" onclick="action.openFire(this.children[0].value);">openFire at port <input type="text" value="6"></button>
+
+                                        <button class="btn btn-primary" onclick="action.stopFire();">stopFire</button>
                                     </div>
                                     <div class="group">
-                                        <label for="">气体传感器:</label>
-                                        <button class="btn btn-primary">读取气体传感器</button>
+                                        <label for="">气体传感器<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="获取温度，单位℃"></i>:</label>
+
+                                        <button class="btn btn-primary" onclick="action.openGas(this.children[0].value);">openGas at port <input type="text" value="6"></button>
+
+                                        <button class="btn btn-primary" onclick="action.stopGas();">stopGas</button>
                                     </div>
                                 </div>
                             </div>
@@ -312,12 +341,17 @@
                                 <div class="panel-body">
                                     <!-- led -->
                                     <div class="group">
-                                        <label for="">LED:</label>
-                                        <button class="btn btn-primary" onclick="action.turnOnLed();">
-                                            turnOnLed
-                                        </button>
+                                        <label for="">LED<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="板载led灯的port口都为0；index为0表示全部灯，0以外的值表示灯的序号。slot是外接灯带的时候会有，默认值为2"></i>:</label>
+                                        <button class="btn btn-primary" onclick="action.turnOnLed(this.children[0].value, this.children[1].value, this.children[2].value, this.children[3].value, this.children[4].value, this.children[5].value);">
+                                            turnOnLed at port <input type="text" value="3">
+                                            slot <input type="text" value="2">
+                                            index <input type="text" value="0">
+                                            R: <input type="text" value="100">
+                                            G: <input type="text" value="0">
+                                            B: <input type="text" value="0">
+                                        </button> <p></p>
 
-                                        <button class="btn btn-primary" onclick="action.turnOffLed();">
+                                        <button class="btn btn-primary" onclick="action.turnOffLed(this);">
                                             turnOffLed
                                         </button>
                                     </div>
@@ -325,21 +359,26 @@
                                     <!-- buzzer -->
                                     <div class="group">
                                         <div class="form-inline">
-                                            <label for="">蜂鸣器:</label>
+                                            <label for="">蜂鸣器<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="板载蜂鸣器的port口为0a"></i>:</label>
                                             <label for="">选择节拍</label>
-                                            <select class="form-control" style="width: 200px;" id="beats">
+                                            <select class="form-control" style="width: 140px;" id="beats">
                                             </select>
+                                            <label for="">port口</label>
+                                            <input type="text" value="10" class="form-control" id="tonePort">
                                         </div>
                                         <div class="mzero-buzzers"></div>
                                     </div>
 
                                     <div class="group">
                                         <label for="">数码管:</label>
-                                        <button class="btn btn-primary">数码管</button>
+                                        <button class="btn btn-primary" onclick="action.setTube(this.children[0].value, this.children[1].value);">
+                                            setTube at port <input type="text" value="3">
+                                            with number <input type="number" value="10">
+                                        </button>
                                     </div>
                                     <div class="group">
                                         <label for="">MP3模块:</label>
-                                        <button class="btn btn-primary">MP3模块</button>
+                                        <button class="btn btn-primary" disabled="true">MP3模块</button>
                                     </div>
                                 </div>
                             </div>
@@ -358,16 +397,40 @@
                             <div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
                                 <div class="panel-body">
                                     <div class="group">
-                                        <button class="btn btn-primary">摇杆</button>
+                                        <label for="">读取摇杆<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="x轴的范围：486到-490；y轴范围：488到-490"></i>：</label>
+                                        <button class="btn btn-primary" onclick="action.readRocker(this.children[0].value, this.children[1].value);">readRocker
+                                            <select name="" id="">
+                                                <option value="1">x轴</option>
+                                                <option value="2">y轴</option>
+                                            </select>
+                                            at port <input type="text" value="6">
+                                        </button>
+
+                                        <button class="btn btn-primary" onclick="action.stopRocker();">
+                                            stopRocker
+                                        </button>
                                     </div>
                                     <div class="group">
-                                        <button class="btn btn-primary">设置相机快门</button>
+                                        <label for="">相机快门(待测试)<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="action: 00是按下快门，01是松开快门，02是开始对焦，03是停止对焦"></i>：</label>
+                                        <button class="btn btn-primary" onclick="action.setShutter(0);">按下快门 at port <input type="text" value="6"></button>
+                                        <button class="btn btn-primary" onclick="action.setShutter(1);">松开快门 at port <input type="text" value="6"></button>
+                                        <p></p>
+                                        <button class="btn btn-primary" onclick="action.setShutter(2);">开始对焦 at port <input type="text" value="6"></button>
+                                        <button class="btn btn-primary" onclick="action.setShutter(3);">停止对焦 at port <input type="text" value="6"></button>
                                     </div>
                                     <div class="group">
-                                        <button class="btn btn-primary">限位开关</button>
+                                        <label for="">读取限位开关状态<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="限位开关：按下去返回值为1，松开返回值为0"></i>：</label>
+                                        <button class="btn btn-primary" onclick="action.readLimitSwitch(this.children[0].value, this.children[1].value);">readLimitSwitch at port <input type="text" value="6">
+                                            at slot <input type="text" value="1">
+                                        </button>
+
+                                        <button class="btn btn-primary" onclick="action.stopLimitSwitch();">stop limitSwitch</button>
                                     </div>
                                     <div class="group">
-                                        <button class="btn btn-primary">电位器</button>
+                                        <label for="">读取电位器状态<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="电位器："></i>：</label>
+                                        <button class="btn btn-primary" onclick="action.readPotentiometer(this.children[0].value)">readPotentiometer at port <input type="text" value="6"></button>
+
+                                        <button class="btn btn-primary" onclick="action.stopPotentiometer();">stop potentiometer</button>
                                     </div>
                                 </div>
                             </div>
@@ -420,6 +483,26 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Modal intro -->
+    <div class="modal fade" id="intro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="introTitle"</h4>
+          </div>
+          <div class="modal-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- pic box -->
+    <div id="picShow">
+        <img src="" alt="">
     </div>
 
     <script src="vendors/bootstrap/js/bootstrap.min.js"></script>

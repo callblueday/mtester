@@ -110,16 +110,20 @@ li {
     color: #333;
     text-align: center;
     padding: 2px;
-    border: 0;
+    // border: 0;
     margin-left: 5px;
     border-radius: 5px;
     outline: none;
+}
+.ops button input[type="text"],
+.ops button input[type="number"] {
+    border: 0;
 }
 .ops .group {
     margin-bottom: 10px;
 }
 .ops .group label:first-child {
-    width: 80px;
+    width: 95px;
 }
 .ops .group label {
     font-weight: normal;
@@ -133,6 +137,9 @@ li {
     color: #2CB76B;
     font-size: 16px;
     font-family: 'Menlo', sans-serif;
+}
+.ops .group i.glyphicon {
+    color: #337ab7;
 }
 
 

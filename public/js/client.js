@@ -63,6 +63,9 @@ function toBottom() {
 }
 
 $(function() {
+    // 提示框
+    $('[data-toggle="tooltip"]').tooltip();
+
     $('#com_num').on("change", function() {
         $('.serialport .tip').html('<span class="text-muted">串口处于关闭状态</span>');
         postSerialsInfo();
@@ -133,8 +136,9 @@ $(function() {
 
         if($('.mzero-buzzers').length) {
             var beat = "$(\'#beats\').val()";
+            var port = "$(\'#tonePort\').val()";
             for(var i in toneHzTable) {
-                var a = '<button class="btn btn-small" onclick="action.playTone(\'' + i.toUpperCase() + '\', ' + beat + ');">' + i.toUpperCase() + '</button>';
+                var a = '<button class="btn btn-small" onclick="action.playTone(' + port + ', \'' + i.toUpperCase() + '\', ' + beat + ');">' + i.toUpperCase() + '</button>';
                 $('.mzero-buzzers').append($(a));
             }
         }
@@ -165,14 +169,39 @@ $(function() {
 
 
 /**----------------------
- * util funcs
- -----------------------*/
+ * 回复数据数值解析
+ * 从左到右第四位数据：
+ * 1: 单字符(1 byte)
+ * 2： float(4 byte)
+ * 3： short(2 byte)，16个长度
+ * 4： 字符串(length)
+ * 5： double(4 byte)
+ * 6: long(4 byte)
+ *-----------------------*/
+
 function outputValue(hexStr) {
     var hexStrArray = hexStr.split(" ");
-    if(hexStrArray.length >= 10 && hexStrArray[hexStrArray.length - 1] == "0a" && hexStrArray[hexStrArray.length - 2] == "0d") {
-        var a = hexStrArray.slice(hexStrArray.length - 6, hexStrArray.length - 2).join(" ");
-        var value = calculate(a);
-        $('#calValue').text(value);
+    if(hexStrArray[hexStrArray.length - 1] == "0a" && hexStrArray[hexStrArray.length - 2] == "0d") {
+        if(hexStrArray[3] == "03") {
+            // 2byte
+            var a = hexStrArray.slice(hexStrArray.length - 4, hexStrArray.length - 2).join(" ");
+            var value = calculate(a);
+            $('#calValue').text(value);
+        } else if(hexStrArray[3] == "01") {
+            // 1byte
+            var a = hexStrArray.slice(hexStrArray.length - 3, hexStrArray.length - 2).join(" ");
+            var value = calculate(a);
+            $('#calValue').text(value);
+        } else if( hexStrArray[3] == "04") {
+            // 字符串
+            var value = hexStr2IntArray(hexStr).toString();
+            $('#calValue').text(value);
+        } else {
+            // 4byte
+            var a = hexStrArray.slice(hexStrArray.length - 6, hexStrArray.length - 2).join(" ");
+            var value = calculate(a);
+            $('#calValue').text(value);
+        }
     }
 }
 
@@ -242,4 +271,60 @@ function intArray2float(intArray) {
     var intValue = bytesToInt(intArray);
     var result = parseFloat(intBitsToFloat(intValue).toFixed(2));
     return result;
+}
+
+/**
+ * float to bytes
+ * 现将float转成整形，再将整形转成字节表示
+ * @param  {float} float number
+ * @return {bytes}
+ */
+function float32ToBytes(value) {
+    var bytesInt = 0;
+    switch (value) {
+        case Number.POSITIVE_INFINITY: bytesInt = 0x7F800000; break;
+        case Number.NEGATIVE_INFINITY: bytesInt = 0xFF800000; break;
+        case +0.0: bytesInt = 0x40000000; break;
+        case -0.0: bytesInt = 0xC0000000; break;
+        default:
+            if (Number.isNaN(value)) { bytesInt = 0x7FC00000; break; }
+
+            if (value <= -0.0) {
+                bytesInt = 0x80000000;
+                value = -value;
+            }
+
+            var exponent = Math.floor(Math.log(value) / Math.log(2));
+            var significand = ((value / Math.pow(2, exponent)) * 0x00800000) | 0;
+
+            exponent += 127;
+            if (exponent >= 0xFF) {
+                exponent = 0xFF;
+                significand = 0;
+            } else if (exponent < 0) exponent = 0;
+
+            bytesInt = bytesInt | (exponent << 23);
+            bytesInt = bytesInt | (significand & ~(-1 << 23));
+        break;
+    }
+    var bytesArray = int2BytesArray(bytesInt);
+    return bytesArray;
+};
+
+/**
+ * 整形转换成字节数组
+ * @param  {number} value 整形
+ * @return {array}  array数组
+ */
+function int2BytesArray(value) {
+    var bytesArray = [];
+    var b1 = (value & 0xff).toString(16);
+    var b2 = ((value >> 8) & 0xff).toString(16);
+    var b3 = ((value >> 16) & 0xff).toString(16);
+    var b4 = ((value >> 24) & 0xff).toString(16);
+    bytesArray.push(b1);
+    bytesArray.push(b2);
+    bytesArray.push(b3);
+    bytesArray.push(b4);
+    return bytesArray;
 }

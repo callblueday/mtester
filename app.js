@@ -69,7 +69,6 @@ io.sockets.on('connection', function (socket) {
         var type = webClientData.type;
         var data = webClientData.params;
 
-
         // 监听web页面中设备类型的设定
         if(type == 'deviceType') {
             _deviceType = data;
@@ -82,80 +81,9 @@ io.sockets.on('connection', function (socket) {
             console.log(_deviceType);
         }
 
-        // 设置模式
-        if(type == 'setMode') {
-            control.setMode(data[0], data[1]);
-        }
-
-        if(type == 'getVersion') {
-            control.getVersion();
-        }
-
-        if(type == 'setSpeed') {
-            var leftSpeed = parseInt(data[0]);
-            var rightSpeed = parseInt(data[1]);
-            control.setSpeed(leftSpeed, rightSpeed);
-        }
-
-        // set led
-        if(type == 'led') {
-            var r = parseInt(data[0]);
-            var g = parseInt(data[1]);
-            var b = parseInt(data[2]);
-            var position = parseInt(data[3]);
-            control.setLed(r, g, b, position);
-        }
-
         // set serialData
         if(type == 'serialData') {
             control.sendRequest(data);
-        }
-
-        // play tone
-        if(type == 'playTone') {
-            var beat = parseInt(data[1]);
-            control.playTone(data[0], beat);
-        }
-
-        // set motor
-        if(type == 'dcMotor') {
-            control.setDcMotor(data[0], data[1]);
-        }
-
-        // ultrasonic
-        if(type == 'ultrasonic') {
-            var port = parseInt(data[0]);
-            var val = control.getUltrasonicValue(port, function(value) {
-                var data = {
-                    type: 'ultrasonic',
-                    value: value
-                };
-                globalSocketIO.emit('serialportData-receive-data', data);
-            });
-        }
-
-        // line Follow
-        if(type == 'lineFollow') {
-            var port = parseInt(data[0]);
-            var val = control.getLineFollowValue(port, function(value) {
-                var data = {
-                    type: 'lineFollow',
-                    value: value
-                };
-                globalSocketIO.emit('serialportData-receive-data', data);
-            });
-        }
-
-        // light sensor
-        if(type == 'lightSensor') {
-            var port = parseInt(data[0]);
-            var val = control.getLightSensorValue(port, function(value) {
-                var data = {
-                    type: 'lightSensor',
-                    value: value
-                };
-                globalSocketIO.emit('serialportData-receive-data', data);
-            });
         }
     });
 
