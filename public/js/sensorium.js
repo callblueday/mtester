@@ -447,14 +447,24 @@ Sensorium.prototype.action = function() {
         },
 
         // tone： ff 55 08 00 02 22 0a 6e 00 f4 01
-        playTone: function(port, toneName, beat) {
+        playTone: function(port, tone, beat) {
+            var cmd;
+            var boardType = that.deviceInfo.type;
 
-            var cmd = "ff 55 08 00 02 22 "
-                + parseInt(port).toString(16) + " "
-                + (parseInt(toneName) & 0xff).toString(16) + " "
-                + ((parseInt(toneName) >> 8) & 0xff).toString(16) + " "
-                + (parseInt(beat) & 0xff).toString(16) + " "
-                + ((parseInt(beat) >> 8) & 0xff).toString(16);
+            if(boardType == "2560") {
+                cmd = "ff 55 08 00 02 22 "
+                    + parseInt(port).toString(16) + " "
+                    + (parseInt(tone) & 0xff).toString(16) + " "
+                    + ((parseInt(tone) >> 8) & 0xff).toString(16) + " "
+                    + (parseInt(beat) & 0xff).toString(16) + " "
+                    + ((parseInt(beat) >> 8) & 0xff).toString(16);
+            } else {
+                cmd = "ff 55 07 00 02 22 "
+                    + (parseInt(tone) & 0xff).toString(16) + " "
+                    + ((parseInt(tone) >> 8) & 0xff).toString(16) + " "
+                    + (parseInt(beat) & 0xff).toString(16) + " "
+                    + ((parseInt(beat) >> 8) & 0xff).toString(16);
+            }
 
             this.sendSerialData(cmd);
         },
