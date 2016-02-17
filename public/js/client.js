@@ -69,7 +69,19 @@ function showDeviceIntro() {
         "touchSensor": "touchSensor",
     };
 
-    $("[data-device]").hover(function() {
+    // $("[data-device]").hover(function() {
+    //     var deviceName = $(this).attr("data-device");
+    //     if(deviceName) {
+    //         var imgSrc = "images/device/" + deviceName + ".jpg";
+    //         $('.pic-show .img-wrap img').attr("src", imgSrc);
+    //         $('.pic-show').css("left", 0);
+    //         $('.pic-show .img-title').text(deviceName);
+    //     }
+    // }, function() {
+    //     $('.pic-show').css("left", "-101%");
+    // });
+    //
+    $("[data-device]").on("mouseover", function() {
         var deviceName = $(this).attr("data-device");
         if(deviceName) {
             var imgSrc = "images/device/" + deviceName + ".jpg";
@@ -77,7 +89,9 @@ function showDeviceIntro() {
             $('.pic-show').css("left", 0);
             $('.pic-show .img-title').text(deviceName);
         }
-    }, function() {
+    });
+
+    $("[data-device]").on("mouseout", function() {
         $('.pic-show').css("left", "-101%");
     });
 }
