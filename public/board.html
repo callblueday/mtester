@@ -188,7 +188,7 @@
                                         </button>
                                     </div>
                                     <div class="group">
-                                        <label for=""><span data-device="encoderMotor">板载编码电机</span>:</label>
+                                        <label for=""><span data-device="encoderMotor">编码电机</span>:</label>
                                         <button class="btn btn-primary form-inline" onclick="action.setEncoderMotor(this.children[0].value, this.children[2].value);">
                                         set Encoder motor with speed <input type="text" value="100">
                                         at port <input type="text" value="0" disabled="true" class="port">
@@ -198,6 +198,32 @@
                                                 </select>
                                         </button>
                                     </div>
+
+                                    <!-- 读取编码电机值 -->
+                                    <div class="group ultrasonic">
+                                        <label for=""><span>读取编码电机</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="01：位置02：速度;位置单位: 码盘;速度单位: RPM。码盘转圈数： pos /(4*46.67)"></i>:</label>
+                                         <button class="btn btn-primary" onclick="action.readEncoderMotor(this.children[0].value, this.children[1].value, this.children[2].value);">
+                                            readEncoderMotor
+                                            <select name="" id="">
+                                                <option value="1">位置</option>
+                                                <option value="2">速度</option>
+                                            </select>
+                                            at port
+                                            <input type="text" value="0">
+                                            slot
+                                            <select name="" id="">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+                                        </button>
+                                        <p></p>
+                                        <button style="margin-left: 100px;" class="btn btn-primary" onclick="action.stopEncoderMotor();">
+                                            stopEncoderMotor
+                                        </button>
+
+                                        <label for=""><b class="sensor-value"></b></label>
+                                    </div>
+
                                     <div class="group">
                                         <label for=""><span data-device="servoMotor">舵机</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="角度是0到180度"></i>:</label>
                                         <button class="btn btn-primary" onclick="action.setServoMotor(this.children[0].value, this.children[1].value, this.children[2].value);">
@@ -284,17 +310,10 @@
                                     </div>
 
                                     <div class="group">
-                                        <label for=""><span data-device="infraredReceiverDecoder">人体红外传感器</span>:</label>
-                                        <button class="btn btn-primary" onclick="action.openInfrared(this.children[0].value);">openInfrared at port <input type="text" value="6"></button>
+                                        <label for=""><span data-device="pirMotiognSensor">人体感应开关</span>:</label>
+                                        <button class="btn btn-primary" onclick="action.openPir(this.children[0].value);">openPir at port <input type="text" value="6"></button>
 
-                                        <button class="btn btn-primary" onclick="action.stopInfrared();">stopInfrared</button>
-                                    </div>
-
-                                    <div class="group">
-                                        <label for=""><span data-device="pirMotionSensor">人体感应开关</span>:</label>
-                                        <button class="btn btn-primary" disabled="true" onclick="">openPir at port <input type="text" value="6"></button>
-
-                                        <button class="btn btn-primary" disabled="true" onclick=";">stopPir</button>
+                                        <button class="btn btn-primary" onclick="action.stopPir();">stopPir</button>
                                     </div>
 
                                     <!-- 陀螺仪 -->

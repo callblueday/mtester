@@ -157,7 +157,7 @@ Sensorium.prototype.action = function() {
         lightTimer: null, // light timer
         temperatureTimer: null,
         soundTimer: null,
-        infraredTimer: null, // 人体红外
+        pirTimer: null, // 人体红外
         gyroXTimer: null,
         gyroYTimer: null,
         gyroZTimer: null,
@@ -167,6 +167,7 @@ Sensorium.prototype.action = function() {
         rockerTimer: null,
         limitSwitchTimer: null,
         potentiometerTimer: null,
+        encoderTimer: null,
         turnDegreeSpendTime : null,
 
         /**
@@ -234,6 +235,23 @@ Sensorium.prototype.action = function() {
                 + (parseInt(speed) & 0xff).toString(16) + " "
                 + ((parseInt(speed) >> 8) & 0xff).toString(16);
             this.sendSerialData(cmd);
+        },
+
+        // 读取编码电机的值：01表示位置，02表示速度
+        // ff 55 06 00 01 3d 00 01 02
+        readEncoderMotor: function(type, port, slot) {
+            var self = this;
+            var cmd = "ff 55 06 00 01 3d "
+                + parseInt(port).toString(16) + " "
+                + parseInt(slot).toString(16) + " "
+                + parseInt(type).toString(16);
+
+            that.encoderTimer = setInterval(function() {
+                self.sendSerialData(cmd);
+            }, that.timer);
+        },
+        stopEncoderMotor : function() {
+            clearInterval(that.encoderTimer);
         },
 
         // 设置步进电机
@@ -333,17 +351,17 @@ Sensorium.prototype.action = function() {
         },
 
         // 人体红外
-        openInfrared: function(port) {
+        openPir: function(port) {
             var self = this;
             var cmd = "ff 55 04 00 01 0f "
                 + parseInt(port).toString(16);
-            that.infraredTimer = setInterval(function() {
+            that.pirTimer = setInterval(function() {
                 self.sendSerialData(cmd);
             }, that.timer);
         },
 
-        stopInfrared: function() {
-            clearInterval(that.infraredTimer);
+        stopPir: function() {
+            clearInterval(that.pirTimer);
         },
 
         // 陀螺仪: 01表示X轴，02表示Y轴，03表示Z轴
