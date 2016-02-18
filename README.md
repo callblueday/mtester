@@ -6,8 +6,6 @@ all the product in makeblock. The mainboard includes `mcore`,`2560`,`orion`,`zer
 
 # To Start
 
-## all
-
     npm install & npm start
 
 then visit `http:localhost:3003` in your browser.
