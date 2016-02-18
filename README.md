@@ -1,6 +1,6 @@
 # sensorium-tester
 sensorium-tester is a hardware test framework for makeblock. It bases on hardware protocol defined in makeblock，and covers
-all the product in makeblock. The mainboard includes `mcore`,`2560`,`orion`,`zeroPI`.
+all the hardware products. The mainboard includes `mcore`,`2560`,`orion`,`zeroPI`.
 
 ![demo ui](/public/images/demo.png)
 
