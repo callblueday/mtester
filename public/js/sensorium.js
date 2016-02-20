@@ -238,10 +238,11 @@ Sensorium.prototype.action = function() {
             this.sendSerialData(cmd);
         },
 
-        // 设置通用编码电机: ff 55 09 00 02 0c 01 01 64 00 e8 03
+        // 设置通用编码电机: ff 55 09 00 02 0c 08 01 64 00 e8 03
+        // port值为0x08，是系统默认值，该处实际为I²C的值
         setCommonEncoderMotor: function(speed, distance, port, slot) {
-            var cmd = "ff 55 09 00 02 0c "
-                + parseInt(port).toString(16) + " "
+            var cmd = "ff 55 09 00 02 0c 08 "
+                // + parseInt(port).toString(16) + " "
                 + parseInt(slot).toString(16) + " "
                 + (parseInt(speed) & 0xff).toString(16) + " "
                 + ((parseInt(speed) >> 8) & 0xff).toString(16) + " "

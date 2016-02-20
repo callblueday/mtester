@@ -226,11 +226,11 @@
 
                                     <!-- 通用编码电机 -->
                                     <div class="group">
-                                        <label for=""><span data-device="encoderMotor">通用编码电机</span>:</label>
+                                        <label for=""><span data-device="encoderMotor">通用编码电机</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="port值为0x08，是系统默认值，该处实际为I²C的值"></i>:</label>
                                         <button class="btn btn-primary form-inline" onclick="action.setCommonEncoderMotor(this.children[0].value, this.children[1].value, this.children[2].value, this.children[3].value);">
                                         set Encoder motor with speed <input type="text" value="100">
                                         to distance <input type="text" value="1000">
-                                        at port <input type="text" value="1" class="port">
+                                        at port <input type="text" value="8" class="port" disabled="true">
                                         at slot <select name="" id="" class="slot">
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
