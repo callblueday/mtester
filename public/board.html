@@ -188,11 +188,11 @@
                                         </button>
                                     </div>
                                     <div class="group">
-                                        <label for=""><span data-device="encoderMotor">编码电机</span>:</label>
-                                        <button class="btn btn-primary form-inline" onclick="action.setEncoderMotor(this.children[0].value, this.children[2].value);">
+                                        <label for=""><span data-device="encoderMotor">mzero编码电机</span>:</label>
+                                        <button class="btn btn-primary form-inline" onclick="action.setEncoderMotor(this.children[0].value, this.children[1].value, this.children[2].value);">
                                         set Encoder motor with speed <input type="text" value="100">
-                                        at port <input type="text" value="0" disabled="true" class="port">
-                                        at slot <select name="" id="" class="form-control" class="slot">
+                                        at port <input type="text" value="0" class="port">
+                                        at slot <select name="" id="" class="slot">
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                 </select>
@@ -201,7 +201,7 @@
 
                                     <!-- 读取编码电机值 -->
                                     <div class="group ultrasonic">
-                                        <label for=""><span>读取编码电机</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="01：位置02：速度;位置单位: 码盘;速度单位: RPM。码盘转圈数： pos /(4*46.67)"></i>:</label>
+                                        <label for=""><span>读取mzero编码电机</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="01：位置02：速度;位置单位: 码盘;速度单位: RPM。码盘转圈数： pos /(4*46.67)"></i>:</label>
                                          <button class="btn btn-primary" onclick="action.readEncoderMotor(this.children[0].value, this.children[1].value, this.children[2].value);">
                                             readEncoderMotor
                                             <select name="" id="">
@@ -222,6 +222,20 @@
                                         </button>
 
                                         <label for=""><b class="sensor-value"></b></label>
+                                    </div>
+
+                                    <!-- 通用编码电机 -->
+                                    <div class="group">
+                                        <label for=""><span data-device="encoderMotor">通用编码电机</span>:</label>
+                                        <button class="btn btn-primary form-inline" onclick="action.setCommonEncoderMotor(this.children[0].value, this.children[1].value, this.children[2].value, this.children[3].value);">
+                                        set Encoder motor with speed <input type="text" value="100">
+                                        to distance <input type="text" value="1000">
+                                        at port <input type="text" value="1" class="port">
+                                        at slot <select name="" id="" class="slot">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                </select>
+                                        </button>
                                     </div>
 
                                     <div class="group">
@@ -249,7 +263,7 @@
                             <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
                                 <div class="panel-body">
                                     <div class="group">
-                                        <label for=""><span data-device="temperatureAndHumiditySensor">读取温度</span>:</label>
+                                        <label for=""><span data-device="temperatureAndHumiditySensor">读取温度</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="mzero板载的port口是0x0b"></i>:</label>
                                         <button class="btn btn-primary" onclick="action.openTemperature(this.children[0].value);">openTemperature at port <input type="text" value="3"></button>
 
                                         <button class="btn btn-primary" onclick="action.stopTemperature();">stopTemperature</button>
@@ -429,7 +443,7 @@
                                 <div class="panel-body">
                                     <div class="group">
                                         <label for=""><span data-device="joystick">读取摇杆</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="x轴的范围：486到-490；y轴范围：488到-490"></i>：</label>
-                                        <button class="btn btn-primary" onclick="action.readRocker(this.children[0].value, this.children[1].value);">readRocker
+                                        <button class="btn btn-primary" onclick="action.readJoystick(this.children[0].value, this.children[1].value);">readJoyStick
                                             <select name="" id="">
                                                 <option value="1">x轴</option>
                                                 <option value="2">y轴</option>
@@ -437,8 +451,8 @@
                                             at port <input type="text" value="6">
                                         </button>
 
-                                        <button class="btn btn-primary" onclick="action.stopRocker();">
-                                            stopRocker
+                                        <button class="btn btn-primary" onclick="action.stopJoyStick();">
+                                            stopJoyStick
                                         </button>
                                     </div>
                                     <div class="group">

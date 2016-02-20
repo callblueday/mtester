@@ -18,7 +18,8 @@
     "utf8": "^2.1.1"
   },
   "devDependencies": {
-    "cz-conventional-changelog": "^1.1.5"
+    "cz-conventional-changelog": "^1.1.5",
+    "gulp-jsdoc": "^0.1.5"
   },
   "config": {
     "commitizen": {
