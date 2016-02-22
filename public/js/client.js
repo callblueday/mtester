@@ -1,5 +1,7 @@
 // 监听主板类型
 socket.on('reportBoardInfo', function(str) {
+    console.log(str);
+
     $('.version').text(str);
 });
 

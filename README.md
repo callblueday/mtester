@@ -12,7 +12,7 @@ then visit `http:localhost:3003` in your browser.
 
 # Description of files
 
-- **source/mboardControl.js** different hardware protocol.Inclue `mcore`,`2560`,`orion`,`zeroPI` etc.
+- **source/mboardControl.js** different hardware protocol.Inclue `mcore`,`2560`,`orion`,`megaPi` etc.
 - **source/servoControl.js** servo test
 - **app.js** start file
 - **base.js** util functions

@@ -1,7 +1,7 @@
 /*!
  * Sensorium v0.1.0
  * define actions for snesors or motors etc. in makelock
- * it surports 2560, mcore, orion and zeroPi.
+ * it surports 2560, mcore, orion and megaPi.
  * Copyright 2015- Makeblock, Inc.
  * Author Hyman
  * Licensed under the MIT license
@@ -89,8 +89,8 @@ Sensorium = function(socket) {
                 COMMON_LIST: [1, 2, 3, 4, 5, 6, 7, 8],
                 MOTOR: [9,10]
             },
-            "zeroPi": {
-                MOTOR: [9,10]
+            "megaPi": {
+                MOTOR: [1,2,3,4,9,10,11,12]
             }
         },
 
@@ -228,7 +228,7 @@ Sensorium.prototype.action = function() {
             this.sendSerialData(cmd);
         },
 
-        // 设置mzero编码电机
+        // 设置板载编码电机
         setEncoderMotor: function(speed, port, slot) {
             var cmd = "ff 55 07 00 02 3d "
                 + parseInt(port).toString(16) + " "
@@ -237,21 +237,37 @@ Sensorium.prototype.action = function() {
                 + ((parseInt(speed) >> 8) & 0xff).toString(16);
             this.sendSerialData(cmd);
         },
+        stopEncoderMotor: function(element) {
+            var slot = $($(element).parent().find('button')[0]).find('.slot').val();
+            this.setEncoderMotor(0, 0, slot);
+        },
 
         // 设置通用编码电机: ff 55 09 00 02 0c 08 01 64 00 e8 03
-        // port值为0x08，是系统默认值，该处实际为I²C的值
         setCommonEncoderMotor: function(speed, distance, port, slot) {
-            var cmd = "ff 55 09 00 02 0c 08 "
-                // + parseInt(port).toString(16) + " "
-                + parseInt(slot).toString(16) + " "
-                + (parseInt(speed) & 0xff).toString(16) + " "
-                + ((parseInt(speed) >> 8) & 0xff).toString(16) + " "
-                + (parseInt(distance) & 0xff).toString(16) + " "
-                + ((parseInt(distance) >> 8) & 0xff).toString(16);
+            var cmd;
+            if(that.deviceInfo.type == "megaPi") {
+                // 因为是板载，port口为0，共有8个直流电机port口，其中port口1，2，3，4可以复用为编码电机的port口
+                cmd = "ff 55 09 00 02 0c 00 "
+                    + parseInt(slot).toString(16) + " "
+                    + (parseInt(speed) & 0xff).toString(16) + " "
+                    + ((parseInt(speed) >> 8) & 0xff).toString(16) + " "
+                    + (parseInt(distance) & 0xff).toString(16) + " "
+                    + ((parseInt(distance) >> 8) & 0xff).toString(16);
+            } else {
+                // port值为0x08，是系统默认值，该处实际为I²C的值
+                cmd = "ff 55 09 00 02 0c 08 "
+                    // + parseInt(port).toString(16) + " "
+                    + parseInt(slot).toString(16) + " "
+                    + (parseInt(speed) & 0xff).toString(16) + " "
+                    + ((parseInt(speed) >> 8) & 0xff).toString(16) + " "
+                    + (parseInt(distance) & 0xff).toString(16) + " "
+                    + ((parseInt(distance) >> 8) & 0xff).toString(16);
+            }
+
             this.sendSerialData(cmd);
         },
 
-        // 读取mzero编码电机的值：01表示位置，02表示速度
+        // 读取板载编码电机的值：01表示位置，02表示速度
         // ff 55 06 00 01 3d 00 01 02
         readEncoderMotor: function(type, port, slot) {
             var self = this;
@@ -264,7 +280,7 @@ Sensorium.prototype.action = function() {
                 self.sendSerialData(cmd);
             }, that.timer);
         },
-        stopEncoderMotor : function() {
+        stopReadEncoderMotor : function() {
             clearInterval(that.encoderTimer);
         },
 
