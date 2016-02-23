@@ -28,7 +28,7 @@
         - serialport.write()
 
 - []底层协议部分
-    - [√]2560
+    - [√]auriga
     - [√]mcore
     - [√]orion
     - zeroPI

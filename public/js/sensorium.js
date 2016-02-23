@@ -1,7 +1,7 @@
 /*!
  * Sensorium v0.1.0
  * define actions for snesors or motors etc. in makelock
- * it surports 2560, mcore, orion and megaPi.
+ * it surports auriga, mcore, orion and megaPi.
  * Copyright 2015- Makeblock, Inc.
  * Author Hyman
  * Licensed under the MIT license
@@ -68,7 +68,7 @@ Sensorium = function(socket) {
 
         // PORT口
         PORT: {
-            "2560": {
+            "auriga": {
                 // 通用port口列表
                 COMMON_LIST: [6, 7, 8, 9, 10],
                 // 板载传感器port口
@@ -202,7 +202,7 @@ Sensorium.prototype.action = function() {
         setMode: function(modeNumber) {
             var device;
             var boardType = $("#deviceType").val();
-            if(boardType == "2560") {
+            if(boardType == "auriga") {
                 device = 0x11;
             } else {
                 device = 0X10;
@@ -353,12 +353,19 @@ Sensorium.prototype.action = function() {
         },
 
 
-        // 温度
+        // 通用温度: ff 55 05 00 01 02 03 01
         openTemperature: function(port) {
             var self = this;
             var cmd = "ff 55 05 00 01 02 "
                 + parseInt(port).toString(16)
                 + " 01";
+
+            // for auriga 板载: ff 55 04 00 01 1b 0d
+            if(that.deviceInfo.type == "auriga") {
+                var cmd = "ff 55 04 00 01 1b "
+                + parseInt(port).toString(16);
+            }
+
             that.temperatureTimer = setInterval(function() {
                 self.sendSerialData(cmd);
             }, that.timer);
@@ -494,12 +501,12 @@ Sensorium.prototype.action = function() {
             this.sendSerialData(cmd);
         },
 
-        // tone： ff 55 08 00 02 22 0a 6e 00 f4 01
+        // tone： ff 55 08 00 02 22 2d 6e 00 f4 01
         playTone: function(port, tone, beat) {
             var cmd;
             var boardType = that.deviceInfo.type;
 
-            if(boardType == "2560") {
+            if(boardType == "auriga") {
                 cmd = "ff 55 08 00 02 22 "
                     + parseInt(port).toString(16) + " "
                     + (parseInt(tone) & 0xff).toString(16) + " "

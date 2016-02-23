@@ -189,8 +189,8 @@ $(function() {
 
     })();
 
-    // 主动发送设备类型，默认为2560
-    sendDeviceType("2560");
+    // 主动发送设备类型，默认为auriga
+    sendDeviceType("auriga");
     $('#deviceType').on("change", function() {
         var type = $(this).val();
         sendDeviceType(type);

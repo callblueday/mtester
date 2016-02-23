@@ -19,16 +19,16 @@
 
     <h1 class="page-title">Source: sensorium.js</h1>
 
-    
 
 
-    
+
+
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/*!
  * Sensorium v0.1.0
  * define actions for snesors or motors etc. in makelock
- * it surports 2560, mcore, orion and zeroPi.
+ * it surports auriga, mcore, orion and zeroPi.
  * Copyright 2015- Makeblock, Inc.
  * Author Hyman
  * Licensed under the MIT license
@@ -95,7 +95,7 @@ Sensorium = function(socket) {
 
         // PORT口
         PORT: {
-            "2560": {
+            "auriga": {
                 // 通用port口列表
                 COMMON_LIST: [6, 7, 8, 9, 10],
                 // 板载传感器port口
@@ -229,7 +229,7 @@ Sensorium.prototype.action = function() {
         setMode: function(modeNumber) {
             var device;
             var boardType = $("#deviceType").val();
-            if(boardType == "2560") {
+            if(boardType == "auriga") {
                 device = 0x11;
             } else {
                 device = 0X10;
@@ -496,7 +496,7 @@ Sensorium.prototype.action = function() {
             var cmd;
             var boardType = that.deviceInfo.type;
 
-            if(boardType == "2560") {
+            if(boardType == "auriga") {
                 cmd = "ff 55 08 00 02 22 "
                     + parseInt(port).toString(16) + " "
                     + (parseInt(tone) &amp; 0xff).toString(16) + " "

@@ -10,7 +10,7 @@
 - [x]界面实现
 - [x]逻辑通信重构
 - [x]测试语句调试
-- []多主板检测：mcore,orion,auriga(2560),zeroPi
+- []多主板检测：mcore,orion,auriga(auriga),zeroPi
 - []restful API 整理，直接用js doc生成
 - []编译成npm库
 

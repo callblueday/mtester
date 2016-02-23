@@ -161,13 +161,8 @@ li {
 /* protocol */
 #protocol .modal-dialog,
 #protocol .modal-content {
-    width: 1000px;
-    min-height: 500px;
-}
-
-#protocol iframe {
-    width: 100%;
-    min-height: 500px;
+    width: 800px;
+    min-height: 400px;
 }
 
 /* pic show */
@@ -200,4 +195,10 @@ li {
 }
 .pic-show .content .img-title {
     font-size: 20px;
+}
+
+#boards .item img {
+    max-width: 760px;
+    max-height: 550px;
+    margin: 0 auto;
 }

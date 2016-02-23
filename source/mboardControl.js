@@ -86,7 +86,7 @@ var control = {
 
         // PORT口
         PORT: {
-            "2560": {
+            "auriga": {
                 // 通用port口列表
                 COMMON_LIST: [6, 7, 8, 9, 10],
                 // 板载传感器port口
@@ -156,7 +156,7 @@ var control = {
         var type = data.type;
         // var type = "mcore";
         // var type = "orion";
-        // var type = "2560";
+        // var type = "auriga";
         // var type = "zeroPi";
         if(type == "default") {
             type = "mcore";
@@ -262,7 +262,7 @@ extend(control, {
         }
         console.log('【speed】: ' + speed);
 
-        if(this.deviceInfo.type == '2560') {
+        if(this.deviceInfo.type == 'auriga') {
             // 编码电机
             this.buildModuleWriteCodingMotor(port, speed);
         } else {
