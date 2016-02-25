@@ -7,12 +7,12 @@ var jsdoc = require("gulp-jsdoc");
 
 gulp.task('api', function () {
     gulp.src("./public/js/sensorium.js")
-        .pipe(jsdoc('./api'))
+        .pipe(jsdoc('public/api'))
 });
 
 
 // Default task
 gulp.task('default', function() {
-    // gulp.start('api');
+    gulp.start('api');
 });
 

@@ -61,7 +61,7 @@ var ybx = {
         a[8] = a[2] + a[3] + a[4] + a[5] + a[6] + a[7];
         a[9] = this.setting.CODE_SUFFEX;
         console.log(a);
-        action.sendSerialData(a);
+        sensorium.sendSerialData(a);
     },
 
     /**
@@ -87,7 +87,7 @@ var ybx = {
         a[8] = a[2] + a[3] + a[4] + a[5] + a[6] + a[7];
         a[9] = this.setting.CODE_SUFFEX;
         console.log(a);
-        action.sendSerialData(a);
+        sensorium.sendSerialData(a);
     },
 
     turnOnLed: function() {
@@ -103,7 +103,7 @@ var ybx = {
         a[7] = 0;
         a[8] = a[2] + a[3] + a[4] + a[5] + a[6] + a[7];
         a[9] = this.setting.CODE_SUFFEX;
-        action.sendSerialData(a);
+        sensorium.sendSerialData(a);
     },
 
     turnOffLed: function() {
@@ -119,7 +119,7 @@ var ybx = {
         a[7] = 0;
         a[8] = a[2] + a[3] + a[4] + a[5] + a[6] + a[7];
         a[9] = this.setting.CODE_SUFFEX;
-        action.sendSerialData(a);
+        sensorium.sendSerialData(a);
     },
     readAngle: function() {
         var a = new Array(10);
@@ -133,7 +133,7 @@ var ybx = {
         a[7] = 0;
         a[8] = a[2] + a[3] + a[4] + a[5] + a[6] + a[7];
         a[9] = this.setting.CODE_SUFFEX;
-        action.sendSerialData(a);
+        sensorium.sendSerialData(a);
     }
 };
 
@@ -179,7 +179,7 @@ var mbServo = {
         a[3] = 00;
         a[4] = 0x7f;
         a[5] = this.setting.END_SYSEX;
-        action.sendSerialData(a);
+        sensorium.sendSerialData(a);
     },
     // 255 速度 转 400度
     // F0 01 70 11 10 03 00 7f 01 00 f7
@@ -202,7 +202,7 @@ var mbServo = {
         a[8] = speedBytes[1];
         a[9] = speedBytes[2];
         a[10] = this.setting.END_SYSEX;
-        action.sendSerialData(a);
+        sensorium.sendSerialData(a);
     },
 
     setRelativePos: function(angle, speed) {
@@ -221,7 +221,7 @@ var mbServo = {
         a[8] = speedBytes[1];
         a[9] = speedBytes[2];
         a[10] = this.setting.END_SYSEX;
-        action.sendSerialData(a);
+        sensorium.sendSerialData(a);
     },
 
     /**

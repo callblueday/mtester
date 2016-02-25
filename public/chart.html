@@ -20,7 +20,6 @@
         <script>
             var socket = io.connect('127.0.0.1:3003');
             var sensorium = new Sensorium(socket);
-            var action = sensorium.action();
         </script>
         <script src="js/servo.js"></script>
     </head>
@@ -43,7 +42,7 @@
                             <a href="https://shimo.im/doc/R3xesVC3b7kRNhPJ" target="_blank">硬件协议文档</a>
                         </li>
                         <li>
-                            <a href="api.html">api文档</a>
+                            <a href="api/">api文档</a>
                         </li>
                     </ul>
                 </div>
@@ -53,36 +52,6 @@
             <div class="row">
                 <div class="chart-ops">
 
-                    <div class="form-inline">
-                        <!-- 串口相关配置 -->
-                        <h5>串口相关配置</h5>
-                        <div class="input-group">
-                            <select class="form-control " id="com_num"></select>
-                        </div>
-                        <p id="helpBlock" class="help-block tip"></p>
-                    </div>
-
-                     <div class="group btns">
-                             <button class="btn btn-primary" onclick="ybx.turnOnLed();">
-                                turnLedOn
-                            </button>
-
-                            <button class="btn btn-primary" onclick="ybx.turnOffLed();">
-                                turnLedOff
-                            </button>
-
-
-                            <button class="btn btn-primary" onclick="ybx.move(this.children[0].value,this.children[1].value,this.children[2].value);">
-                                转动角度
-                                目标位置：<input type="text" value="60">
-                                startTime: <input type="text" value="0"> s
-                                endTime:<input type="text" value="1"> s
-                            </button>
-
-                             <button class="btn btn-primary" onclick="ybx.readAngle();">
-                                角度回读
-                            </button>
-                        </div>
                 </div>
             </div>
         </div>

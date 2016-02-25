@@ -1,4 +1,31 @@
-/*!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: sensorium.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: sensorium.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*!
  * Sensorium v0.1.0
  * define actions for snesors or motors etc. in makelock
  * it surports auriga, mcore, orion and megaPi.
@@ -9,8 +36,8 @@
 
 
 /**
-* <h4>Hello Sensorium</h4>
-* <p>Sensorium是用于Makeblock硬件交互的Js库</p>
+* &lt;h4>Hello Sensorium&lt;/h4>
+* &lt;p>Sensorium是用于Makeblock硬件交互的Js库&lt;/p>
 * @class Sensorium
 * @version 0.1.0
 * @param {object} socket socket对象
@@ -253,8 +280,8 @@ Sensorium.prototype = {
         var cmd = "ff 55 07 00 02 3d "
             + parseInt(port).toString(16) + " "
             + parseInt(slot).toString(16) + " "
-            + (parseInt(speed) & 0xff).toString(16) + " "
-            + ((parseInt(speed) >> 8) & 0xff).toString(16);
+            + (parseInt(speed) &amp; 0xff).toString(16) + " "
+            + ((parseInt(speed) >> 8) &amp; 0xff).toString(16);
         this.sendSerialData(cmd);
     },
 
@@ -276,19 +303,19 @@ Sensorium.prototype = {
             // 因为是板载，port口为0，共有8个直流电机port口，其中port口1，2，3，4可以复用为编码电机的port口
             cmd = "ff 55 09 00 02 0c 00 "
                 + parseInt(slot).toString(16) + " "
-                + (parseInt(speed) & 0xff).toString(16) + " "
-                + ((parseInt(speed) >> 8) & 0xff).toString(16) + " "
-                + (parseInt(distance) & 0xff).toString(16) + " "
-                + ((parseInt(distance) >> 8) & 0xff).toString(16);
+                + (parseInt(speed) &amp; 0xff).toString(16) + " "
+                + ((parseInt(speed) >> 8) &amp; 0xff).toString(16) + " "
+                + (parseInt(distance) &amp; 0xff).toString(16) + " "
+                + ((parseInt(distance) >> 8) &amp; 0xff).toString(16);
         } else {
             // port值为0x08，是系统默认值，该处实际为I²C的值
             cmd = "ff 55 09 00 02 0c 08 "
                 // + parseInt(port).toString(16) + " "
                 + parseInt(slot).toString(16) + " "
-                + (parseInt(speed) & 0xff).toString(16) + " "
-                + ((parseInt(speed) >> 8) & 0xff).toString(16) + " "
-                + (parseInt(distance) & 0xff).toString(16) + " "
-                + ((parseInt(distance) >> 8) & 0xff).toString(16);
+                + (parseInt(speed) &amp; 0xff).toString(16) + " "
+                + ((parseInt(speed) >> 8) &amp; 0xff).toString(16) + " "
+                + (parseInt(distance) &amp; 0xff).toString(16) + " "
+                + ((parseInt(distance) >> 8) &amp; 0xff).toString(16);
         }
 
         this.sendSerialData(cmd);
@@ -327,10 +354,10 @@ Sensorium.prototype = {
         var cmd = "ff 55 08 00 02 "
             + this.SETTING.STEPPER.toString(16) + " "
             + parseInt(port).toString(16) + " "
-            + (parseInt(speed) & 0xff).toString(16) + " "
-            + ((parseInt(speed) >> 8) & 0xff).toString(16) + " "
-            + (parseInt(distance) & 0xff).toString(16) + " "
-            + ((parseInt(distance) >> 8) & 0xff).toString(16);
+            + (parseInt(speed) &amp; 0xff).toString(16) + " "
+            + ((parseInt(speed) >> 8) &amp; 0xff).toString(16) + " "
+            + (parseInt(distance) &amp; 0xff).toString(16) + " "
+            + ((parseInt(distance) >> 8) &amp; 0xff).toString(16);
         this.sendSerialData(cmd);
     },
 
@@ -589,16 +616,16 @@ Sensorium.prototype = {
         if(boardType == "auriga") {
             cmd = "ff 55 08 00 02 22 "
                 + parseInt(port).toString(16) + " "
-                + (parseInt(tone) & 0xff).toString(16) + " "
-                + ((parseInt(tone) >> 8) & 0xff).toString(16) + " "
-                + (parseInt(beat) & 0xff).toString(16) + " "
-                + ((parseInt(beat) >> 8) & 0xff).toString(16);
+                + (parseInt(tone) &amp; 0xff).toString(16) + " "
+                + ((parseInt(tone) >> 8) &amp; 0xff).toString(16) + " "
+                + (parseInt(beat) &amp; 0xff).toString(16) + " "
+                + ((parseInt(beat) >> 8) &amp; 0xff).toString(16);
         } else {
             cmd = "ff 55 07 00 02 22 "
-                + (parseInt(tone) & 0xff).toString(16) + " "
-                + ((parseInt(tone) >> 8) & 0xff).toString(16) + " "
-                + (parseInt(beat) & 0xff).toString(16) + " "
-                + ((parseInt(beat) >> 8) & 0xff).toString(16);
+                + (parseInt(tone) &amp; 0xff).toString(16) + " "
+                + ((parseInt(tone) >> 8) &amp; 0xff).toString(16) + " "
+                + (parseInt(beat) &amp; 0xff).toString(16) + " "
+                + ((parseInt(beat) >> 8) &amp; 0xff).toString(16);
         }
 
         this.sendSerialData(cmd);
@@ -730,3 +757,26 @@ Sensorium.prototype = {
         this.socket.emit('fromWebClient', cmdStr);
     }
 };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Sensorium.html">Sensorium</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Thu Feb 25 2016 18:28:23 GMT+0800 (HKT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
