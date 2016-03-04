@@ -324,7 +324,7 @@
                                     </div>
 
                                     <div class="group">
-                                        <label for=""><span data-device="pirMotionSensor">人体感应开关</span>:</label>
+                                        <label for=""><span data-device="pirMotionSensor">人体运动感应开关</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="该传感器检测的是运动的状态，检测到运动了就返回1，静止状态是0"></i>:</label>
                                         <button class="btn btn-primary" onclick="sensorium.openPir(this.children[0].value);">openPir at port <input type="number" value="6"></button>
 
                                         <button class="btn btn-primary" onclick="sensorium.stopPir();">stopPir</button>
