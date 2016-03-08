@@ -92,6 +92,30 @@ function showDeviceIntro() {
     });
 }
 
+// 检查主板类型
+function queryBoardType(version) {
+    var boardList = {
+        "01.02.103": "default",
+        "01.01.000": "starter  ",
+        "02.01.000": "kits-music ",
+        "03.01.000": "kits-electronic ",
+        "04.01.000": "kits-ultimate ",
+        "05.01.000": "kits-xy ",
+        "06.01.000": "mbot",
+        "07.01.000": "mDrawbot ",
+        "08.01.000": "kits-3dprinter ",
+        "09.01.000": "auriga",
+        "0A.01.000": "orion",
+        "0B.01.000": "baseboard ",
+        "0C.01.000": "sheild",
+        "0D.01 000": "2560",
+        "10.01.000": "common4to1", // 主板4合一通用版
+        "0e.01.101": "megaPi"
+    };
+
+    return boardList[version];
+}
+
 $(function() {
     // 提示框
     $('[data-toggle="tooltip"]').tooltip();
