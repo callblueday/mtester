@@ -10,11 +10,13 @@ socket.on('serialportData-send', function(data) {
     var temp = intStrToHexStr(data);
     var str = $('.msg-serial .msg-content').html() + temp + '<br>';
     $('.msg-serial .msg-content').html(str);
+    toBottom();
 });
 
 socket.on('log', function(msg) {
     var str = $('.msg-serial .msg-content').html() + msg.toString() + '<br>';
     $('.msg-serial .msg-content').html(str);
+    toBottom();
 });
 
 
