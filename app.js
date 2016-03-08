@@ -34,9 +34,7 @@ httpServer.listen(3003, function() {
 // 定义全局变量，存储socket对象, 和serialPort对象
 var globalSocketIO;
 var serialPort;
-var serialInfo = {
-    comName: '/dev/cu.wchusbserial1480'
-};
+var serialInfo = {}; // comName: '/dev/cu.wchusbserial1480'
 var _deviceType = "board"; // 设备类型
 
 /**
@@ -49,17 +47,8 @@ io.sockets.on('connection', function (socket) {
     control.socket = globalSocketIO;
     console.log('与客户端的命令连接通道已经建立');
 
-    /* 输出串口列表 */
-    SerialPort.list(function (err, ports) {
-        for(var i = 0; i < ports.length; i++) {
-            console.log(ports[i].comName);
-            serials_to_web(ports[i].comName);
-        }
-    });
-
-    // 打开串口
-    openSerial();
-
+    // 输出串口列表
+    showPortList();
 
     // 从客户端接收数据
     socket.on('fromWebClient', function (webClientData) {
@@ -85,13 +74,27 @@ io.sockets.on('connection', function (socket) {
         if(type == 'serialData') {
             control.sendRequest(data);
         }
+
+        // 重新获取port口列表
+        if(type == 'refreshPortList') {
+            showPortList();
+        }
     });
 
     // 监听web页面中串口配置信息的更改
     socket.on('open_serial', function(data) {
         serialInfo = data;
-        globalSocketIO.emit('serial_state', "close");
-        openSerial();
+
+        if(serialPort && serialPort.isOpen()) {
+            // 关闭port口
+            closeSerial();
+            globalSocketIO.emit('serial_state', "close");
+        }
+
+        // 重新打开
+        if(serialInfo.comName != 0) {
+            openSerial();
+        }
     });
 
     // 客户端断开连接
@@ -107,7 +110,21 @@ io.sockets.on('connection', function (socket) {
  */
 
 /**
- * 创建串口
+ * 输出串口列表
+ */
+function showPortList() {
+    SerialPort.list(function (err, ports) {
+        var portArray = [];
+        for(var i = 0; i < ports.length; i++) {
+            // console.log(ports[i].comName);
+            portArray.push(ports[i].comName);
+        }
+        serials_to_web(portArray);
+    });
+}
+
+/**
+ * 打开串口
  */
 function openSerial(type) {
     var comName = serialInfo.comName;
@@ -141,6 +158,14 @@ function openSerial(type) {
         });
       }
     });
+}
+
+/**
+ * 关闭串口
+ */
+function closeSerial() {
+    serialPort.close();
+    console.log('串口已经关闭...')
 }
 
 // 发送串口号

@@ -52,6 +52,22 @@ li {
     margin-right: 10px;
 }
 
+#refreshPort {
+    height: 34px;
+    display: inline-block;
+    cursor: pointer;
+    width: 34px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 34px;
+    transition: all .3s ease;
+    margin-left: -3px;
+}
+#refreshPort.active {
+    transform: rotateZ(180deg);
+    color: #337ab7;
+}
+
 .serialport .tip {
     color: #666;
     margin-left: 10px;

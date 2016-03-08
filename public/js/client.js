@@ -1,7 +1,6 @@
 // 监听主板类型
 socket.on('reportBoardInfo', function(str) {
     console.log(str);
-
     $('.version').text(str);
 });
 
@@ -40,8 +39,13 @@ socket.on('serialportData-receive-data', function(data) {
 
 
 // 监听串口相关信息
-socket.on('serials_to_web', function (data) {
-    document.getElementById("com_num").options.add(new Option(data, data));
+socket.on('serials_to_web', function (portArray) {
+    var ele = document.getElementById("com_num");
+    ele.length=0;
+    ele.options.add(new Option('--选择串口--', 0));
+    for(var i in portArray) {
+        ele.options.add(new Option(portArray[i], portArray[i]));
+    }
 });
 
 socket.on('serial_state', function (data) {
@@ -71,18 +75,6 @@ function showDeviceIntro() {
         "touchSensor": "touchSensor",
     };
 
-    // $("[data-device]").hover(function() {
-    //     var deviceName = $(this).attr("data-device");
-    //     if(deviceName) {
-    //         var imgSrc = "images/device/" + deviceName + ".jpg";
-    //         $('.pic-show .img-wrap img').attr("src", imgSrc);
-    //         $('.pic-show').css("left", 0);
-    //         $('.pic-show .img-title').text(deviceName);
-    //     }
-    // }, function() {
-    //     $('.pic-show').css("left", "-101%");
-    // });
-    //
     $("[data-device]").on("mouseover", function() {
         var deviceName = $(this).attr("data-device");
         if(deviceName) {
@@ -102,14 +94,34 @@ $(function() {
     // 提示框
     $('[data-toggle="tooltip"]').tooltip();
 
-    // port 口改变监听
+    // 介绍具体设备
+    showDeviceIntro();
+
+    // port口改变监听
     $('#com_num').on("change", function() {
         $('.serialport .tip').html('<span class="text-muted">串口处于关闭状态</span>');
         postSerialsInfo();
     });
 
-    // 介绍具体设备
-    showDeviceIntro();
+    // 刷新port口列表
+    $('#refreshPort').on('click', function() {
+        var that = this;
+        socket.emit('fromWebClient', {type: "refreshPortList"});
+        $(this).addClass('active');
+        setTimeout(function() {
+            $(that).removeClass('active');
+        }, 500)
+    });
+
+
+    // 开启自动监听新接入的port口设备
+    // TOFIX: 当连接上了port口后，也会重复刷新port口选择列表，暂不启用
+    function autoListenPortList() {
+        var timer = setInterval(function() {
+            socket.emit('fromWebClient', {type: "refreshPortList"});
+        }, 1000);
+    }
+
 
     function postSerialsInfo() {
         var com_num = $("#com_num").find("option:selected").val(); //获取串口号

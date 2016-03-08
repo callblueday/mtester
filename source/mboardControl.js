@@ -842,7 +842,11 @@ extend(control, {
  */
 control.sendRequest = function(data) {
     this.socket.emit('serialportData-send', data);
-    this.serialPort.write(data);
+    if(this.serialPort.isOpen()) {
+        this.serialPort.write(data);
+    } else {
+        console.log('串口未开启');
+    }
 }
 
 
