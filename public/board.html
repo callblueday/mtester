@@ -153,6 +153,63 @@
                             </div>
                         </div>
 
+                        <!-- 提示类 -->
+                        <div class="panel panel-default category">
+                            <div class="panel-heading" role="tab" id="headingFour">
+                                <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    提示类
+                                    <span class="badge"></span>
+                                </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+                                <div class="panel-body">
+                                    <!-- buzzer -->
+                                    <div class="group">
+                                        <div class="form-inline">
+                                            <label for="">蜂鸣器<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="板载蜂鸣器的port口为0x2d"></i>:</label>
+                                            <label for="">选择节拍</label>
+                                            <select class="form-control" style="width: 140px;" id="beats">
+                                            </select>
+                                            <label for="">port口</label>
+                                            <input type="number" value="45" class="form-control" id="tonePort">
+                                        </div>
+                                        <div class="mzero-buzzers"></div>
+                                    </div>
+
+                                    <!-- led -->
+                                    <div class="group">
+                                        <label for=""><span data-device="rgbLed">LED</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="板载led灯的port口都为0；index为0表示全部灯，0以外的值表示灯的序号。slot是外接灯带的时候会有，默认值为2"></i>:</label>
+                                        <button class="btn btn-primary" onclick="sensorium.turnOnLed(this.children[0].value, this.children[1].value, this.children[2].value, this.children[3].value, this.children[4].value, this.children[5].value);">
+                                            turnOnLed at port <input type="number" value="3">
+                                            slot <input type="number" value="2">
+                                            index <input type="number" value="0">
+                                            R: <input type="number" value="100">
+                                            G: <input type="number" value="0">
+                                            B: <input type="number" value="0">
+                                        </button> <p></p>
+
+                                        <button class="btn btn-primary" onclick="sensorium.turnOffLed(this);">
+                                            turnOffLed
+                                        </button>
+                                    </div>
+
+                                    <div class="group">
+                                        <label for=""><span data-device="serialDisplay">数码管</span>:</label>
+                                        <button class="btn btn-primary" onclick="sensorium.setTube(this.children[0].value, this.children[1].value);">
+                                            setTube at port <input type="number" value="3">
+                                            with number <input type="number" value="10">
+                                        </button>
+                                    </div>
+                                    <div class="group">
+                                        <label for="">MP3模块:</label>
+                                        <button class="btn btn-primary" disabled="true">MP3模块</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- 运动 -->
                         <div class="panel panel-default category">
                             <div class="panel-heading" role="tab" id="headingTwo">
@@ -263,7 +320,7 @@
                             <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
                                 <div class="panel-body">
                                     <div class="group">
-                                        <label for=""><span data-device="temperatureAndHumiditySensor">读取温度</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="mzero板载的port口是13"></i>:</label>
+                                        <label for=""><span data-device="temperature">读取温度</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="mzero板载的port口是13"></i>:</label>
                                         <button class="btn btn-primary" onclick="sensorium.openTemperature(this.children[0].value);">openTemperature at port <input type="number" value="3"></button>
 
                                         <button class="btn btn-primary" onclick="sensorium.stopTemperature();">stopTemperature</button>
@@ -367,63 +424,6 @@
                                         <button class="btn btn-primary" onclick="sensorium.openGas(this.children[0].value);">openGas at port <input type="number" value="6"></button>
 
                                         <button class="btn btn-primary" onclick="sensorium.stopGas();">stopGas</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 提示类 -->
-                        <div class="panel panel-default category">
-                            <div class="panel-heading" role="tab" id="headingFour">
-                                <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                    提示类
-                                    <span class="badge"></span>
-                                </a>
-                                </h4>
-                            </div>
-                            <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
-                                <div class="panel-body">
-                                    <!-- led -->
-                                    <div class="group">
-                                        <label for=""><span data-device="rgbLed">LED</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="板载led灯的port口都为0；index为0表示全部灯，0以外的值表示灯的序号。slot是外接灯带的时候会有，默认值为2"></i>:</label>
-                                        <button class="btn btn-primary" onclick="sensorium.turnOnLed(this.children[0].value, this.children[1].value, this.children[2].value, this.children[3].value, this.children[4].value, this.children[5].value);">
-                                            turnOnLed at port <input type="number" value="3">
-                                            slot <input type="number" value="2">
-                                            index <input type="number" value="0">
-                                            R: <input type="number" value="100">
-                                            G: <input type="number" value="0">
-                                            B: <input type="number" value="0">
-                                        </button> <p></p>
-
-                                        <button class="btn btn-primary" onclick="sensorium.turnOffLed(this);">
-                                            turnOffLed
-                                        </button>
-                                    </div>
-
-                                    <!-- buzzer -->
-                                    <div class="group">
-                                        <div class="form-inline">
-                                            <label for="">蜂鸣器<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="板载蜂鸣器的port口为0x2d"></i>:</label>
-                                            <label for="">选择节拍</label>
-                                            <select class="form-control" style="width: 140px;" id="beats">
-                                            </select>
-                                            <label for="">port口</label>
-                                            <input type="number" value="45" class="form-control" id="tonePort">
-                                        </div>
-                                        <div class="mzero-buzzers"></div>
-                                    </div>
-
-                                    <div class="group">
-                                        <label for=""><span data-device="serialDisplay">数码管</span>:</label>
-                                        <button class="btn btn-primary" onclick="sensorium.setTube(this.children[0].value, this.children[1].value);">
-                                            setTube at port <input type="number" value="3">
-                                            with number <input type="number" value="10">
-                                        </button>
-                                    </div>
-                                    <div class="group">
-                                        <label for="">MP3模块:</label>
-                                        <button class="btn btn-primary" disabled="true">MP3模块</button>
                                     </div>
                                 </div>
                             </div>

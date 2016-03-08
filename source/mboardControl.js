@@ -560,33 +560,6 @@ control.decodeData = function(data) {
 
                 // 以下为有效数据, 获取返回字节流中的索引位
                 var dataIndex = this.buffer[this.SETTING.READ_BYTES_INDEX];
-                // var promiseType = control.PromiseList.getType(dataIndex);
-
-                // 返回有效数据
-                // switch(promiseType) {
-                //     case control.PromiseType.LINEFOLLOW:
-                //         // 巡线
-                //         this.lineFollow_callback();
-                //         break;
-                //     case control.PromiseType.ULTRASONIC:
-                //         // 超声波
-                //         this.ultrasonic_callback();
-                //         break;
-                //     case control.PromiseType.LIGHTSENSOR:
-                //         // 光线传感器
-                //         this.lightSensor_callback();
-                //         break;
-                //     case control.PromiseType.TEMPERATURE:
-                //         // 温度传感器
-                //         this.temperature_callback();
-                //         break;
-                //     case control.PromiseType.VOLUME:
-                //         // 音量传感器
-                //         this.volume_callback();
-                //         break;
-                //     default:
-                //         break;
-                // }
                 this.buffer = [];
             }
         }
