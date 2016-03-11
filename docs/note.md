@@ -87,3 +87,9 @@ http://v3.bootcss.com/getting-started/
 
 
 # jsdoc 的语法
+
+
+# nodejs 中的 buffer
+是nodejs中用来处理buffer的
+
+https://nodejs.org/dist/latest-v5.x/docs/api/buffer.html

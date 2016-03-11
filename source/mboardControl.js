@@ -538,12 +538,21 @@ extend(control, {
 
 // TODO: 实现接收的消息队列
 control.decodeData = function(data) {
-    var bytes = data;
+    var bytes = data;  // nodejs
 
     // 报告主板信息
     if(bytes.toString().indexOf("Version") != -1) {
         this.socket.emit('reportBoardInfo', bytes.toString());
+    } else {
+        // 读取到了字符串
+        if(bytes[3] == "4") {
+            var endIndex = 5 + parseInt(bytes[4]);
+            var version = bytes.toString('utf8', 5, endIndex);
+            this.socket.emit('reportBoardInfo', version);
+        }
     }
+
+    console.log(bytes);
 
     for (var i = 0; i < bytes.length; i++) {
         this.buffer.push(bytes[i]);

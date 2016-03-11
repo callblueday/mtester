@@ -218,3 +218,6 @@ li {
     max-height: 550px;
     margin: 0 auto;
 }
+.version {
+    margin-left: 5px;
+}

@@ -213,7 +213,8 @@ Sensorium.prototype = {
      *       00： 蓝牙模式
      *       01： 超声波自动避障
      *       02： 自平衡
-     *       03： 红外模式"
+     *       03： 红外模式
+     *       03： 巡线模式
      */
     setMode: function(modeNumber) {
         var device;
