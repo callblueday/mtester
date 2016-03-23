@@ -39,7 +39,7 @@
                             <a href="https://shimo.im/doc/R3xesVC3b7kRNhPJ" target="_blank">硬件协议文档</a>
                         </li>
                         <li>
-                            <a href="api/">api文档</a>
+                            <a href="api/Sensorium.html" target="_blank">api文档</a>
                         </li>
                     </ul>
                 </div>
@@ -54,9 +54,9 @@
                             <h5>串口相关配置</h5>
                             <div class="input-group">
                                 <span class="input-group-addon">串口号</span>
-                                <select class="form-control " id="com_num"></select>
-                                <i class="glyphicon glyphicon-refresh" id="refreshPort"></i>
-                            </div>
+                            <select class="form-control " id="com_num"></select>
+                            <i class="glyphicon glyphicon-refresh" id="refreshPort"></i>
+                        </div>
                         <p id="helpBlock" class="help-block tip"></p>
                     </div>
                     <div class="msg msg-fun">
@@ -83,7 +83,6 @@
                         <button class="btn btn-primary" onclick="calculate(document.getElementById('calInput').value);">计算</button>
                         <p id="calValue" class="help-block tip"></p>
                     </div>
-
                     <div class="pic-show">
                         <div class="head"></div>
                         <div class="content">
@@ -94,7 +93,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- ops -->
                 <div class="col-xs-7 ops">
                     <div class="group form-inline">
@@ -106,11 +104,9 @@
                             <option value="megaPi">megaPi</option>
                         </select>
                         <button type="button" class="btn btn-link" data-toggle="modal" data-target="#protocol">
-                            查看主板
+                        查看主板
                         </button>
-
                     </div>
-
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                         <!-- 辅助功能 -->
                         <div class="panel panel-default category">
@@ -127,19 +123,17 @@
                                     <!-- version -->
                                     <div class="group">
                                         <button class="btn btn-primary" onclick="sensorium.getVersion();">
-                                            读取版本号
+                                        读取版本号
                                         </button>
                                         <label for="" class="version"></label>
                                     </div>
-
                                     <div class="group">
                                         <button class="btn btn-primary" onclick="sensorium.getBattery();">
-                                            读取电量
+                                        读取电量
                                         </button>
                                         <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="电量低于7.9v时提醒充电，正常是8.4v"></i>
                                         <label for="" class="battery"></label>
                                     </div>
-
                                     <div class="group">
                                         <label for="">切换模式<i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="device 套件的类别：0x10: orion;
                                         0x11: auriga"></i>：</label>
@@ -152,7 +146,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- 提示类 -->
                         <div class="panel panel-default category">
                             <div class="panel-heading" role="tab" id="headingFour">
@@ -177,29 +170,26 @@
                                         </div>
                                         <div class="mzero-buzzers"></div>
                                     </div>
-
                                     <!-- led -->
                                     <div class="group">
                                         <label for=""><span data-device="rgbLed">LED</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="板载led灯的port口都为0；index为0表示全部灯，0以外的值表示灯的序号。slot是外接灯带的时候会有，默认值为2"></i>:</label>
                                         <button class="btn btn-primary" onclick="sensorium.turnOnLed(this.children[0].value, this.children[1].value, this.children[2].value, this.children[3].value, this.children[4].value, this.children[5].value);">
-                                            turnOnLed at port <input type="number" value="3">
-                                            slot <input type="number" value="2">
-                                            index <input type="number" value="0">
-                                            R: <input type="number" value="100">
-                                            G: <input type="number" value="0">
-                                            B: <input type="number" value="0">
+                                        turnOnLed at port <input type="number" value="3">
+                                        slot <input type="number" value="2">
+                                        index <input type="number" value="0">
+                                        R: <input type="number" value="100">
+                                        G: <input type="number" value="0">
+                                        B: <input type="number" value="0">
                                         </button> <p></p>
-
                                         <button class="btn btn-primary" onclick="sensorium.turnOffLed(this);">
-                                            turnOffLed
+                                        turnOffLed
                                         </button>
                                     </div>
-
                                     <div class="group">
                                         <label for=""><span data-device="serialDisplay">数码管</span>:</label>
                                         <button class="btn btn-primary" onclick="sensorium.setTube(this.children[0].value, this.children[1].value);">
-                                            setTube at port <input type="number" value="3">
-                                            with number <input type="number" value="10">
+                                        setTube at port <input type="number" value="3">
+                                        with number <input type="number" value="10">
                                         </button>
                                     </div>
                                     <div class="group">
@@ -209,15 +199,14 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- 运动 -->
                         <div class="panel panel-default category">
                             <div class="panel-heading" role="tab" id="headingTwo">
                                 <h4 class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                        运动类
-                                        <span class="badge"></span>
-                                    </a>
+                                <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                    运动类
+                                    <span class="badge"></span>
+                                </a>
                                 </h4>
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
@@ -226,17 +215,15 @@
                                     <div class="group">
                                         <label for="">
                                             <span data-device="dcMotor">直流电机</span>
-                                            <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="mbot和orion的 port口是9和10，其他是1和2"></i>:</label>
+                                        <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="mbot和orion的 port口是9和10，其他是1和2"></i>:</label>
                                         <button class="btn btn-primary" onclick="sensorium.setDcMotor(this.children[0].value, this.children[1].value);">
                                         set DC motor with speed <input type="number" value="100">
                                         at port <input type="number" value="1" class="port">
                                         </button>
-
                                         <button class="btn btn-primary" onclick="sensorium.stop(this);">
-                                            stop
+                                        stop
                                         </button>
                                     </div>
-
                                     <!-- 步进电机 -->
                                     <div class="group">
                                         <label for=""><span data-device="stepperMotor">步进电机</span>:</label>
@@ -246,7 +233,6 @@
                                         at port <input type="number" value="2" class="port">
                                         </button>
                                     </div>
-
                                     <!-- 通用编码电机 -->
                                     <div class="group">
                                         <label for=""><span data-device="encoderMotor">带距离编码电机</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="对于主板megaPi：因为是板载，port口为0，用slot的值来代替port口，共有8个直流电机port口，其中port口1，2，3，4可以复用为编码电机的slot口。其他主板：port值为0x08，是系统默认值，该处实际为I²C的值。"></i>:</label>
@@ -256,7 +242,6 @@
                                         port <input type="number" value="8" class="port">
                                         slot <input type="number" value="1" class="slot">
                                     </div>
-
                                     <!-- 舵机 -->
                                     <div class="group">
                                         <label for=""><span data-device="servoMotor">舵机</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="角度是0到180度"></i>:</label>
@@ -266,7 +251,6 @@
                                         at slot <input type="number" value="1" class="slot">
                                         </button>
                                     </div>
-
                                     <!-- 板载编码电机 -->
                                     <div class="group">
                                         <label for=""><span data-device="encoderMotor">板载编码电机</span>:</label>
@@ -275,38 +259,32 @@
                                         port <input type="number" value="0" disabled="true" class="port">
                                         slot <input type="number" value="1" class="slot">
                                         </button>
-
                                         <button class="btn btn-primary" onclick="sensorium.stopEncoderMotor(this);">
-                                            stop
+                                        stop
                                         </button>
                                     </div>
-
                                     <!-- 读取板载编码电机值 -->
                                     <div class="group ultrasonic">
                                         <label for=""><span>读取板载编码电机</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="01：位置02：速度;位置单位: 码盘;速度单位: RPM。码盘转圈数： pos /(4*46.67)"></i>:</label>
-                                         <button class="btn btn-primary" onclick="sensorium.readEncoderMotor(this.children[0].value, this.children[1].value, this.children[2].value);">
-                                            readEncoderMotor
-                                            <select name="" id="">
-                                                <option value="2">速度</option>
-                                                <option value="1">位置</option>
-                                            </select>
-                                            at port
-                                            <input type="number" value="0" disabled="true">
-                                            slot
-                                            <input type="number" value="1" class="slot">
+                                        <button class="btn btn-primary" onclick="sensorium.readEncoderMotor(this.children[0].value, this.children[1].value, this.children[2].value);">
+                                        readEncoderMotor
+                                        <select name="" id="">
+                                            <option value="2">速度</option>
+                                            <option value="1">位置</option>
+                                        </select>
+                                        at port
+                                        <input type="number" value="0" disabled="true">
+                                        slot
+                                        <input type="number" value="1" class="slot">
                                         </button>
-
                                         <button class="btn btn-primary" onclick="sensorium.stopReadEncoderMotor();">
-                                            stop
+                                        stop
                                         </button>
-
                                         <label for=""><b class="sensor-value"></b></label>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
                         <!-- 传感器 -->
                         <div class="panel panel-default category">
                             <div class="panel-heading" role="tab" id="headingThree">
@@ -322,295 +300,263 @@
                                     <div class="group">
                                         <label for=""><span data-device="temperature">读取温度</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="mzero板载的port口是13"></i>:</label>
                                         <button class="btn btn-primary" onclick="sensorium.openTemperature(this.children[0].value);">openTemperature at port <input type="number" value="3"></button>
-
                                         <button class="btn btn-primary" onclick="sensorium.stopTemperature();">stopTemperature</button>
                                     </div>
-
                                     <!-- Light sensor -->
                                     <div class="group lightSensor">
                                         <label for=""><span data-device="lightSensor">读取光线</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="mzero板载的光线传感器有两个，分别占用port口：11和12"></i>:</label>
-                                         <button class="btn btn-primary" onclick="sensorium.openLightSensor(this.children[0].value);">
-                                            openLightSensor at port
-                                            <input type="number" value="11">
+                                        <button class="btn btn-primary" onclick="sensorium.openLightSensor(this.children[0].value);">
+                                        openLightSensor at port
+                                        <input type="number" value="11">
                                         </button>
-
                                         <button class="btn btn-primary" onclick="sensorium.stopLightSensor();">
-                                            stopLightSensor
+                                        stopLightSensor
                                         </button>
                                         <label for=""><b class="sensor-value"></b></label>
                                     </div>
-
                                     <!-- line follow -->
                                     <div class="group lineFollow">
                                         <label for=""><span data-device="lineFollowerSensor">读取巡线</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="巡线的接收值只有四种：BLACK_BLACK:128,
                                         BLACK_WHITE: 64,
                                         WHITE_BLACK: 191,
-                                        WHITE_WHITE: 0"></i>:</label>
-                                         <button class="btn btn-primary" onclick="sensorium.openLineFollow(this.children[0].value);">
-                                            openLineFollow at port
-                                            <input type="number" value="2">
-                                        </button>
-
-                                        <button class="btn btn-primary" onclick="sensorium.stopLineFollow();">
-                                            stopLineFollow
-                                        </button>
-
-                                        <label for=""><b class="sensor-value"></b></label>
-                                    </div>
-
-                                    <!-- ultrasonic -->
-                                    <div class="group ultrasonic">
-                                        <label for=""><span data-device="ultrasonicSensor">读取超声波</span>:</label>
-                                         <button class="btn btn-primary" onclick="sensorium.openUltrasonic(this.children[0].value);">
-                                            openUltrasonic at port
-                                            <input type="number" value="3">
-                                        </button>
-
-                                        <button class="btn btn-primary" onclick="sensorium.stopUltrasoinic();">
-                                            stopUltrasoinic
-                                        </button>
-
-                                        <label for=""><b class="sensor-value"></b></label>
-                                    </div>
-
-                                    <div class="group">
-                                        <label for=""><span data-device="soundSensor">读取音量</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="mzero的板载port口是14"></i>:</label>
-                                        <button class="btn btn-primary" onclick="sensorium.openSound(this.children[0].value);">openSound at port <input type="number" value="7"></button>
-
-                                        <button class="btn btn-primary" onclick="sensorium.stopSound();">stopSound</button>
-                                    </div>
-
-                                    <div class="group">
-                                        <label for=""><span data-device="pirMotionSensor">人体运动感应开关</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="该传感器检测的是运动的状态，检测到运动了就返回1，静止状态是0"></i>:</label>
-                                        <button class="btn btn-primary" onclick="sensorium.openPir(this.children[0].value);">openPir at port <input type="number" value="6"></button>
-
-                                        <button class="btn btn-primary" onclick="sensorium.stopPir();">stopPir</button>
-                                    </div>
-
-                                    <!-- 陀螺仪 -->
-                                    <div class="group">
-                                        <label for=""><span data-device="gyroSensor">读取陀螺仪</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="port口为0表示外置，port口为1表示板载，默认是板载"></i>:</label>
-
-                                        <button class="btn btn-primary" onclick="sensorium.getGyro('01',this.children[0].value);">
-                                            x轴 at port <input type="number" value="1">
-                                        </button>
-                                        <button class="btn btn-primary" onclick="sensorium.getGyro('02',this.children[0].value);">
-                                            y轴 at port <input type="number" value="1">
-                                        </button>
-                                        <button class="btn btn-primary" onclick="sensorium.getGyro('03',this.children[0].value);">
-                                            z轴 at port <input type="number" value="1">
-                                        </button>
-                                        <button class="btn btn-primary" onclick="sensorium.stopGyro()">
-                                            stop
-                                        </button>
-                                    </div>
-
-                                    <div class="group">
-                                        <label for=""><span data-device="temperatureAndHumiditySensor">读取湿度</span>:</label>
-                                        <button class="btn btn-primary" onclick="sensorium.openHumidity(this.children[0].value, this.children[1].value);">openHumidity at port <input type="number" value="3">
-                                        at slot <input type="number" value="1"></button>
-
-                                        <button class="btn btn-primary" onclick="sensorium.stopHumidity();">stopHumidity</button>
-                                    </div>
-                                    <div class="group">
-                                        <label for=""><span data-device="flameSensor">火焰传感器</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="获取温度，单位℃"></i>:</label>
-                                        <button class="btn btn-primary" onclick="sensorium.openFire(this.children[0].value);">openFire at port <input type="number" value="6"></button>
-
-                                        <button class="btn btn-primary" onclick="sensorium.stopFire();">stopFire</button>
-                                    </div>
-                                    <div class="group">
-                                        <label for=""><span data-device="gasSensor">气体传感器</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="获取温度，单位℃"></i>:</label>
-
-                                        <button class="btn btn-primary" onclick="sensorium.openGas(this.children[0].value);">openGas at port <input type="number" value="6"></button>
-
-                                        <button class="btn btn-primary" onclick="sensorium.stopGas();">stopGas</button>
-                                    </div>
+                                    WHITE_WHITE: 0"></i>:</label>
+                                    <button class="btn btn-primary" onclick="sensorium.openLineFollow(this.children[0].value);">
+                                    openLineFollow at port
+                                    <input type="number" value="2">
+                                    </button>
+                                    <button class="btn btn-primary" onclick="sensorium.stopLineFollow();">
+                                    stopLineFollow
+                                    </button>
+                                    <label for=""><b class="sensor-value"></b></label>
+                                </div>
+                                <!-- ultrasonic -->
+                                <div class="group ultrasonic">
+                                    <label for=""><span data-device="ultrasonicSensor">读取超声波</span>:</label>
+                                    <button class="btn btn-primary" onclick="sensorium.openUltrasonic(this.children[0].value);">
+                                    openUltrasonic at port
+                                    <input type="number" value="3">
+                                    </button>
+                                    <button class="btn btn-primary" onclick="sensorium.stopUltrasoinic();">
+                                    stopUltrasoinic
+                                    </button>
+                                    <label for=""><b class="sensor-value"></b></label>
+                                </div>
+                                <div class="group">
+                                    <label for=""><span data-device="soundSensor">读取音量</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="mzero的板载port口是14"></i>:</label>
+                                    <button class="btn btn-primary" onclick="sensorium.openSound(this.children[0].value);">openSound at port <input type="number" value="7"></button>
+                                    <button class="btn btn-primary" onclick="sensorium.stopSound();">stopSound</button>
+                                </div>
+                                <div class="group">
+                                    <label for=""><span data-device="pirMotionSensor">人体运动感应开关</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="该传感器检测的是运动的状态，检测到运动了就返回1，静止状态是0"></i>:</label>
+                                    <button class="btn btn-primary" onclick="sensorium.openPir(this.children[0].value);">openPir at port <input type="number" value="6"></button>
+                                    <button class="btn btn-primary" onclick="sensorium.stopPir();">stopPir</button>
+                                </div>
+                                <!-- 陀螺仪 -->
+                                <div class="group">
+                                    <label for=""><span data-device="gyroSensor">读取陀螺仪</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="port口为0表示外置，port口为1表示板载，默认是板载"></i>:</label>
+                                    <button class="btn btn-primary" onclick="sensorium.getGyro('01',this.children[0].value);">
+                                    x轴 at port <input type="number" value="1">
+                                    </button>
+                                    <button class="btn btn-primary" onclick="sensorium.getGyro('02',this.children[0].value);">
+                                    y轴 at port <input type="number" value="1">
+                                    </button>
+                                    <button class="btn btn-primary" onclick="sensorium.getGyro('03',this.children[0].value);">
+                                    z轴 at port <input type="number" value="1">
+                                    </button>
+                                    <button class="btn btn-primary" onclick="sensorium.stopGyro()">
+                                    stop
+                                    </button>
+                                </div>
+                                <div class="group">
+                                    <label for=""><span data-device="temperatureAndHumiditySensor">读取湿度</span>:</label>
+                                    <button class="btn btn-primary" onclick="sensorium.openHumidity(this.children[0].value, this.children[1].value);">openHumidity at port <input type="number" value="3">
+                                    at slot <input type="number" value="1"></button>
+                                    <button class="btn btn-primary" onclick="sensorium.stopHumidity();">stopHumidity</button>
+                                </div>
+                                <div class="group">
+                                    <label for=""><span data-device="flameSensor">火焰传感器</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="获取温度，单位℃"></i>:</label>
+                                    <button class="btn btn-primary" onclick="sensorium.openFire(this.children[0].value);">openFire at port <input type="number" value="6"></button>
+                                    <button class="btn btn-primary" onclick="sensorium.stopFire();">stopFire</button>
+                                </div>
+                                <div class="group">
+                                    <label for=""><span data-device="gasSensor">气体传感器</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="获取温度，单位℃"></i>:</label>
+                                    <button class="btn btn-primary" onclick="sensorium.openGas(this.children[0].value);">openGas at port <input type="number" value="6"></button>
+                                    <button class="btn btn-primary" onclick="sensorium.stopGas();">stopGas</button>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- 控制类 -->
-                        <div class="panel panel-default category">
-                            <div class="panel-heading" role="tab" id="headingFive">
-                                <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                    控制类（向外界输出信号）
-                                    <span class="badge"></span>
-                                </a>
-                                </h4>
-                            </div>
-                            <div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
-                                <div class="panel-body">
-                                    <div class="group">
-                                        <label for=""><span data-device="joystick">读取摇杆</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="x轴的范围：486到-490；y轴范围：488到-490"></i>：</label>
-                                        <button class="btn btn-primary" onclick="sensorium.readJoystick(this.children[0].value, this.children[1].value);">readJoyStick
-                                            <select name="" id="">
-                                                <option value="1">x轴</option>
-                                                <option value="2">y轴</option>
-                                            </select>
-                                            at port <input type="number" value="6">
-                                        </button>
-
-                                        <button class="btn btn-primary" onclick="sensorium.stopJoystick();">
-                                            stopJoyStick
-                                        </button>
-                                    </div>
-                                    <div class="group">
-                                        <label for=""><span data-device="shutter">相机快门(待测试)</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="sensorium: 00是按下快门，01是松开快门，02是开始对焦，03是停止对焦"></i>：</label>
-                                        <button class="btn btn-primary" onclick="sensorium.setShutter(0);">按下快门 at port <input type="number" value="6"></button>
-                                        <button class="btn btn-primary" onclick="sensorium.setShutter(1);">松开快门 at port <input type="number" value="6"></button>
-                                        <p></p>
-                                        <button class="btn btn-primary" onclick="sensorium.setShutter(2);">开始对焦 at port <input type="number" value="6"></button>
-                                        <button class="btn btn-primary" onclick="sensorium.setShutter(3);">停止对焦 at port <input type="number" value="6"></button>
-                                    </div>
-                                    <div class="group">
-                                        <label for=""><span data-device="limitSwitchSensor">读取限位开关状态</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="限位开关：按下去返回值为1，松开返回值为0"></i>：</label>
-                                        <button class="btn btn-primary" onclick="sensorium.readLimitSwitch(this.children[0].value, this.children[1].value);">readLimitSwitch at port <input type="number" value="6">
-                                            at slot <input type="number" value="1">
-                                        </button>
-
-                                        <button class="btn btn-primary" onclick="sensorium.stopLimitSwitch();">stop limitSwitch</button>
-                                    </div>
-                                    <div class="group">
-                                        <label for=""><span data-device="potentiometer">读取电位器状态</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="电位器："></i>：</label>
-                                        <button class="btn btn-primary" onclick="sensorium.readPotentiometer(this.children[0].value)">readPotentiometer at port <input type="number" value="6"></button>
-
-                                        <button class="btn btn-primary" onclick="sensorium.stopPotentiometer();">stop potentiometer</button>
-                                    </div>
+                    </div>
+                    <!-- 控制类 -->
+                    <div class="panel panel-default category">
+                        <div class="panel-heading" role="tab" id="headingFive">
+                            <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                控制类（向外界输出信号）
+                                <span class="badge"></span>
+                            </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
+                            <div class="panel-body">
+                                <div class="group">
+                                    <label for=""><span data-device="joystick">读取摇杆</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="x轴的范围：486到-490；y轴范围：488到-490"></i>：</label>
+                                    <button class="btn btn-primary" onclick="sensorium.readJoystick(this.children[0].value, this.children[1].value);">readJoyStick
+                                    <select name="" id="">
+                                        <option value="1">x轴</option>
+                                        <option value="2">y轴</option>
+                                    </select>
+                                    at port <input type="number" value="6">
+                                    </button>
+                                    <button class="btn btn-primary" onclick="sensorium.stopJoystick();">
+                                    stopJoyStick
+                                    </button>
+                                </div>
+                                <div class="group">
+                                    <label for=""><span data-device="shutter">相机快门(待测试)</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="sensorium: 00是按下快门，01是松开快门，02是开始对焦，03是停止对焦"></i>：</label>
+                                    <button class="btn btn-primary" onclick="sensorium.setShutter(0);">按下快门 at port <input type="number" value="6"></button>
+                                    <button class="btn btn-primary" onclick="sensorium.setShutter(1);">松开快门 at port <input type="number" value="6"></button>
+                                    <p></p>
+                                    <button class="btn btn-primary" onclick="sensorium.setShutter(2);">开始对焦 at port <input type="number" value="6"></button>
+                                    <button class="btn btn-primary" onclick="sensorium.setShutter(3);">停止对焦 at port <input type="number" value="6"></button>
+                                </div>
+                                <div class="group">
+                                    <label for=""><span data-device="limitSwitchSensor">读取限位开关状态</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="限位开关：按下去返回值为1，松开返回值为0"></i>：</label>
+                                    <button class="btn btn-primary" onclick="sensorium.readLimitSwitch(this.children[0].value, this.children[1].value);">readLimitSwitch at port <input type="number" value="6">
+                                    at slot <input type="number" value="1">
+                                    </button>
+                                    <button class="btn btn-primary" onclick="sensorium.stopLimitSwitch();">stop limitSwitch</button>
+                                </div>
+                                <div class="group">
+                                    <label for=""><span data-device="potentiometer">读取电位器状态</span><i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="电位器："></i>：</label>
+                                    <button class="btn btn-primary" onclick="sensorium.readPotentiometer(this.children[0].value)">readPotentiometer at port <input type="number" value="6"></button>
+                                    <button class="btn btn-primary" onclick="sensorium.stopPotentiometer();">stop potentiometer</button>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- 通信类 -->
-                        <div class="panel panel-default category">
-                            <div class="panel-heading" role="tab" id="headingFive">
-                                <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                    通信类
-                                    <span class="badge"></span>
-                                </a>
-                                </h4>
-                            </div>
-                            <div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
-                                <div class="panel-body">
-                                    <div class="group">
-                                        <button class="btn btn-primary" data-device="infraredReceiverDecoder">红外接收器</button>
-                                    </div>
-                                    <div class="group">
-                                        <button class="btn btn-primary" data-device="wifiModule">wifi模块</button>
-                                    </div>
-                                    <div class="group">
-                                        <button class="btn btn-primary" data-device="g2.4">2.4G</button>
-                                    </div>
-                                    <div class="group">
-                                        <button class="btn btn-primary" data-device="bluetoothModule">蓝牙</button>
-                                    </div>
+                    </div>
+                    <!-- 通信类 -->
+                    <div class="panel panel-default category">
+                        <div class="panel-heading" role="tab" id="headingFive">
+                            <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse"  href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                通信类
+                                <span class="badge"></span>
+                            </a>
+                            </h4>
+                        </div>
+                        <div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
+                            <div class="panel-body">
+                                <div class="group">
+                                    <button class="btn btn-primary" data-device="infraredReceiverDecoder">红外接收器</button>
+                                </div>
+                                <div class="group">
+                                    <button class="btn btn-primary" data-device="wifiModule">wifi模块</button>
+                                </div>
+                                <div class="group">
+                                    <button class="btn btn-primary" data-device="g2.4">2.4G</button>
+                                </div>
+                                <div class="group">
+                                    <button class="btn btn-primary" data-device="bluetoothModule">蓝牙</button>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="protocol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
+</div>
+<!-- Modal -->
+<div class="modal fade" id="protocol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Makeblock 主板</h4>
-          </div>
-          <div class="modal-body">
-
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Makeblock 主板</h4>
+            </div>
+            <div class="modal-body">
                 <!-- 主板图片预览 -->
                 <div id="boards" class="carousel slide" data-ride="carousel" data-interval="false">
-                  <!-- Indicators -->
-                  <ol class="carousel-indicators">
-                    <li data-target="#boards" data-slide-to="0" class="active"></li>
-                    <li data-target="#boards" data-slide-to="1"></li>
-                    <li data-target="#boards" data-slide-to="2"></li>
-                    <li data-target="#boards" data-slide-to="3"></li>
-                  </ol>
-
-                  <!-- Wrapper for slides -->
-                  <div class="carousel-inner" role="listbox">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#boards" data-slide-to="0" class="active"></li>
+                        <li data-target="#boards" data-slide-to="1"></li>
+                        <li data-target="#boards" data-slide-to="2"></li>
+                        <li data-target="#boards" data-slide-to="3"></li>
+                    </ol>
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
                         <div class="item active">
-                          <img src="images/device/board-auriga.png" alt="auriga">
-                          <div class="carousel-caption">
-                            <h3>auriga</h3>
-                          </div>
+                            <img src="images/device/board-auriga.png" alt="auriga">
+                            <div class="carousel-caption">
+                                <h3>auriga</h3>
+                            </div>
                         </div>
                         <div class="item">
-                          <img src="images/device/board-mcore.png" alt="mcore">
-                          <div class="carousel-caption">
-                            <h3>mcore</h3>
-                          </div>
+                            <img src="images/device/board-mcore.png" alt="mcore">
+                            <div class="carousel-caption">
+                                <h3>mcore</h3>
+                            </div>
                         </div>
                         <div class="item">
-                          <img src="images/device/board-orion.png" alt="orion">
-                          <div class="carousel-caption">
-                            <h3>orion</h3>
-                          </div>
+                            <img src="images/device/board-orion.png" alt="orion">
+                            <div class="carousel-caption">
+                                <h3>orion</h3>
+                            </div>
                         </div>
                         <div class="item">
-                          <img src="images/device/board-megaPi.png" alt="megaPi">
-                          <div class="carousel-caption">
-                            <h3>megaPi</h3>
-                          </div>
+                            <img src="images/device/board-megaPi.png" alt="megaPi">
+                            <div class="carousel-caption">
+                                <h3>megaPi</h3>
+                            </div>
                         </div>
-                  </div>
-
-                  <!-- Controls -->
-                  <a class="left carousel-control" href="#boards" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="right carousel-control" href="#boards" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
+                    </div>
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#boards" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#boards" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
-
-          </div>
+            </div>
         </div>
-      </div>
     </div>
-
-    <!-- Modal intro -->
-    <div class="modal fade" id="intro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
+</div>
+<!-- Modal intro -->
+<div class="modal fade" id="intro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="introTitle"></h4>
-          </div>
-          <div class="modal-body">
-
-          </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="introTitle"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
         </div>
-      </div>
     </div>
+</div>
+<script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+<script src="js/client.js"></script>
+<script>
+// 主动发送设备类型，默认为auriga
+sendDeviceType("auriga");
 
-    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/client.js"></script>
 
-    <script>
-        // 查看主板
-        $('#protocol').on('shown.bs.modal', function () {
-            var board = $('#deviceType').val();
-            // $("#myModalLabel").text("Makeblock 主板：" + board);
-            var order = {
-                "auriga": 0,
-                "mcore": 1,
-                "orion": 2,
-                "megaPi": 3
-            };
-            $('.carousel').carousel(order[board]);
-        });
-    </script>
-
+// 查看主板
+$('#protocol').on('shown.bs.modal', function () {
+    var board = $('#deviceType').val();
+// $("#myModalLabel").text("Makeblock 主板：" + board);
+var order = {
+    "auriga": 0,
+    "mcore": 1,
+    "orion": 2,
+    "megaPi": 3
+};
+$('.carousel').carousel(order[board]);
+});
+</script>
 </body>
 </html>

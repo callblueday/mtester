@@ -706,7 +706,6 @@ Sensorium.prototype = {
                 type: 'serialData',
                 params: str
             }
-            console.log(str);
             this._sendRequest(data);
         } else {
             if(str.length) {

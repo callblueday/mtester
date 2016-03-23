@@ -3,11 +3,12 @@
  * Copyright 2015- Makeblock, Inc.
  * Author callblueday
  * Licensed under the MIT license
+ * protocol url: https://shimo.im/doc/QGlAg7itqNs71Drj
  */
 
 
 // 报告测试的设备类型
-sensorium.sendRequest({
+sensorium._sendRequest({
     type: "deviceType",
     params: 'servo'
 });
@@ -172,21 +173,17 @@ var mbServo = {
 
     initSerial: function() {
         // F0 FF 10 00 7F F7
-        var a = new Array(6);
-        a[0] = this.setting.START_SYSEX;
-        a[1] = 0xff;
-        a[2] = 0x10;
-        a[3] = 00;
-        a[4] = 0x7f;
-        a[5] = this.setting.END_SYSEX;
+        a = [
+            this.setting.START_SYSEX,
+            0xff,0x10,00,0x7f,
+            this.setting.END_SYSEX,
+        ];
         sensorium.sendSerialData(a);
     },
+
     // 255 速度 转 400度
-    // F0 01 70 11 10 03 00 7f 01 00 f7
-    // 00000001 10010000
-    // 00000000 00000011 00010000
-    // 00 03 10
-    setAbsolutePos: function(angle, speed) {
+    // F0 01 70 11 (10 03 00) (00 00 20 12 04) f7
+    setAbsolutePos: function(id, angle, speed) {
         var angleBytes = this.sendShort(angle);
         var speedBytes = this.sendShort(speed);
 
@@ -205,7 +202,7 @@ var mbServo = {
         sensorium.sendSerialData(a);
     },
 
-    setRelativePos: function(angle, speed) {
+    setRelativePos: function(id, angle, speed) {
         var angleBytes = this.sendShort(angle);
         var speedBytes = this.sendShort(speed);
 
@@ -221,6 +218,41 @@ var mbServo = {
         a[8] = speedBytes[1];
         a[9] = speedBytes[2];
         a[10] = this.setting.END_SYSEX;
+        sensorium.sendSerialData(a);
+    },
+
+    /**
+     * set servo rgb value
+     * @param {number} id servo id.
+     * @example
+     * f0 01 70 17 70 7c 00 00 00 00 f7
+     */
+    setRgb: function(id) {
+        var a = [0xf0, id, 0x70, 0x17,
+             0x70, 0x7c,
+             0x00, 0x00,
+             0x00, 0x00,
+            0xf7];
+        sensorium.sendSerialData(a);
+    },
+
+    /**
+     * get servo speed
+     * @param  {number} id servo id.
+     */
+    getServoSpeed: function(id) {
+        var a = [0xf0,id,0x70,0x22,0x00,0xf7];
+        sensorium.sendSerialData(a);
+    },
+
+    /**
+     * get servo position
+     * @param  {number} id servo id.
+     * @example
+     * f0 01 70 22 00 f7: 倒数第二位，00 只读一次，01 有变化上报，02 一直读取
+     */
+    getServoPos: function(id) {
+        var a = [0xf0, id, 0x70, 0x23, 0x00, 0xf7];
         sensorium.sendSerialData(a);
     },
 
@@ -241,5 +273,18 @@ var mbServo = {
         _7bit[2] = (temp1 >> 6) & 0x7f;
         return _7bit;
     },
+
+    int2float: function(val) {
+        var bytesArray = [];
+        var b1 = (val & 0xff).toString(16);
+        var b2 = ((val >> 8) & 0xff).toString(16);
+        var b3 = ((val >> 16) & 0xff).toString(16);
+        var b4 = ((val >> 24) & 0xff).toString(16);
+        bytesArray.push(b1);
+        bytesArray.push(b2);
+        bytesArray.push(b3);
+        bytesArray.push(b4);
+        return bytesArray;
+    }
 
 };

@@ -76,14 +76,41 @@ http://v3.bootcss.com/getting-started/
     - 控制转动：
         fa af 0 01 1 5 5 0 b ed
 
-- me舵机协议定义
-- 舵机控制
+- 舵机接口
+    - 分配id
+    - 设置舵机绝对角度
+    - 设置舵机相对角度
+    - 设置舵机RGB颜色
+    - 读取舵机速度
+    - 读取舵机位置
 
+    - [x]SET_SERVO_ABSOLUTE_POS(0x11)
+    - [x]SET_SERVO_RELATIVE_POS(0x12)
+    - []SET_SERVO_BREAK(0x16)
+    - [x]SET_SERVO_RGB_LED(0x17)
+    - [x]GET_SERVO_POS(0x22)
+    - [x]GET_SERVO_SPEED(0x23)
+    - []GET_SERVO_TEMPERATURE(0x25)
+    - []GET_SERVO_MOTION_COMPENSATION(0x24)
+    - []GET_SERVO_ELECTRIC_CURRENT(0x26)
+    - []GET_SERVO_VOLTAGE(0x27)
 
-### slot 口
-所有接适配器的都有slot
+角度是short型，速度值是float型。
 
-限位开关
+"以 255的速度转动到位置 400
+F0 01 70 11 (10 03 00) (00 00 20 12 04) f7
+以 255的速度转动到位置 3000
+F0 01 70 11 (38 17 00) (00 00 20 12 04) f7"
+
+"在当前地址偏移 400
+F0 01 70 12 (10 03 00) (7f 01 00) f7
+在当前地址偏移 -400
+F0 01 70 12 (70 7c 03) (7f 01 00) f7"
+
+"读取 pos 值
+F0 01 70 22 00 f7
+返回值转换后是 1207
+F0 01 70 22 (55 09 00) F7"
 
 
 # jsdoc 的语法

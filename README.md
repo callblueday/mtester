@@ -19,7 +19,10 @@ then visit `http:localhost:3003` in your browser.
 - **public/**  test web interface. includes `images/`, `css/`, `js/`, `*.html`
 
 # Change log
+【20160323 v0.1.1】
+>1. feat: add api doc
+2. feat: add smart servo support 
 【20160216 v0.1.0】
->1. 增加 提示信息
-2. 增加 完善了传感器及硬件测试框架
+>1. feat: sensors tip info
+2.  imporve: add more sensors
 

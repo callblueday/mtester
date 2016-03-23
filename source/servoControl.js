@@ -7,7 +7,7 @@ ServoControl = function(data, socket) {
 };
 
 ServoControl.prototype.decodeData = function(data) {
-    console.log(data);
+    console.log('nihao: ' + data);
     var bytes = data;
 
     for (var i = 0; i < bytes.length; i++) {
@@ -15,20 +15,20 @@ ServoControl.prototype.decodeData = function(data) {
         var length = this.buffer.length;
 
         // 过滤无效数据
-        if (length == 10 || length == 1) {
-            // 返回有效数据
-            this.socket.emit('serialportData-receive', this.buffer.join(' '));
-            // this.socket.emit('serialportData-receive', this.buffer.join(' '));\
-            this.buffer = [];
-        }
-
-        // // 过滤无效数据
-        // if (length > 1 && this.buffer[length - 1] == 0xf7 && this.buffer[0] == 0xf0) {
+        // if (length == 10 || length == 1) {
         //     // 返回有效数据
         //     this.socket.emit('serialportData-receive', this.buffer.join(' '));
-
+        //     // this.socket.emit('serialportData-receive', this.buffer.join(' '));\
         //     this.buffer = [];
         // }
+
+        // // 过滤无效数据
+        if (length > 1 && this.buffer[length - 1] == 0xf7 && this.buffer[0] == 0xf0) {
+            // 返回有效数据
+            this.socket.emit('serialportData-receive', this.buffer.join(' '));
+
+            this.buffer = [];
+        }
     }
 };
 
