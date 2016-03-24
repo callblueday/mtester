@@ -76,13 +76,35 @@ http://v3.bootcss.com/getting-started/
     - 控制转动：
         fa af 0 01 1 5 5 0 b ed
 
-- 舵机接口
-    - 分配id
-    - 设置舵机绝对角度
-    - 设置舵机相对角度
-    - 设置舵机RGB颜色
-    - 读取舵机速度
-    - 读取舵机位置
+- 舵机mblockly接口需求
+    1. 分配id: initServoIds()
+
+    2. 设置舵机绝对角度: setAbsolutePos(id, angle, speed)
+        - 参数：
+            - id: int型, 舵机的id
+            - angle: int型, 转动的角度值
+            - speed: int型, 速度值
+    3. 设置舵机相对角度: setRelativePos(id, angle, speed)
+        - 参数：
+            - id: int型, 舵机的id
+            - angle: int型, 转动的角度值
+            - speed: int型, 速度值
+    4. 设置舵机RGB颜色: setColor(id, r, g, b)
+        - 参数：
+            - id: int型, 舵机的id
+            - r: int型, 红色值
+            - g: int型, 绿色值
+            - b: int型, 蓝色值
+    5. 读取舵机速度: getServoSpeed(id)
+        - 参数：
+            - id: int型, 舵机的id
+        - 返回值：
+            - val是结果值，float型，单位是rpm
+    6. 读取舵机位置: getServoPos(id)
+        - 参数：
+            - id: int型, 舵机的id
+        - 返回值：
+            - val是结果值，int型，暂无单位
 
     - [x]SET_SERVO_ABSOLUTE_POS(0x11)
     - [x]SET_SERVO_RELATIVE_POS(0x12)

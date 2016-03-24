@@ -227,7 +227,7 @@ var mbServo = {
      * @example
      * f0 01 70 17 70 7c 00 00 00 00 f7
      */
-    setRgb: function(id) {
+    setColor: function(id) {
         var a = [0xf0, id, 0x70, 0x17,
              0x70, 0x7c,
              0x00, 0x00,
