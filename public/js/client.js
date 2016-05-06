@@ -168,6 +168,7 @@ $(function() {
         };
         socket.emit('fromWebClient', data);
     }
+    sendDeviceType('auriga');
 
 
     $('.ops input[type="text"], .ops input[type="number"], .ops select').on('click', function(e) {
