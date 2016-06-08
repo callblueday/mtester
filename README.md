@@ -19,6 +19,10 @@ then visit `http:localhost:3003` in your browser.
 - **public/**  test web interface. includes `images/`, `css/`, `js/`, `*.html`
 
 # Change log
+【20160323 v0.1.1 @hyman】
+>1. feat: add virtual joystick
+2. add: resource link
+
 【20160323 v0.1.1】
 >1. feat: add api doc
 2. feat: add smart servo support

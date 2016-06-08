@@ -230,6 +230,15 @@ Sensorium.prototype = {
         this.sendSerialData(cmd);
     },
 
+    // ff 55 07 00 02 05 64 00 64 00
+    setVirtualJoystick: function(leftSpeed, rightSpeed) {
+        var cmd = "ff 55 07 00 02 05 "
+            + (parseInt(leftSpeed) & 0xff).toString(16) + " "
+            + ((parseInt(leftSpeed) >> 8) & 0xff).toString(16) + " "
+            + (parseInt(rightSpeed) & 0xff).toString(16) + " "
+            + ((parseInt(rightSpeed) >> 8) & 0xff).toString(16);
+        this.sendSerialData(cmd);
+    },
 
     /**
       * 设置直流电机: port口：mbot是09和10，其他是01和02

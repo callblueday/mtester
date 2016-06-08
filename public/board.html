@@ -39,10 +39,10 @@
                             <a href="https://shimo.im/doc/R3xesVC3b7kRNhPJ" target="_blank">硬件协议文档</a>
                         </li>
                         <li>
-                            <a href="api/Sensorium.html" target="_blank">api文档</a>
+                            <a href="api/Sensorium.html">api文档</a>
                         </li>
                         <li>
-                            <a href="resource.html" target="_blank">资源文档</a>
+                            <a href="resource.html">资源文档</a>
                         </li>
                     </ul>
                 </div>
@@ -214,6 +214,20 @@
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
                                 <div class="panel-body">
+                                    <!-- 虚拟摇杆 -->
+                                    <div class="group">
+                                        <label for="">
+                                            <span data-device="virtualJoystick">虚拟摇杆</span>
+                                        <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="一条指令同时设置左右电机速度，mcore、orion、megaPi、auriga都支持"></i>:</label>
+                                        <button class="btn btn-primary" onclick="sensorium.setVirtualJoystick(this.children[0].value, this.children[1].value);">
+                                        set Virtual Joystick with left speed <input type="number" value="100">
+                                        right speed <input type="number" value="100">
+                                        </button>
+                                        <button class="btn btn-primary" onclick="sensorium.setVirtualJoystick(0,0);">
+                                        stop
+                                        </button>
+                                    </div>
+
                                     <!-- DC motor -->
                                     <div class="group">
                                         <label for="">
