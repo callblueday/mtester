@@ -1,0 +1,1 @@
+console.error("ReferenceError: Unknown plugin \"transform-object-rest-spread\" specified in \"/Users/makeblock/www/repo/sensorium-electron/.babelrc\" at 0, attempted to resolve relative to \"/Users/makeblock/www/repo/sensorium-electron\" while parsing file: /Users/makeblock/www/repo/sensorium-electron/main.js");
