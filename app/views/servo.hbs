@@ -1,0 +1,106 @@
+{{> nav}}
+<div class="container maincontent">
+    <div class="row">
+        <div class="">
+            <div class="form-inline leftbar">
+
+                <!-- 串口相关配置 -->
+                <div class="serialport">
+                    <h5>串口相关配置</h5>
+                    <div class="input-group">
+                        <span class="input-group-addon">串口号</span>
+                        <select class="form-control " id="com_num"></select>
+                        <i class="glyphicon glyphicon-refresh" id="refreshPort"></i>
+                    </div>
+                    <p id="helpBlock" class="help-block tip"></p>
+                </div>
+                <div class="msg msg-fun">
+                    <div class="title">API>>></div>
+                    <div class="msg-content"></div>
+                </div>
+                <div class="msg msg-serial">
+                    <div class="title">串口数据>>></div>
+                    <div class="msg-content" id="msgContent"></div>
+                    <span class="clear-screen">清除数据</span>
+                </div>
+                <div class="serial-send form-group">
+                    <select class="form-control" data-type="16" id="dataSendType">
+                        <option value="16">16进制</option>
+                        <option value="chart">字符串模式</option>`
+                        <option value="10">10进制</option>
+                    </select>
+                    <input type="text" class="form-control" id="serialDataInupt" value="ff 55 06 00 02 0a 09 9c ff">
+                    <button class="btn btn-primary" onclick="sensorium.sendSerialData(document.getElementById('serialDataInupt').value, document.getElementById('dataSendType').getAttribute('data-type'))">send</button>
+                </div>
+                <div class="calculate form-group">
+                    <label for="">计算数值：</label>
+                    <input type="text" class="form-control" id="calInput" value="e6 9e 46 40">
+                    <button class="btn btn-primary" onclick="calculate(document.getElementById('calInput').value);">计算</button>
+                    <p id="calValue" class="help-block tip"></p>
+                </div>
+            </div>
+
+            <div class="col-xs-6 ops">
+                <div class="group form-inline">
+                    <label for="" style="width: 100px;">选择设备类型</label>
+                    <select class="form-control" style="width: 200px;" id="deviceType">
+                        <option value="mservo">mblock 舵机</option>
+                        <option value="ybx">优必选舵机</option>
+                    </select>
+                    <a href="https://shimo.im/doc/QGlAg7itqNs71Drj" target="_blank">协议文档</a>
+
+                    <p id="deviceHelp" class="help-block tip">当前选中的设备类型：<span>mservo</span></p>
+                </div>
+
+                <div class="wrap mservo">
+                    <div class="header">
+                        <h4>makelbock舵机<span class="version"></span></h4>
+                    </div>
+
+                    <div class="group">
+                         <button class="btn btn-primary" onclick="mbServo.initSerial();">
+                            分配ID
+                        </button>
+                    </div>
+
+                    <div class="group">
+                        <button class="btn btn-primary" onclick="mbServo.setAbsolutePos(parseInt(this.children[0].value),parseInt(this.children[1].value), parseInt(this.children[2].value));">
+                            设置绝对角度
+                            Id: <input value="1" type="number">
+                            角度: <input value="400" type="number">
+                            速度: <input value="255" type="number">
+                        </button>
+                        <p></p>
+                        <button class="btn btn-primary" onclick="mbServo.setRelativePos(parseInt(this.children[0].value),parseInt(this.children[1].value), parseInt(this.children[2].value));">
+                            设置相对角度
+                            Id: <input value="1" type="number">
+                            角度: <input value="100" type="number">
+                            速度: <input value="255" type="number">
+                        </button>
+                        <p></p>
+                        <button class="btn btn-primary" onclick="mbServo.setRgb(parseInt(this.children[0].value));">
+                            设置RGB颜色
+                            Id: <input value="1" type="number">
+                        </button>
+
+                        <p></p>
+                        <button class="btn btn-primary" onclick="mbServo.getServoSpeed(parseInt(this.children[0].value));">
+                            读取舵机速度
+                            Id: <input value="1" type="number">
+                        </button>
+
+                        <p></p>
+                        <button class="btn btn-primary" onclick="mbServo.getServoPos(parseInt(this.children[0].value));">
+                            读取舵机位置
+                            Id: <input value="1" type="number">
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/client.js"></script>
+<script src="js/servo.js"></script>

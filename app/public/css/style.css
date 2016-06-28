@@ -1,0 +1,223 @@
+li {
+    list-style: none;
+}
+
+.maincontent {
+    margin-top: 70px;
+}
+
+.testlist .item {
+    height: 160px;
+    padding: 10px;
+}
+.testlist .item a {
+    width: 100%;
+    height: 140px;
+    line-height: 130px;
+    background: #3498db;
+    display: block;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+.testlist .item a:hover {
+    background: #2980b9;
+}
+
+.navbar-brand span {
+    font-size: 14px;
+    padding-left: 10px;
+    color: #9d9d9d!important;
+}
+
+/* left */
+.leftbar {
+    position: fixed;
+    width: 500px;
+    overflow: hidden;
+}
+.serialport {
+    min-height: 120px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+#com_num {
+    width: 260px;
+    margin-right: 10px;
+}
+
+#refreshPort {
+    height: 34px;
+    display: inline-block;
+    cursor: pointer;
+    width: 34px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 34px;
+    transition: all .3s ease;
+    margin-left: -3px;
+}
+#refreshPort.active {
+    transform: rotateZ(180deg);
+    color: #337ab7;
+}
+
+.serialport .tip {
+    color: #666;
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.msg {
+    height: 200px;
+    background: #000;
+    color: #C7C7C7;
+    line-height: 14px;
+    padding: 5px;
+    font-family: 'Menlo', sans-serif;
+    line-height: 1.5em;
+    /*overflow-y: auto;*/
+    margin-bottom: 10px;
+}
+.msg-fun {
+    display: none;
+}
+.msg-serial {
+    height: 350px;
+    position: relative;
+}
+.msg-serial .data-recieve {
+    /*color: #D85F00;*/
+    color: #e67e22;
+}
+.msg-content {
+    height: 320px;
+    overflow-y: auto;
+}
+.clear-screen {
+    color: #ddd;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.clear-screen:hover {
+    color: #ccc;
+}
+#serialDataInupt {
+    width: 330px;
+}
+
+.form-group {
+    margin-top: 10px;
+}
+
+.ops {
+    margin-left: 520px;
+}
+.ops input[type="text"],
+.ops input[type="number"] {
+    width: 50px;
+    color: #333;
+    text-align: center;
+    padding: 2px;
+    // border: 0;
+    margin-left: 5px;
+    border-radius: 5px;
+    outline: none;
+}
+.ops button input[type="text"],
+.ops button input[type="number"] {
+    border: 0;
+}
+.ops .group {
+    margin-bottom: 10px;
+}
+.ops .group label:first-child {
+    width: 95px;
+}
+.ops .group label {
+    font-weight: normal;
+}
+.ops .group button select {
+    width: 50px;
+    margin-left: 5px;
+}
+.sensor-value {
+    font-weight: normal;
+    color: #2CB76B;
+    font-size: 16px;
+    font-family: 'Menlo', sans-serif;
+}
+.ops .group i.glyphicon {
+    color: #337ab7;
+}
+
+
+/* panel */
+.panel-title a {
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+}
+.panel-title a > .badge {
+    background: #777!important;
+}
+
+.mzero-buzzers {
+    margin-top: 10px;
+}
+
+/* protocol */
+#protocol .modal-dialog,
+#protocol .modal-content {
+    width: 800px;
+    min-height: 400px;
+}
+
+/* pic show */
+.pic-show {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: -101%;
+    top: 0;
+    // border: 1px solid #ddd;
+    background: #fff;
+    z-index: 100;
+    text-align: center;
+    transition: all .4s ease;
+}
+.pic-show .head {
+    // width: 100%;
+    // height: 45px;
+    // background: #ccc;
+    // line-height: 45px;
+}
+.pic-show .content .img-wrap {
+    width: 388px;
+    height: 388px;
+    margin: 0 auto;
+}
+.pic-show .content .img-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.pic-show .content .img-title {
+    font-size: 20px;
+}
+
+#boards .item img {
+    max-width: 760px;
+    max-height: 550px;
+    margin: 0 auto;
+}
+.version {
+    margin-left: 5px;
+}
