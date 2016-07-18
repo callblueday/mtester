@@ -1,5 +1,5 @@
 /*!
- * Sensorium v0.1.0
+ * Mtester v0.1.0
  * define actions for snesors or motors etc. in makelock
  * it surports auriga, mcore, orion and megaPi.
  * Copyright 2015- Makeblock, Inc.
@@ -9,13 +9,13 @@
 
 
 /**
-* <h4>Hello Sensorium</h4>
-* <p>Sensorium是用于Makeblock硬件交互的Js库</p>
-* @class Sensorium
+* <h4>Hello Mtester</h4>
+* <p>Mtester是用于Makeblock硬件交互的Js库</p>
+* @class Mtester
 * @version 0.1.0
 * @param {object} socket socket对象
 */
-Sensorium = function(socket) {
+Mtester = function(socket) {
     this.socket = socket;
 
     /* 一些公用变量 */
@@ -140,7 +140,7 @@ Sensorium = function(socket) {
 
 
 // 设备相关
-Sensorium.prototype = {
+Mtester.prototype = {
 
     /**
      * device info: json对象，包含type(主板的类型: 类型的值有：auriga,mcore,orion,megaPi)

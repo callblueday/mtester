@@ -13,11 +13,12 @@
         <link href="vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <script src="vendors/jquery-2.1.3.min.js"></script>
-        <script src="vendors/socket.io-1.3.7.js"></script>
         <script src="js/sensorium.js"></script>
+        <script src="vendors/socket.io-1.3.7.js"></script>
+        <script src="vendors/sensorium.js"></script>
         <script>
         var socket = io.connect('127.0.0.1:3003');
-        var sensorium = new Sensorium(socket);
+        var sensorium = new Mtester(socket);
         </script>
     </head>
     <body>
@@ -558,9 +559,6 @@
 <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
 <script src="js/client.js"></script>
 <script>
-// 主动发送设备类型，默认为auriga
-sendDeviceType("auriga");
-
 
 // 查看主板
 $('#protocol').on('shown.bs.modal', function () {
