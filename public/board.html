@@ -18,11 +18,12 @@
         <script src="vendors/sensorium.js"></script>
         <script>
         var socket = io.connect('127.0.0.1:3003');
+
+        /* apply */
         var mcore = new Mcore({
             "driver": "mtester"
         });
 
-        mcore.setDcMotor(9, 200);
         var tester = new Tester(socket);
         </script>
     </head>
