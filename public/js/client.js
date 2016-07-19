@@ -159,7 +159,7 @@ $(function() {
 
     // 发送设备类型
     function sendDeviceType(type) {
-        sensorium.setDeviceInfo({
+        tester.setDeviceInfo({
             type: type
         });
         var data = {
@@ -219,7 +219,7 @@ $(function() {
             var beat = "$(\'#beats\').val()";
             var port = "$(\'#tonePort\').val()";
             for(var i in toneHzTable) {
-                var a = '<button class="btn btn-small" onclick="sensorium.playTone(' + port + ', \'' + toneHzTable[i] + '\', ' + beat + ');">' + i.toUpperCase() + '</button>';
+                var a = '<button class="btn btn-small" onclick="tester.playTone(' + port + ', \'' + toneHzTable[i] + '\', ' + beat + ');">' + i.toUpperCase() + '</button>';
                 $('.mzero-buzzers').append($(a));
             }
         }
