@@ -1,0 +1,125 @@
+/**
+ * @license
+ * Blockly Demos: Block Factory
+ *
+ * Copyright 2016 Google Inc.
+ * https://developers.google.com/blockly/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+html, body {
+  height: 100%;
+  min-height: 375px;
+}
+
+body {
+  background-color: #fff;
+  font-family: sans-serif;
+  margin: 0 5px;
+  overflow: hidden;
+}
+
+.b {
+    border: #ddd 1px solid;
+}
+.disabled {
+  color: #888;
+}
+
+pre {
+  border: #ddd 1px solid;
+  margin-top: 0;
+  overflow: scroll;
+  padding: 5px;
+}
+
+button:disabled, .buttonStyle:disabled {
+  opacity: 0.6;
+}
+
+button>*, .buttonStyle>* {
+  opacity: 1;
+  vertical-align: text-bottom;
+}
+
+button, .buttonStyle {
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: #eee;
+  color: #000;
+  padding: 10px;
+  margin: 10px 5px;
+  font-size: small;
+}
+
+.buttonStyle:hover:not(:disabled), button:hover:not(:disabled) {
+  box-shadow: 2px 2px 5px #888;
+}
+
+.buttonStyle:hover:not(:disabled)>*, button:hover:not(:disabled)>* {
+  opacity: 1;
+}
+
+table {
+  border: none;
+  border-collapse: collapse;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+td {
+  vertical-align: top;
+  padding: 0;
+}
+
+
+#codeDiv, #blocklyDiv {
+  width: 100%;
+  height: 100%;
+}
+#codeDiv {
+  height: 30%;
+  overflow: auto;
+}
+
+/* 工具区 */
+.ops {
+  float: right;
+  overflow: hidden;
+  margin: 0;
+}
+.ops button {
+  float: left;
+}
+
+.ops .upload {
+  margin-right: 50px;
+}
+
+
+/* for serial */
+.serialport {
+  min-height: 0;
+  border: 0;
+}
+
+.msg-serial {
+  height: 250px;
+}
+
+.msg-content {
+  height: 220px;
+}

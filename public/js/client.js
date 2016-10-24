@@ -7,8 +7,9 @@ socket.on('reportBoardInfo', function(str) {
 
 // 监听
 socket.on('serialportData-send', function(data) {
-    var temp = intStrToHexStr(data);
-    var str = $('.msg-serial .msg-content').html() + temp + '<br>';
+    // console.log(data);
+    // var temp = intStrToHexStr(data);
+    var str = $('.msg-serial .msg-content').html() + data + '<br>';
     $('.msg-serial .msg-content').html(str);
     toBottom();
 });
@@ -66,8 +67,10 @@ socket.on('serial_state', function (data) {
 
 // 将滚动条始终置于页面底部
 function toBottom() {
-    var scrollOffset = $('#msgContent')[0].scrollHeight - $('#msgContent').height();
-    $('#msgContent').animate({scrollTop: scrollOffset}, 0);
+    // if($('#msgContent')[0]) {
+        var scrollOffset = $('#msgContent')[0].scrollHeight - $('#msgContent').height();
+        $('#msgContent').animate({scrollTop: scrollOffset}, 0);
+    // }
 }
 
 // 显示设备介绍

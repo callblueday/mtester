@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Micro python</title>
+  <link href="../vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./vendors/prettify.css">
+
+
+  <script src="./vendors/blockly/blockly_compressed.js"></script>
+  <script src="./vendors/blockly/blocks_compressed.js"></script>
+  <script src="./vendors/blockly/javascript_compressed.js"></script>
+  <script src="./vendors/blockly/python_compressed.js"></script>
+  <script src="./vendors/blockly/msg/js/en.js"></script>
+  <script src="./vendors/jquery-2.1.3.min.js"></script>
+  <script src="./vendors/prettify.js"></script>
+  <script src="../js/tester.js"></script>
+  <script src="../vendors/socket.io-1.3.7.js"></script>
+  <script src="../vendors/bootstrap/js/bootstrap.min.js"></script>
+
+  <script>
+    var socket = io.connect('127.0.0.1:3003');
+    var tester = new Tester(socket);
+  </script>
+
+  <script src="../js/client.js"></script>
+  <script src="./js/base.js"></script>
+  <!-- <script src="../../js/common/settings.js"></script>
+  <script src="../../js/makeblockhd/hostInterface.js"></script> -->
+  <script src="./js/block_keeper_python.js"></script>
+  <script src="./js/blocks_move.js"></script>
+  <script src="./js/blocks_display.js"></script>
+  <script src="./js/blocks_control.js"></script>
+
+</head>
+<body>
+
+    <!-- Fixed navbar -->
+        <nav class="navbar navbar-fixed-top navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">MTester <span>测试</span></a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav pull-right">
+                        <li>
+                            <a href="https://shimo.im/doc/R3xesVC3b7kRNhPJ" target="_blank">硬件协议文档</a>
+                        </li>
+                        <li>
+                            <a href="api/Sensorium.html">api文档</a>
+                        </li>
+                        <li>
+                            <a href="resource.html">资源文档</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+  <table width="100%" style="margin-top: 100px;">
+    <tr width="100%" height="10%">
+      <td height="10%" colspan="2">
+
+        <div class="form-inline leftbar">
+            <!-- 串口相关配置 -->
+            <div class="serialport">
+                <div class="input-group">
+                    <span class="input-group-addon">串口号</span>
+                    <select class="form-control " id="com_num"></select>
+                    <i class="glyphicon glyphicon-refresh" id="refreshPort"></i>
+                </div>
+                <p id="helpBlock" class="help-block tip"></p>
+            </div>
+        </div>
+
+        <p class="ops">
+          <button class="preview">Preview</button>
+          <button class="upload">Upload</button>
+        </p>
+      </td>
+    </tr>
+
+    <tr width="100%" height="90%">
+      <td width="60%">
+          <div id="blocklyDiv"></div>
+      </td>
+      <td width="38%">
+          <pre id="codeDiv" class="b">
+          </pre>
+
+          <div class="msg msg-serial">
+                <div class="title">串口数据>>></div>
+                <div class="msg-content" id="msgContent"></div>
+                <span class="clear-screen">清除数据</span>
+            </div>
+            <!-- <div class="serial-send form-group">
+                <select class="form-control col-xs-1" data-type="16" id="dataSendType">
+                    <option value="16">16进制</option>
+                    <option value="chart">字符串模式</option>`
+                    <option value="10">10进制</option>
+                </select>
+                <input type="text" class="form-control" id="serialDataInupt" value="ff 55 06 00 02 0a 09 9c ff">
+                <button class="btn btn-primary" onclick="tester.sendSerialData(document.getElementById('serialDataInupt').value, document.getElementById('dataSendType').getAttribute('data-type'))">send</button>
+            </div> -->
+      </td>
+    </tr>
+  </table>
+
+  <xml id="toolbox" style="display: none">
+
+    <category name="Move">
+        <block type="move_set_servo_motor">
+            <value name="DEGREE">
+                <shadow type="math_number">
+                    <field name="NUM">90</field>
+                 </shadow>
+            </value>
+            <value name="SPEED">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                 </shadow>
+            </value>
+        </block>
+    </category>
+
+    <category name="Display">
+        <block type="set_led"></block>
+    </category>
+
+    <category name="Control">
+        <block type="control_delay">
+          <value name="SECOND">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                 </shadow>
+            </value>
+        </block>
+    </category>
+
+    <category name="Logic" colour="210">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_null"></block>
+      <block type="logic_ternary"></block>
+    </category>
+    <category name="Loops" colour="120">
+      <block type="controls_repeat_ext"></block>
+      <block type="controls_whileUntil"></block>
+      <block type="controls_for"></block>
+      <block type="controls_forEach"></block>
+      <block type="controls_flow_statements"></block>
+    </category>
+    <category name="Math" colour="230">
+      <block type="math_number"></block>
+      <block type="math_arithmetic"></block>
+      <block type="math_single"></block>
+      <block type="math_trig"></block>
+      <block type="math_constant"></block>
+      <block type="math_number_property"></block>
+      <block type="math_round"></block>
+      <block type="math_on_list"></block>
+      <block type="math_modulo"></block>
+      <block type="math_constrain"></block>
+      <block type="math_random_int"></block>
+      <block type="math_random_float"></block>
+    </category>
+    <category name="Text" colour="160">
+      <block type="text"></block>
+      <block type="text_join"></block>
+      <block type="text_append"></block>
+      <block type="text_length"></block>
+      <block type="text_isEmpty"></block>
+      <block type="text_indexOf"></block>
+      <block type="text_charAt"></block>
+      <block type="text_getSubstring"></block>
+      <block type="text_changeCase"></block>
+      <block type="text_trim"></block>
+      <block type="text_print"></block>
+      <block type="text_prompt_ext"></block>
+    </category>
+    <category name="Lists" colour="260">
+      <block type="lists_create_empty"></block>
+      <block type="lists_create_with"></block>
+      <block type="lists_repeat"></block>
+      <block type="lists_length"></block>
+      <block type="lists_isEmpty"></block>
+      <block type="lists_indexOf"></block>
+      <block type="lists_getIndex"></block>
+      <block type="lists_setIndex"></block>
+      <block type="lists_getSublist"></block>
+      <block type="lists_sort"></block>
+      <block type="lists_split"></block>
+    </category>
+    <category name="Colour" colour="20">
+      <block type="colour_picker"></block>
+      <block type="colour_random"></block>
+      <block type="colour_rgb"></block>
+      <block type="colour_blend"></block>
+    </category>
+    <category name="Variables" colour="330">
+        <block type="variables_set"></block>
+        <block type="variables_get"></block>
+    </category>
+    <category name="Functions" colour="290" custom="PROCEDURE"></category>
+  </xml>
+
+  <script>
+    var workspace = Blockly.inject('blocklyDiv',
+        {media: './vendors/blockly/media/',
+         toolbox: document.getElementById('toolbox')});
+  </script>
+  <script src="js/app.js"></script>
+  <script src="js/action.js"></script>
+  <script src="js/hostInterface.js"></script>
+</body>
+</html>

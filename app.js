@@ -6,7 +6,8 @@ var path = require('path');
 var fs = require('fs');
 var ejs = require('ejs');
 var ServoControl = require('./source/servoControl');
-var control = require('./source/mboardControl');
+// var control = require('./source/mboardControl');
+var control = require('./source/micropythonControl');
 
 /**
  * 设置环境变量
@@ -59,16 +60,16 @@ io.sockets.on('connection', function (socket) {
         var data = webClientData.params;
 
         // 监听web页面中设备类型的设定
-        if(type == 'deviceType') {
-            _deviceType = data;
-            control.deviceInfo.type = data.params;
+        // if(type == 'deviceType') {
+        //     _deviceType = data;
+        //     control.deviceInfo.type = data.params;
 
-            // 设置主板类型
-            control.setDeviceInfo({
-                type: _deviceType
-            });
-            console.log(_deviceType);
-        }
+        //     // 设置主板类型
+        //     control.setDeviceInfo({
+        //         type: _deviceType
+        //     });
+        //     console.log(_deviceType);
+        // }
 
         // set serialData
         if(type == 'serialData') {
