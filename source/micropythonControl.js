@@ -11,6 +11,7 @@ var control = {
 control.sendRequest = function(data) {
     this.socket.emit('serialportData-send', data);
     if(this.serialPort && this.serialPort.isOpen()) {
+        console.log('send: ' + data);
         this.serialPort.write(data);
     } else {
         console.log('串口未开启');
@@ -19,7 +20,8 @@ control.sendRequest = function(data) {
 
 
 control.decodeData = function(data) {
-    this.socket.emit('serialportData-receive', data);
+    console.log(data.toString());
+    this.socket.emit('serialportData-receive', data.toString());
 }
 
 

@@ -146,7 +146,7 @@ function openSerial(type) {
         control.serialPort = serialPort;
 
         serialPort.on('data', function(data) {
-            // globalSocketIO.emit('log', data);
+            globalSocketIO.emit('log', data);
 
             if(_deviceType == 'ybx' || _deviceType == 'mservo') {
                 // 舵机相关处理

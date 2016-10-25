@@ -19,6 +19,8 @@
   <script src="../js/tester.js"></script>
   <script src="../vendors/socket.io-1.3.7.js"></script>
   <script src="../vendors/bootstrap/js/bootstrap.min.js"></script>
+  <script src="js/blockly-extend/generators/javascript/variables.js"></script>
+
 
   <script>
     var socket = io.connect('127.0.0.1:3003');
@@ -81,18 +83,29 @@
             </div>
         </div>
 
-        <p class="ops">
-          <button class="preview">Preview</button>
-          <button class="upload">Upload</button>
+        <p class="ops form-horizonal">
+
+          <select id="testUrl" class="form-control">
+            <option value="xml/demo1.xml">demo1</option>
+            <option value="xml/demo2.xml">demo2</option>
+            <option value="xml/demo3.xml">demo3</option>
+          </select>
+          <button class="btn btn-default" onclick="loadXml()">Load demo</button>
+
+          <button class="btn toXml btn-default">toXml</button>
+          <button class="btn openFirmata btn-default">openFirmata</button>
+          <button class="btn preview btn-info">Preview</button>
+          <button class="btn upload btn-success">Upload</button>
+          <button class="btn clear btn-default">Clear</button>
         </p>
       </td>
     </tr>
 
     <tr width="100%" height="90%">
-      <td width="60%">
+      <td width="50%">
           <div id="blocklyDiv"></div>
       </td>
-      <td width="38%">
+      <td width="48%">
           <pre id="codeDiv" class="b">
           </pre>
 
@@ -101,15 +114,15 @@
                 <div class="msg-content" id="msgContent"></div>
                 <span class="clear-screen">清除数据</span>
             </div>
-            <!-- <div class="serial-send form-group">
-                <select class="form-control col-xs-1" data-type="16" id="dataSendType">
-                    <option value="16">16进制</option>
+            <div class="serial-send form-group">
+                <select class="form-control col-xs-1" data-type="chart" id="dataSendType">
                     <option value="chart">字符串模式</option>`
+                    <option value="16">16进制</option>
                     <option value="10">10进制</option>
                 </select>
-                <input type="text" class="form-control" id="serialDataInupt" value="ff 55 06 00 02 0a 09 9c ff">
+                <input type="text" class="form-control" id="serialDataInupt" value="">
                 <button class="btn btn-primary" onclick="tester.sendSerialData(document.getElementById('serialDataInupt').value, document.getElementById('dataSendType').getAttribute('data-type'))">send</button>
-            </div> -->
+            </div>
       </td>
     </tr>
   </table>
@@ -133,6 +146,26 @@
 
     <category name="Display">
         <block type="set_led"></block>
+        <block type="set_led_with_index">
+            <value name="POS">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                 </shadow>
+            </value>
+        </block>
+        <block type="input_text">
+             <value name="TEXT">
+                <shadow type="text"></shadow>
+              </value>
+        </block>
+
+        <block type="gpio">
+             <value name="INDEX">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                 </shadow>
+            </value>
+        </block>
     </category>
 
     <category name="Control">

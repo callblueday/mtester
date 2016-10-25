@@ -9,6 +9,9 @@ socket.on('reportBoardInfo', function(str) {
 socket.on('serialportData-send', function(data) {
     // console.log(data);
     // var temp = intStrToHexStr(data);
+    if(typeof data == 'object') {
+        data = data.join(" ");
+    }
     var str = $('.msg-serial .msg-content').html() + data + '<br>';
     $('.msg-serial .msg-content').html(str);
     toBottom();
@@ -24,10 +27,11 @@ socket.on('log', function(msg) {
 // 监听串口返回的十六进制数据
 socket.on('serialportData-receive', function(data) {
     if(data.length){
-        var temp = intStrToHexStr(data.split(" "));
-        var str = $('.msg-serial .msg-content').html() + '<span class="data-recieve">' + temp + '</span><br>';
+        // var temp = intStrToHexStr(data.split(" "));
+        // var temp = data.split(" ").join(" ");
+        var str = $('.msg-serial .msg-content').html() + '<span class="data-recieve">' + data + '</span><br>';
         $('.msg-serial .msg-content').html(str);
-        outputValue(temp);
+        outputValue(data);
         toBottom();
     }
 });

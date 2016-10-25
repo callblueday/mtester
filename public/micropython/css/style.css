@@ -44,32 +44,32 @@ pre {
   padding: 5px;
 }
 
-button:disabled, .buttonStyle:disabled {
-  opacity: 0.6;
-}
+// button:disabled, .buttonStyle:disabled {
+//   opacity: 0.6;
+// }
 
-button>*, .buttonStyle>* {
-  opacity: 1;
-  vertical-align: text-bottom;
-}
+// button>*, .buttonStyle>* {
+//   opacity: 1;
+//   vertical-align: text-bottom;
+// }
 
-button, .buttonStyle {
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  background-color: #eee;
-  color: #000;
-  padding: 10px;
-  margin: 10px 5px;
-  font-size: small;
-}
+// button, .buttonStyle {
+//   border-radius: 4px;
+//   border: 1px solid #ddd;
+//   background-color: #eee;
+//   color: #000;
+//   padding: 10px;
+//   margin: 10px 5px;
+//   font-size: small;
+// }
 
-.buttonStyle:hover:not(:disabled), button:hover:not(:disabled) {
-  box-shadow: 2px 2px 5px #888;
-}
+// .buttonStyle:hover:not(:disabled), button:hover:not(:disabled) {
+//   box-shadow: 2px 2px 5px #888;
+// }
 
-.buttonStyle:hover:not(:disabled)>*, button:hover:not(:disabled)>* {
-  opacity: 1;
-}
+// .buttonStyle:hover:not(:disabled)>*, button:hover:not(:disabled)>* {
+//   opacity: 1;
+// }
 
 table {
   border: none;
@@ -103,10 +103,11 @@ td {
 }
 .ops button {
   float: left;
+  margin-left: 10px;
 }
 
 .ops .upload {
-  margin-right: 50px;
+  // margin-right: 50px;
 }
 
 
@@ -117,9 +118,19 @@ td {
 }
 
 .msg-serial {
-  height: 250px;
+  height: 280px;
 }
 
 .msg-content {
-  height: 220px;
+  height: 250px;
+}
+
+.msg-serial .data-recieve {
+    color: #e67e22;
+}
+
+#testUrl {
+  width: 100px;
+  float: left;
+  // margin-top: 12px;
 }

@@ -707,7 +707,6 @@ Tester.prototype = {
      * @return void.
      */
     sendSerialData: function(str, type) {
-        console.log(str);
         if(typeof(str) == 'object' || type == "chart") {
             var data = {
                 methodName: 'sendSerialData',

@@ -18,25 +18,23 @@ MBlockly.Control = {};
 extend(MBlockly.Control, {
 
     // 每次最大的传输字符长度
-    LIMIT_CHAR_LENGTH: 10,
-
-    // 校验位，目前置为0，不做校验位处理
-    CHECK_SUM: 0,
+    LIMIT_CHAR_LENGTH: 100,
 
     // 和校验
     checkSum: function() {
 
     },
 
+    // 0x01:在线，0x02:离线
     sendBegin: function(type) {
-        var rtype = 0x01;
-        var a = [0xf0, 0x01, 0x58, 0x01, rtype, this.CHECK_SUM, 0xf7];
+        var rtype = type || 0x01;
+        var a = [0xff, 0x55, 0x04, 0x00, 0x02, 0x50, rtype];
         this.send(a);
         console.log('begin');
     },
 
-    sendEnd: function(type) {
-        var a = [0xf0, 0x01, 0x58, 0x03, this.CHECK_SUM, 0xf7];
+    sendEnd: function() {
+        var a = [0xff, 0x55, 0x04, 0x00, 0x02, 0x50, 0x04];
         this.send(a);
         console.log('end');
     },
@@ -48,10 +46,10 @@ extend(MBlockly.Control, {
      */
     sendContent: function(type, content) {
         var that = MBlockly.Control;
-        that.sendBegin();
 
         function sendStr(str) {
-            var a = [0xf0, 0x01, 0x58, 0x02, str.length, str, that.CHECK_SUM, 0xf7];
+            var r = that.stringToAsciiCode(str);
+            var a = [0xff, 0x55, r.length + 4, 0x00, 0x02, 0x50, 0x03].concat(r);
             MBlockly.Control.send(a);
         }
 
@@ -69,13 +67,25 @@ extend(MBlockly.Control, {
             }
         }
 
+        that.sendBegin(type);
         sliceStr(content);
+
     },
 
     send: function(a) {
         tester.sendSerialData(a);
+    },
+
+    stringToAsciiCode: function(string) {
+        var result = [];
+        var list = string.split("");
+        for(var i in list) {
+            result.push(list[i].charCodeAt());
+        }
+        return result;
     }
 });
+
 
 // 接收的消息队列并实现组包，例如：ff 55 3c 02 10  01 0d 0a ff 55 03 04 01 0d 0a 0a 32
 MBlockly.Control.decodeData = function(bytes) {
@@ -88,16 +98,14 @@ MBlockly.Control.decodeData = function(bytes) {
     }
     // parse buffer data
     for (var i = 0; i < data.length; i++) {
-        if (parseInt(data[i]) === 0xf0) {
+        if (parseInt(data[i]) === 0x55 && parseInt(data[i - 1]) === 0xff) {
             // start flag
             this.recvLength = 0;
             this.beginRecv = true;
-        } else if (parseInt(data[i]) === 0xf7) {
+        } else if (parseInt(data[i - 1]) === 0x0d && parseInt(data[i]) === 0x0a) {
             // end flag
             this.beginRecv = false;
             var buf = this.buffer.slice(0, this.recvLength - 1);
-
-            // 计算对应传感器的返回值
             this.sensor_callback(buf);
         } else {
             // normal
@@ -111,6 +119,28 @@ MBlockly.Control.decodeData = function(bytes) {
     }
 };
 
-MBlockly.Control.sensor_callback = function(data) {
+/**
+ * 回复数据数值解析
+ * @param  {string} type 传感器的类型
+ * @param  {array} buf 待解析的数据数组
+ * @return {Number}      传感器返回的数值
+ *
+ * 回复数据从左到右第四位数据的值所代表的含义
+ *     1: 单字符(1 byte)
+ *     2： float(4 byte)
+ *     3： short(2 byte)，16个长度
+ *     4： 字符串
+ *     5： double(4 byte)
+ *     6: long(4 byte)
+ */
+MBlockly.Control.sensor_callback = function(buf) {
+    var result = bytesToString(buf);
+    console.log(result);
+};
 
+
+MBlockly.Control.bytesToString = function(bytes) {
+    var endIndex = 5 + parseInt(bytes[4]);
+    var str = bytes.toString('utf8', 5, endIndex);
+    return str;
 };

@@ -17,6 +17,6 @@ MBlockly.BlockKeeper.makeBlock('control_delay', ["=SECOND"], function(){
     this.setPreviousStatement(true);
 
 }, function(args){
-    var code = 'pyb.delay(' + args[0] + ')\r\n';
+    var code = 'pyb.delay(' + args[0]*1000 + ')\r\n';
     return code;
 });

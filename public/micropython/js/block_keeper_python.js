@@ -69,12 +69,15 @@ MBlockly.BlockKeeper = {
             var argValues = [];
             for(var i=0;i<argList.length;i++){
                 if(argList[i].charAt(0) == '*'){
+                    // for string
                     var codeForm = Blockly.Python.valueToCode(block, argList[i].substring(1), Blockly.Python.ORDER_COMMA);
                     argValues.push(codeForm.substring(1, codeForm.length-1));
                 } else if(argList[i].charAt(0) == '='){
                     // for number
                     var codeForm = Blockly.Python.valueToCode(block, argList[i].substring(1), Blockly.Python.ORDER_COMMA);
-                    codeForm = parseInt(codeForm);
+                    if(parseInt(codeForm)){
+                        codeForm = parseInt(codeForm);
+                    }
                     argValues.push(codeForm);
                 } else if(argList[i].charAt(0) == '@') {
                     // TO FIXED: for statement code
