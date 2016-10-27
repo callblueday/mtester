@@ -63,7 +63,9 @@ extend(MBlockly.Control, {
             } else {
                 result = data.slice(0, data.length);
                 sendStr(result);
-                that.sendEnd();
+                setTimeout(function() {
+                    that.sendEnd();
+                }, 100);
             }
         }
 
