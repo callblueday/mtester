@@ -67,13 +67,20 @@ extend(MBlockly.Control, {
             }
         }
 
-        that.sendBegin(type);
-        sliceStr(content);
+        that.openFirmata();
+        setTimeout(function() {
+            that.sendBegin(type);
+            sliceStr(content);
+        }, 100);
 
     },
 
     send: function(a) {
         tester.sendSerialData(a);
+    },
+
+    openFirmata: function() {
+        tester.sendSerialData([0x07]);
     },
 
     stringToAsciiCode: function(string) {

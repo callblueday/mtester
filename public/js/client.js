@@ -18,9 +18,9 @@ socket.on('serialportData-send', function(data) {
 });
 
 socket.on('log', function(msg) {
-    var str = $('.msg-serial .msg-content').html() + msg.toString() + '<br>';
-    $('.msg-serial .msg-content').html(str);
-    toBottom();
+    // var str = $('.msg-serial .msg-content').html() + msg.toString() + '<br>';
+    // $('.msg-serial .msg-content').html(str);
+    // toBottom();
 });
 
 
@@ -175,7 +175,6 @@ $(function() {
         };
         socket.emit('fromWebClient', data);
     }
-    sendDeviceType('auriga');
 
 
     $('.ops input[type="text"], .ops input[type="number"], .ops select').on('click', function(e) {
